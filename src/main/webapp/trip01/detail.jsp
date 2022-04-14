@@ -9,6 +9,7 @@
     <title>details</title>
 
     <link rel="stylesheet" href="../css/detail.css">
+    <link rel="stylesheet" href="./css/header_footer.css">
 </head>
 
 <body>

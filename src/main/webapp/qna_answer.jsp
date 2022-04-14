@@ -5,7 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>답변작성 페이지</title>
- <link href="./css/review.css" rel="stylesheet">
+<link rel="stylesheet" href="./css/header_footer.css">
+<link href="./css/review.css" rel="stylesheet">
 </head>
 <body>
 	<section>
