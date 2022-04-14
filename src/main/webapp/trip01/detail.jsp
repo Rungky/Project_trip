@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
 <!DOCTYPE html>
 <html>
 <head>
@@ -72,10 +73,11 @@
                 <input id="tab1" type="radio" name="tabs">
                 <label for="tab1">객실 안내/예약</label>
                 <input id="tab2" type="radio" name="tabs" checked>
-                <label for="tab2">리뷰</label>               
+                <label for="tab2">리뷰</label>
+                <c:forEach var="room" items="${roomsList }">               
                 <table id="tb1">
                     <tr>
-                        <td rowspan="3"><img class="image2" src="../image/room.jpg"></td>
+                        <td rowspan="3"><img class="image2" src="../image/${room.fileName }"></td>
                         <td colspan="2">A룸</td>
                     </tr>
                     <tr>
@@ -90,40 +92,8 @@
                         </td>
                     </tr>
                 </table>
-                <table id="tb1">
-                    <tr>
-                        <td rowspan="3"><img class="image2" src="../image/room.jpg"></td>
-                        <td colspan="2">A룸</td>
-                    </tr>
-                    <tr>
-                        <td>가격</td>
-                        <td class="pr">50,000원</td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">
-                            <form action="">
-                                <button class="rsv">예약</button>
-                            </form>
-                        </td>
-                    </tr>
-                </table>
-                <table id="tb1">
-                    <tr>
-                        <td rowspan="3"><img class="image2" src="../image/room.jpg"></td>
-                        <td colspan="2">A룸</td>
-                    </tr>
-                    <tr>
-                        <td>가격</td>
-                        <td class="pr">50,000원</td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">
-                            <form action="">
-                                <button class="rsv">예약</button>
-                            </form>
-                        </td>
-                    </tr>
-                </table>
+                </c:forEach>
+                              
                 <table id="tb2">
                     <tr>
                         <td colspan="2" class="title">여기라면 다음에 또 이용할 거예요.</td>
@@ -131,44 +101,6 @@
                     <tr>
                         <td class="star9"></td>
                         <td class="score">8.6</td>
-                    </tr>
-                    <tr>
-                        <td colspan="2" class="rev">오늘의 이벤트(주차불가,객실랜덤배정) 객실 이용 · alpha0mega</td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">잠실새내 쪽에서는 유일하게 이용하는 곳이에요. 시설 적당하고 위치 너무 멀지 않고 그래서 가끔 가는 곳입니다. 물건 깨지거나 그런게 몇몇 있지만 전반적으로
-                            만족합니다! 종종 또 가겠습니다!</td>
-                    </tr>
-                    <tr>
-                        <td colspan="2" class="date">2022-04-12</td>
-                    </tr>
-                </table>
-                <table id="tb2">
-                    <tr>
-                        <td colspan="2" class="title">여기라면 다음에 또 이용할 거예요.</td>
-                    </tr>
-                    <tr>
-                        <td class="star5"></td>
-                        <td class="score">5</td>
-                    </tr>
-                    <tr>
-                        <td colspan="2" class="rev">오늘의 이벤트(주차불가,객실랜덤배정) 객실 이용 · alpha0mega</td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">잠실새내 쪽에서는 유일하게 이용하는 곳이에요. 시설 적당하고 위치 너무 멀지 않고 그래서 가끔 가는 곳입니다. 물건 깨지거나 그런게 몇몇 있지만 전반적으로
-                            만족합니다! 종종 또 가겠습니다!</td>
-                    </tr>
-                    <tr>
-                        <td colspan="2" class="date">2022-04-12</td>
-                    </tr>
-                </table>
-                <table id="tb2">
-                    <tr>
-                        <td colspan="2" class="title">여기라면 다음에 또 이용할 거예요.</td>
-                    </tr>
-                    <tr>
-                        <td class="star10"></td>
-                        <td class="score">10</td>
                     </tr>
                     <tr>
                         <td colspan="2" class="rev">오늘의 이벤트(주차불가,객실랜덤배정) 객실 이용 · alpha0mega</td>

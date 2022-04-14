@@ -7,28 +7,30 @@ header {
     position: fixed;
     top: 0;
     width: 100%;
+    background-color: #f7323f;
 }
 .hd {
+	width: 77%;
+	margin: 0 auto;
     display: flex;
-    justify-content: space-around;
-    padding: 20px;
-    background-color: #f7323f;
+    justify-content: space-between;
+    padding: 15px 20px;
     color: aliceblue;
 }
 .bt {
     position: relative;
     width: 100px;
-    height: 26px;
+    height: 30px;
     cursor: pointer;
     background-color: #f7323f;
     border: none;
-    margin: 8px;
+    margin: 10px;
+    overflow-y:hidden;
 }
 .rogo {
     
     position: absolute;
     width : 100%;
-    height: 100%;
     top:50%;
     left:50%;
     transform: translate(-50%,-50%);
