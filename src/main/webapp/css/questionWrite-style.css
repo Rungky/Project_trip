@@ -1,8 +1,10 @@
-section {
-  display: flex;
-  justify-content: center;
-  margin-top: 200px;
-  width: 915px;
+body{
+    width: 100%;
+}
+
+section{
+    margin: 150px auto;
+    width: 60%;
 }
 
 section > hr {
@@ -45,6 +47,8 @@ section .question_input form > p {
 section .question_input form > textarea {
   font-size: large;
   padding: 10px;
+  width: 100%;
+  height: 300px;
 }
 
 section .question_input form .question_input_btn {

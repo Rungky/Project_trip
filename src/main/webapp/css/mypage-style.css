@@ -1,9 +1,12 @@
-section {
-  display: flex;
-  justify-content: center;
-  margin-top: 200px;
-  width: 915px;
-  font-size: 25px;
+
+
+body{
+    width: 100%;
+}
+
+section{
+    margin: 150px auto;
+    width: 50%;
 }
 
 section .mypage_main {
@@ -29,6 +32,7 @@ section .mypage_main form > span {
   padding-bottom: 30px;
   color: gray;
   border-right: 50px;
+  font-size: 20px;
 }
 
 section .mypage_main .mypage_form1 .input1 {
@@ -95,7 +99,7 @@ section .mypage_main .mypage_form2 > p {
 }
 
 section .mypage_main .mypage_form2 > input {
-  width: 48%;
+  width: 47%;
   height: 50px;
   font-size: 20px;
   margin-right: 10px;

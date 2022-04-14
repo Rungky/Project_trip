@@ -10,6 +10,7 @@
     <title>history</title>
 
     <link rel="stylesheet" href="../css/history.css">
+    <link rel="stylesheet" href="./css/header_footer.css">
 </head>
 
 <body>
