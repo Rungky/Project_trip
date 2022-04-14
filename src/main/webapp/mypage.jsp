@@ -41,7 +41,7 @@
 
 </head>
 <body>
-    <%@ include file="comm/header.jsp"%>
+    <%@ include file="header.jsp"%>
     <section>
         <div class="mypage_main">
             <div class="mypage_header">
@@ -75,6 +75,6 @@
             </form>
         </div>
     </section>
-    <%@ include file="comm/footer.jsp"%>
+    <%@ include file="footer.jsp"%>
 </body>
 </html>

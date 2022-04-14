@@ -1,0 +1,84 @@
+*{
+   box-sizing: border-box;
+   margin: 0;
+   padding: 0;
+   overflow-x: hidden;
+}
+
+.fs_s{ font-size: 0.3em;}
+.fs_m{ font-size: 0.8em;}
+.fs_m2{ font-size: 0.9em;}
+.fs_l{ font-size: 1.2em;}
+.fw_6{ font-weight: 600;}
+.margin_auto{ margin: 0 auto;}
+
+body{
+    width: 100%;
+}
+
+section{
+    margin: 100px auto 55px;
+    width: 100%;
+}
+
+#main_wrap{
+    width: 35%;
+    margin: 0 auto;
+    /**border: rgb(168, 167, 167) solid 1px;**/
+    
+}
+
+#main{
+    display: flex;
+    flex-direction: column;
+    align-content: space-around;
+    /**border: rgb(233, 9, 43) solid 2px;**/
+}
+
+#main_title{
+    margin: 5px auto;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+#main_contents{
+    margin: 5px auto;
+    width: 90%;
+}
+
+#review_form{
+    display: flex;
+    flex-direction: column;
+}
+
+.review_logo{
+    width: 200px;
+}
+
+.review_title, .review_contents, .input_button{
+    width: 100%;
+}
+
+.input_title {
+    width: 100%;
+    height: 40px;
+}
+
+.input_contents{
+    width: 100%;
+    height: 100px;
+}
+ 
+.input_submit{
+    margin-right: 25px;
+}
+
+@media screen and (max-width:1000px)  {
+    /* body{background-color: orange;} */   
+    #main_wrap{
+        width: 50%;
+    
+    }
+}
+

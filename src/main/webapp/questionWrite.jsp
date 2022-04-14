@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="./css/questionWrite-style.css">
 </head>
 <body>
-    <%@ include file="comm/header.jsp"%>
+    <%@ include file="header.jsp"%>
     <section>
         <div>
             <div class="question_head">
@@ -33,6 +33,6 @@
             </div>
         </div>
     </section>
-    <%@ include file="comm/footer.jsp"%>
+    <%@ include file="footer.jsp"%>
 </body>
 </html>
