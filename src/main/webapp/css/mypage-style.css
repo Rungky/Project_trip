@@ -1,0 +1,114 @@
+
+
+body{
+    width: 100%;
+}
+
+section{
+    margin: 150px auto;
+    width: 50%;
+}
+
+section .mypage_main {
+  width: 100%;
+}
+
+section .mypage_main .mypage_header div > img {
+  width: 100px;
+  margin-right: 40px;
+}
+
+section .mypage_main .mypage_header {
+  display: flex;
+  align-items: center;
+}
+
+section .mypage_main form {
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+section .mypage_main form > span {
+  padding-bottom: 30px;
+  color: gray;
+  border-right: 50px;
+  font-size: 20px;
+}
+
+section .mypage_main .mypage_form1 .input1 {
+  float: right;
+  width: 15%;
+  height: 40px;
+  border-radius: 15px;
+}
+
+section .mypage_main .mypage_form1 .input2 {
+  float: right;
+  width: 15%;
+  height: 40px;
+  border-radius: 15px;
+}
+
+section .mypage_main .mypage_form1 > input:hover {
+  background-color: rgb(222, 222, 222);
+}
+
+section .mypage_main .mypage_form1 > a {
+  font-size: 25px;
+  float: right;
+}
+
+section .mypage_main .mypage_form1 > a:hover {
+  font-size: 26px;
+  font-weight: bold;
+  transition: all 0.5s;
+}
+
+section .mypage_main .mypage_form1 .re_input {
+  margin-left: 150px;
+  margin-bottom: 10px;
+  width: 30%;
+  line-height: 30px;
+}
+
+section .mypage_main .mypage_form1 .re_input1 {
+  width: 10%;
+  height: 35px;
+  margin-left: 10px;
+  border-radius: 10px;
+}
+
+section .mypage_main .mypage_form1 .re_input2 {
+  margin-left: 150px;
+  margin-bottom: 10px;
+  width: 30%;
+  line-height: 30px;
+}
+
+section .mypage_main .mypage_form1 .re_input2_1 {
+  width: 10%;
+  height: 35px;
+  margin-left: 10px;
+  border-radius: 10px;
+}
+
+section .mypage_main .mypage_form2 > p {
+  font-size: 20px;
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+section .mypage_main .mypage_form2 > input {
+  width: 47%;
+  height: 50px;
+  font-size: 20px;
+  margin-right: 10px;
+  margin-left: 8px;
+  margin-bottom: 50px;
+  border-radius: 15px;
+  background-color: white;
+}
+
+section .mypage_main .mypage_form2 > input:hover {
+  background-color: rgb(239, 239, 239);
+}
