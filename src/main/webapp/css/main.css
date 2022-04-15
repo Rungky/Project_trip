@@ -1,0 +1,85 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+a { text-decoration: none; }
+
+ol, ul, li { list-style: none; }
+
+
+.blank{
+    height:70px;
+}
+
+section .banner{
+    display: flex;
+    justify-content: center;
+}
+
+section .banner img {
+    height: 450px;
+    width: 880px;
+    padding-top: 50px;
+}
+
+.main_link{
+    padding: 32px 0 29px 41px;
+    background: white;
+    overflow:hidden;
+}
+
+.main_link ul {
+    display:flex;
+    flex-direction: space-around;
+    justify-content: center;
+}
+
+.main_link ul li{
+    width: 167px;
+    height:140px;
+    text-align: center;
+}
+.link_icon img {
+    width: 102px;
+    height: 102px;
+}
+
+.wrap_middle section{
+    width:100%;
+    text-align: center;
+}
+
+.wrap_middle section .ad img {
+    height: 400px;
+    width: 880px;
+    padding-top:0;
+    display:inline-block;
+    text-align: center;
+}
+
+.wrap_bottom {
+    width: 1024px;
+    margin: 0 auto;
+    overflow: hidden;
+    padding: 78px 31px 0 31px;
+}
+.fav_place_list{
+    width:1280px;
+    margin:10px auto 0;
+    padding:0 40px;
+    display: grid;
+    grid-template-rows: repeat(2, 250px);
+    grid-template-columns: repeat(3, 230px);
+    gap: 50px;
+}
+.fav_places{
+    margin:20px 0;
+    padding: 0 20px;
+    width: 230px;
+    height: 250px;
+    background-image: url('https://image.goodchoice.kr/images/web_v3/b2b_banner.png');
+    background-size: cover;
+}
+
