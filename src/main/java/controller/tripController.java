@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 
+import dao.TripDAO;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -14,9 +15,8 @@ import jakarta.servlet.http.HttpServletResponse;
  * Servlet implementation class testController
  */
 @WebServlet("/trip/*")
-public class testController extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-
+public class tripController extends HttpServlet {
+	private TripDAO tripdao;
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doHandle(request, response);
 		System.out.println("get");
@@ -24,6 +24,7 @@ public class testController extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doHandle(request, response);
+		System.out.println("post");
 	}
 	protected void doHandle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String nextPage = "";

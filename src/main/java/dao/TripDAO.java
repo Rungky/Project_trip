@@ -69,11 +69,9 @@ public class TripDAO {
 		List<RoomDTO> list = new ArrayList<RoomDTO>();
 		
 		try {
-//			connDB();
 			con = dataFactory.getConnection();
 			System.out.println("커넥션풀 성공");
 			
-			int salLimit = 1000;
 			String query = "";
 			query += " SELECT * ";
 			query += " FROM tb_room";
@@ -117,11 +115,9 @@ public class TripDAO {
 		List<RoomDTO> list = new ArrayList<RoomDTO>();
 		
 		try {
-//			connDB();
 			con = dataFactory.getConnection();
 			System.out.println("커넥션풀 성공");
 			
-			int salLimit = 1000;
 			String query = "";
 			query += " SELECT * ";
 			query += " FROM tb_reservation";
