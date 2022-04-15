@@ -71,14 +71,13 @@
     <section>
         <div class="center">
             <div class="st2">
-                <input id="tab1" type="radio" name="tabs">
+                <input id="tab1" type="radio" name="tabs" checked>
                 <label for="tab1">객실 안내/예약</label>
-                <input id="tab2" type="radio" name="tabs" checked>
+                <input id="tab2" type="radio" name="tabs">
                 <label for="tab2">리뷰</label>
-                <c:forEach var="room" items="${roomsList }">               
                 <table id="tb1">
                     <tr>
-                        <td rowspan="3"><img class="image2" src="../image/${room.fileName }"></td>
+                        <td rowspan="3"><img class="image2" src="../image/room.jpg"></td>
                         <td colspan="2">A룸</td>
                     </tr>
                     <tr>
@@ -93,7 +92,6 @@
                         </td>
                     </tr>
                 </table>
-                </c:forEach>
                               
                 <table id="tb2">
                     <tr>

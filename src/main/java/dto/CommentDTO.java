@@ -7,8 +7,8 @@ public class CommentDTO {
 	private String comment_contents;
 	private Date comment_Date;
 	private int comment_parentno;
-	private int review_no;
 	private String member_id;
+	private int review_no;
 	
 	
 	public int getComment_no() {

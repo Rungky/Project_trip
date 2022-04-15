@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"
+    import="dao.TripDAO"
+    import="dto.*"
+    import="java.util.List"
+    %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -15,9 +19,8 @@
 
 <body>
 <%
-TripDAO resortdao = new TripDAO();
-	List<RoomDTO> roomsList = dao.selectRoomsList(1);
-	List<ReservationDTO> reservationsList = dao.selectReservationsList("asd");
+	TripDAO dao = new TripDAO();
+	List<ReservationDTO> reservationsList = request.getParameter("reservationList");
 %>
 
     <header>
@@ -44,15 +47,16 @@ TripDAO resortdao = new TripDAO();
                     예약 내역
                 </div>
                 
-                <%for(int i = 0 ; i<reservationsList.size();i++) { %>
+                
+                <c:forEach var="reservation" items="${reservationsList}" var="room" items="${roomsList}" >
                 <table>
-                    <form method="post" action="review.do">
+                    <form method="post" action="trip.do">
                         <tr>
                             <td colspan="3">숙소 예약번호 ${reservation.reserve_no }</td>
                         </tr>
                         <tr>
                             <td rowspan="4" class="img"><img class="img2" src="../image/${reservation.reserve_picture }"></td>
-                            <td>신라스테이 역삼</td>
+                            <td>${room.room_name }</td>
                             <td rowspan="5" class="rv"><button class="rvbt" name="action" value="review">리뷰</button></td>
                         </tr>
                         <tr>
@@ -62,14 +66,14 @@ TripDAO resortdao = new TripDAO();
                             <td>${reservation.reserve_checkin} ~ ${reservation.reserve_checkout} | 1박</td>
                         </tr>
                         <tr>
-                            <td>체크인 15:00 | 체크아웃 14:00</td>
+                            <td>${reservation.reserve_checkin} | ${reservation.reserve_checkout}</td>
                         </tr>
                         <tr>
-                            <td colspan="3" class="right">금액 <span class="pri">87,010원</span></td>
+                            <td colspan="3" class="right">금액 <span class="pri">${reservation.reserve_pay}</span></td>
                         </tr>
                     </form>
                 </table>
-                <%} %>
+				</c:forEach>
             </div>
         </article>
     </section>

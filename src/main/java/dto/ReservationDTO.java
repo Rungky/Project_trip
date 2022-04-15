@@ -4,12 +4,12 @@ import java.sql.Date;
 
 public class ReservationDTO {
 	private int reserve_no;
+	private String member_id;
 	private Date reserve_date;
 	private Date reserve_checkin;
 	private Date reserve_checkout;
 	private int reserve_pay;
 	private int room_no;
-	private String member_id;
 	private int dorm_no;
 	
 	

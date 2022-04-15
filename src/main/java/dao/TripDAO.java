@@ -111,8 +111,8 @@ public class TripDAO {
 		return list;
 	}
 	
-	public List<RoomDTO> selectReservationsList(String memberId){
-		List<RoomDTO> list = new ArrayList<RoomDTO>();
+	public List<ReservationDTO> selectReservationsList(String memberId){
+		List<ReservationDTO> list = new ArrayList<ReservationDTO>();
 		
 		try {
 			con = dataFactory.getConnection();
@@ -129,14 +129,15 @@ public class TripDAO {
 			ResultSet rs = pstmt.executeQuery();
 			while(rs.next()) {
 				
-				RoomDTO dto = new RoomDTO();
+				ReservationDTO dto = new ReservationDTO();
+				dto.setReserve_no(rs.getInt("reserve_no"));
+				dto.setMember_id(rs.getString("member_id"));
+				dto.setReserve_date(rs.getDate("reserve_date"));
+				dto.setReserve_checkin(rs.getDate("reserve_checkin"));
+				dto.setReserve_checkout(rs.getDate("reserve_checkout"));
+				dto.setReserve_pay(rs.getInt("reserve_pay"));
 				dto.setRoom_no(rs.getInt("room_no"));
 				dto.setDorm_no(rs.getInt("dorm_no"));
-				dto.setRoom_name(rs.getString("room_name"));
-				dto.setRoom_contents(rs.getString("room_contents"));
-				dto.setRoom_picture(rs.getString("room_picture"));
-				dto.setRoom_pay_day(rs.getInt("room_pay_day"));
-				dto.setRoom_pay_night(rs.getInt("room_pay_night"));
 				
 				list.add(dto);
 			}

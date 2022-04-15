@@ -14,9 +14,9 @@ import jakarta.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class testController
  */
-@WebServlet("/trip/*")
+@WebServlet("/trip.do")
 public class tripController extends HttpServlet {
-	private TripDAO tripdao;
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doHandle(request, response);
 		System.out.println("get");
@@ -27,10 +27,12 @@ public class tripController extends HttpServlet {
 		System.out.println("post");
 	}
 	protected void doHandle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		TripDAO tripdao = new TripDAO();
 		String nextPage = "";
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=utf-8");
-		String action = request.getPathInfo();
+		
+		String action = request.getParameter("action");
 		
 		try {
 			

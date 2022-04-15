@@ -9,9 +9,14 @@ header {
     width: 100%;
      background-color: #f7323f;
 }
+section {
+    display: flex;
+    justify-content: center;
+}
 .center {
     display: flex;
     justify-content: center;
+    width: 1400px;
 }
 .hd {
 	width: 77%;
@@ -69,6 +74,7 @@ div > aside {
 div > article {
     margin-left: 20px;
     padding-top: 20px;
+    width: 600px;
 }
 .image {
     width: 100%;

@@ -10,7 +10,8 @@ public class ReviewDTO {
 	private Date review_date;
 	private String review_picture;
 	private int reserve_no; 
-	private int dorm_no;
+	private String member_id;
+	
 	
 	
 	public int getReview_no() {
@@ -55,11 +56,10 @@ public class ReviewDTO {
 	public void setReserve_no(int reserve_no) {
 		this.reserve_no = reserve_no;
 	}
-	public int getDorm_no() {
-		return dorm_no;
+	public String getMember_id() {
+		return member_id;
 	}
-	public void setDorm_no(int dorm_no) {
-		this.dorm_no = dorm_no;
-	} 
-
+	public void setMember_id(String member_id) {
+		this.member_id = member_id;
+	}
 }
