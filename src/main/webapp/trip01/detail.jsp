@@ -17,7 +17,7 @@
     <header>
         <div class="hd">
             <div>
-                <form action="trip">
+                <form action=" ">
                     <button class="bt"><img class="rogo" src="./image/logo.png"></button>
                 </form>
             </div>
