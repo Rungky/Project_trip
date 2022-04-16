@@ -32,11 +32,11 @@
             <div class="info">예약자 정보</div><br>
             <div>
                 <div>예약자 이름</div>
-               <input type="text" name="name">
+              <div>김경영</div>
             </div><br>
             <div>
                 <div>휴대폰 번호</div>
-                <input type="tel" name="mytel">
+                <div>010-4625-3458</div>
             </div><br>
             <div class="name">
                 <div class="name2">숙소이름</div>
