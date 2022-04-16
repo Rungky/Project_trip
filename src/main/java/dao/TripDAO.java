@@ -65,6 +65,8 @@ public class TripDAO {
 		}
 	}
 	
+<<<<<<< HEAD
+=======
 	public DormDTO selectDorm(int dormNo){
 		DormDTO dto = new DormDTO();
 		try {
@@ -115,6 +117,7 @@ public class TripDAO {
 		return dto;
 	}
 	
+>>>>>>> fb118253d2225728530d8c30e89b6b8917e99ab1
 	public List<RoomDTO> selectRoomsList(int dormNo){
 		List<RoomDTO> list = new ArrayList<RoomDTO>();
 		

@@ -15,7 +15,6 @@
     <section>
         <div>
             <div class="question_head">
-                <a href=""><h1>Q & A 게시판</h1></a>
                 <h1>새 문의 작성</h1>
             </div>
             <hr><br>

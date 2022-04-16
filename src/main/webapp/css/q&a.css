@@ -42,10 +42,19 @@ section{
     border-bottom: 1px none rgb(173, 173, 173);
 }
 
-#my_qna:hover, #new_qna:hover{
-    color: #f7323f;
+#new_qna>a:visited, #new_qna>a:link{
+    text-decoration: none;
+    color: black;
+}
+
+#my_qna{
     border-bottom: 2px solid #f7323f;
-    
+}
+
+ #new_qna:hover{
+    color: #f7323f;
+    color:rgb(173, 173, 173);
+    border-bottom: 2px solid #f7323f;
 }
 
 #qna_main{
