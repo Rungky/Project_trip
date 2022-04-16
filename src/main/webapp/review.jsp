@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>리뷰 페이지</title>
  <link href="./css/header_footer.css" rel="stylesheet">
   <link href="./css/review.css" rel="stylesheet">
 </head>

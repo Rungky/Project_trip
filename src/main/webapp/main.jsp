@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="./css/main.css">
 <link rel="stylesheet" href="./css/header_footer.css">
-<title>Insert title here</title>
+<title>main</title>
 </head>
 <body>
 	<%@ include file="./header.jsp" %>
