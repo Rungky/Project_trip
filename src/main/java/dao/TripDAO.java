@@ -65,6 +65,59 @@ public class TripDAO {
 		}
 	}
 	
+<<<<<<< HEAD
+=======
+	public DormDTO selectDorm(int dormNo){
+		DormDTO dto = new DormDTO();
+		try {
+			con = dataFactory.getConnection();
+			System.out.println("커넥션풀 성공");
+			
+			String query = "";
+			query += " SELECT * ";
+			query += " FROM tb_dorm";
+			query += " WHERE dorm_no = ?";
+			
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, dormNo);
+			
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
+				
+				
+				dto.setDorm_no(rs.getInt("dorm_no"));
+				dto.setDorm_name(rs.getString("dorm_name"));
+				dto.setDorm_contents(rs.getString("dorm_contents"));
+				dto.setDorm_addr(rs.getString("dorm_addr"));
+				dto.setDorm_picture(rs.getString("dorm_picture"));
+				dto.setLike_cnt(rs.getInt("like_cnt"));
+				dto.setOpt_wifi(rs.getInt("opt_wifi"));
+				dto.setOpt_parking(rs.getInt("opt_parking"));
+				dto.setOpt_airconditioner(rs.getInt("opt_airconditioner"));
+				dto.setOpt_dryer(rs.getInt("opt_dryer"));
+				dto.setOpt_wifi(rs.getInt("opt_wifi"));
+				dto.setOpt_port(rs.getInt("opt_port"));
+				dto.setDorm_category_no(rs.getInt("dorm_category_no"));
+				
+			}
+			if(rs != null) {
+				rs.close();
+			}
+			if(pstmt != null) {
+				pstmt.close();
+			}
+			if(con != null) {
+				con.close();
+			}
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return dto;
+	}
+	
+>>>>>>> fb118253d2225728530d8c30e89b6b8917e99ab1
 	public List<RoomDTO> selectRoomsList(int dormNo){
 		List<RoomDTO> list = new ArrayList<RoomDTO>();
 		

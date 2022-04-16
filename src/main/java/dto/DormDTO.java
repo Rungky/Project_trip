@@ -9,7 +9,11 @@ public class DormDTO {
 	private int like_cnt;
 	private int opt_wifi;
 	private int opt_parking;
+<<<<<<< HEAD
 	private int opt_aircon;
+=======
+	private int opt_airconditioner;
+>>>>>>> fb118253d2225728530d8c30e89b6b8917e99ab1
 	private int opt_dryer;
 	private int opt_port;
 	private int dorm_category_no;
@@ -64,12 +68,22 @@ public class DormDTO {
 	public void setOpt_parking(int opt_parking) {
 		this.opt_parking = opt_parking;
 	}
+<<<<<<< HEAD
 	public int getOpt_aircon() {
 		return opt_aircon;
 	}
 	public void setOpt_aircon(int opt_aircon) {
 		this.opt_aircon = opt_aircon;
 	}
+=======
+	public int getOpt_airconditioner() {
+		return opt_airconditioner;
+	}
+	public void setOpt_airconditioner(int opt_airconditioner) {
+		this.opt_airconditioner = opt_airconditioner;
+	}
+
+>>>>>>> fb118253d2225728530d8c30e89b6b8917e99ab1
 	public int getOpt_dryer() {
 		return opt_dryer;
 	}

@@ -9,7 +9,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>details</title>
 
+<<<<<<< HEAD
     <link rel="stylesheet" href="../css/detail.css">
+=======
+    <link rel="stylesheet" href="./css/detail.css">
+>>>>>>> fb118253d2225728530d8c30e89b6b8917e99ab1
     <link rel="stylesheet" href="./css/header_footer.css">
 </head>
 
@@ -17,8 +21,13 @@
     <header>
         <div class="hd">
             <div>
+<<<<<<< HEAD
                 <form action="">
                     <button class="bt"><img class="rogo" src="../image/logo.png"></button>
+=======
+                <form action="trip">
+                    <button class="bt"><img class="rogo" src="./image/logo.png"></button>
+>>>>>>> fb118253d2225728530d8c30e89b6b8917e99ab1
                 </form>
             </div>
             <nav>
@@ -35,16 +44,25 @@
         <div class="center">
             <div class="st">
                 <aside>
+<<<<<<< HEAD
                     <img class="image" src="../image/room.jpg">
                 </aside>
                 <article>
                     <div>
                         종로 연당 한옥 게스트하우스
+=======
+                    <img class="image" src="./image/room.jpg">
+                </aside>
+                <article>
+                    <div>
+                        ${dormdto.dorm_name }
+>>>>>>> fb118253d2225728530d8c30e89b6b8917e99ab1
                     </div>
                     <div>
                         숙소정보
                     </div>
                     <div>
+<<<<<<< HEAD
                         서울 종로구 계동 2-45
                     </div>
                     <div>
@@ -55,6 +73,17 @@
                             <li>보호자 동반 없는 미성년자 입실 불가 (업체 문의 필수)</li>
                         </ul>
                     </div>
+=======
+                        ${dormdto.dorm_addr }
+                    </div>
+                    <div>
+						<ul>
+							<c:forTokens var="item" items="${dormdto.dorm_contents }" delims=",">
+								<li>${item}</li>
+							</c:forTokens>
+						</ul>
+					</div>
+>>>>>>> fb118253d2225728530d8c30e89b6b8917e99ab1
                     <div>
                         취소 및 환불 규정<br>
                         <ul>
@@ -75,6 +104,7 @@
                 <label for="tab1">객실 안내/예약</label>
                 <input id="tab2" type="radio" name="tabs">
                 <label for="tab2">리뷰</label>
+<<<<<<< HEAD
                 <table id="tb1">
                     <tr>
                         <td rowspan="3"><img class="image2" src="../image/room.jpg"></td>
@@ -93,6 +123,35 @@
                     </tr>
                 </table>
                               
+=======
+                <c:forEach var="item" items="${roomsList }">
+	                <table id="tb1">
+	                    <tr>
+	                        <td rowspan="3"><img class="image2" src="${item.room_picture }"></td>
+	                        <td rowspan="3">
+	                        	<ul>
+	                        		<c:forTokens var="item2" items="${item.room_contents }" delims=",">
+                            			<li>${item2}</li>
+                            		</c:forTokens>
+                        		</ul>
+	                        </td>
+	                        <td colspan="2">${item.room_name }</td>
+	                        
+	                    </tr>
+	                    <tr>
+	                        <td>가격</td>
+	                        <td class="pr">${item.room_pay_night }</td>
+	                    </tr>
+	                    <tr>
+	                        <td colspan="2">
+	                            <form action="">
+	                                <button class="rsv">예약</button>
+	                            </form>
+	                        </td>
+	                    </tr>
+	                </table>
+                </c:forEach>              
+>>>>>>> fb118253d2225728530d8c30e89b6b8917e99ab1
                 <table id="tb2">
                     <tr>
                         <td colspan="2" class="title">여기라면 다음에 또 이용할 거예요.</td>

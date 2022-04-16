@@ -5,7 +5,12 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="./css/main.css">
+<<<<<<< HEAD
 <title>Insert title here</title>
+=======
+<link rel="stylesheet" href="./css/header_footer.css">
+<title>main</title>
+>>>>>>> fb118253d2225728530d8c30e89b6b8917e99ab1
 </head>
 <body>
 	<%@ include file="./header.jsp" %>
@@ -21,6 +26,7 @@
     <div class="main_link">
         <ul>
             <li>
+<<<<<<< HEAD
                 <a href="./main.html">
                     <span class="link_icon"><img src="https://cdn-icons-png.flaticon.com/512/25/25334.png"></span>
                     <p>í¸í</p>
@@ -48,6 +54,35 @@
                 <a href="./main.html">
                     <span class="link_icon"><img src="https://cdn-icons-png.flaticon.com/512/25/25334.png"></span>
                     <p>ê²ì¤í¸ íì°ì¤</p>
+=======
+                <a href="trip?action=reservation.do&dorm_category_no=1">
+                    <span class="link_icon"><img src="https://cdn-icons-png.flaticon.com/512/25/25334.png"></span>
+                    <p>호텔</p>
+                </a>
+            </li>
+            <li>
+                <a href="">
+                    <span class="link_icon"><img src="https://cdn-icons-png.flaticon.com/512/25/25334.png"></span>
+                    <p>펜션</p>
+                </a>
+            </li>
+            <li>
+                <a href="">
+                    <span class="link_icon"><img src="https://cdn-icons-png.flaticon.com/512/25/25334.png"></span>
+                    <p>전체 보기</p>
+                </a>
+            </li>
+            <li>
+                <a href="">
+                    <span class="link_icon"><img src="https://cdn-icons-png.flaticon.com/512/25/25334.png"></span>
+                    <p>리조트</p>
+                </a>
+            </li>
+            <li>
+                <a href="">
+                    <span class="link_icon"><img src="https://cdn-icons-png.flaticon.com/512/25/25334.png"></span>
+                    <p>게스트하우스</p>
+>>>>>>> fb118253d2225728530d8c30e89b6b8917e99ab1
                 </a>
             </li>
         </ul> 
