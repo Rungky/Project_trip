@@ -7,11 +7,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>예약 페이지</title>
-<<<<<<< HEAD
+
     <link rel="stylesheet" href="css/reser2.css">
-=======
+
     <link rel="stylesheet" href="css/noReser.css"> 
->>>>>>> fb118253d2225728530d8c30e89b6b8917e99ab1
+
 </head>
 
 <body topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0">

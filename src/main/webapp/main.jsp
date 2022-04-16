@@ -5,12 +5,12 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="./css/main.css">
-<<<<<<< HEAD
+
 <title>Insert title here</title>
-=======
+
 <link rel="stylesheet" href="./css/header_footer.css">
 <title>main</title>
->>>>>>> fb118253d2225728530d8c30e89b6b8917e99ab1
+
 </head>
 <body>
 	<%@ include file="./header.jsp" %>
@@ -26,7 +26,7 @@
     <div class="main_link">
         <ul>
             <li>
-<<<<<<< HEAD
+
                 <a href="./main.html">
                     <span class="link_icon"><img src="https://cdn-icons-png.flaticon.com/512/25/25334.png"></span>
                     <p>í¸í</p>

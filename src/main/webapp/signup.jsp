@@ -5,11 +5,10 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="./css/signup.css">
-<<<<<<< HEAD
-<title>Insert title here</title>
-=======
+
+
 <title>회원가입</title>
->>>>>>> fb118253d2225728530d8c30e89b6b8917e99ab1
+
 </head>
 <body>
 	<div class="wrap_top">
