@@ -8,6 +8,7 @@ public class RoomDTO {
 	private String room_picture; 
 	private int room_pay_day; 
 	private int room_pay_night;
+	private int room_person;
 	
 	
 	
@@ -52,6 +53,12 @@ public class RoomDTO {
 	}
 	public void setRoom_pay_night(int room_pay_night) {
 		this.room_pay_night = room_pay_night;
+	}
+	public int getRoom_person() {
+		return room_person;
+	}
+	public void setRoom_person(int room_person) {
+		this.room_person = room_person;
 	} 
 	
 	

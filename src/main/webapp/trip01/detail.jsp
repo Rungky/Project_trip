@@ -100,26 +100,27 @@
 	                        </td>
 	                    </tr>
 	                </table>
-                </c:forEach>              
-                <table id="tb2">
-                    <tr>
-                        <td colspan="2" class="title">여기라면 다음에 또 이용할 거예요.</td>
-                    </tr>
-                    <tr>
-                        <td class="star9"></td>
-                        <td class="score">8.6</td>
-                    </tr>
-                    <tr>
-                        <td colspan="2" class="rev">오늘의 이벤트(주차불가,객실랜덤배정) 객실 이용 · alpha0mega</td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">잠실새내 쪽에서는 유일하게 이용하는 곳이에요. 시설 적당하고 위치 너무 멀지 않고 그래서 가끔 가는 곳입니다. 물건 깨지거나 그런게 몇몇 있지만 전반적으로
-                            만족합니다! 종종 또 가겠습니다!</td>
-                    </tr>
-                    <tr>
-                        <td colspan="2" class="date">2022-04-12</td>
-                    </tr>
-                </table>
+                </c:forEach>    
+                <c:forEach var="item" items="${reviewsList}">       
+	                <table id="tb2">
+	                    <tr>
+	                        <td colspan="2" class="title">${item.review_title}</td>
+	                    </tr>
+	                    <tr>
+	                        <td class="star${item.score}"></td>
+	                        <td class="score">${item.review_score}</td>
+	                    </tr>
+	                    <tr>
+	                        <td colspan="2" class="rev">${item.member_id}</td>
+	                    </tr>
+	                    <tr>
+	                        <td colspan="2">${item.review_contents}</td>
+	                    </tr>
+	                    <tr>
+	                        <td colspan="2" class="date">${item.review_date}</td>
+	                    </tr>
+	                </table>
+                </c:forEach>   
             </div>
         </div>
     </section>

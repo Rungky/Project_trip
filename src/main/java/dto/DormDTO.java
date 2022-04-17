@@ -15,7 +15,6 @@ public class DormDTO {
 	private int dorm_category_no;
 	
 	
-	
 	public int getDorm_no() {
 		return dorm_no;
 	}
@@ -70,7 +69,6 @@ public class DormDTO {
 	public void setOpt_aircon(int opt_aircon) {
 		this.opt_aircon = opt_aircon;
 	}
-
 	public int getOpt_dryer() {
 		return opt_dryer;
 	}
@@ -89,9 +87,5 @@ public class DormDTO {
 	public void setDorm_category_no(int dorm_category_no) {
 		this.dorm_category_no = dorm_category_no;
 	}
-	
-	
-	
-	
-	
+
 }

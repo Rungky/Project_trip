@@ -69,7 +69,6 @@ public class TripDAO {
 		DormDTO dto = new DormDTO();
 		try {
 			con = dataFactory.getConnection();
-			System.out.println("커넥션풀 성공");
 			
 			String query = "";
 			query += " SELECT * ";
@@ -81,8 +80,6 @@ public class TripDAO {
 			
 			ResultSet rs = pstmt.executeQuery();
 			while(rs.next()) {
-				
-				
 				dto.setDorm_no(rs.getInt("dorm_no"));
 				dto.setDorm_name(rs.getString("dorm_name"));
 				dto.setDorm_contents(rs.getString("dorm_contents"));
@@ -91,12 +88,10 @@ public class TripDAO {
 				dto.setLike_cnt(rs.getInt("like_cnt"));
 				dto.setOpt_wifi(rs.getInt("opt_wifi"));
 				dto.setOpt_parking(rs.getInt("opt_parking"));
-				dto.setOpt_aircon(rs.getInt("opt_airconditioner"));
+				dto.setOpt_aircon(rs.getInt("opt_aircon"));
 				dto.setOpt_dryer(rs.getInt("opt_dryer"));
-				dto.setOpt_wifi(rs.getInt("opt_wifi"));
 				dto.setOpt_port(rs.getInt("opt_port"));
 				dto.setDorm_category_no(rs.getInt("dorm_category_no"));
-				
 			}
 			if(rs != null) {
 				rs.close();
@@ -120,7 +115,6 @@ public class TripDAO {
 		
 		try {
 			con = dataFactory.getConnection();
-			System.out.println("커넥션풀 성공");
 			
 			String query = "";
 			query += " SELECT * ";
@@ -141,6 +135,7 @@ public class TripDAO {
 				dto.setRoom_picture(rs.getString("room_picture"));
 				dto.setRoom_pay_day(rs.getInt("room_pay_day"));
 				dto.setRoom_pay_night(rs.getInt("room_pay_night"));
+				dto.setRoom_person(rs.getInt("room_person"));
 				
 				list.add(dto);
 			}
@@ -161,12 +156,70 @@ public class TripDAO {
 		return list;
 	}
 	
+	public List<ReviewDTO> selectReviewsList(int dormNo){
+		List<ReviewDTO> list = new ArrayList<ReviewDTO>();
+		
+		try {
+			con = dataFactory.getConnection();
+			
+			String query = "";
+			query += " SELECT review_no, review_title, review_contents, review_score, review_date, ";
+			query += " review_picture,rev.reserve_no, rev.member_id ";
+			query += " FROM tb_review rev , tb_reservation res ";
+			query += " WHERE ";
+			query += "    rev.reserve_no = res.reserve_no ";
+			query += " AND ";
+			query += "    dorm_no = ? ";
+			
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, dormNo);
+			
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
+				ReviewDTO dto = new ReviewDTO();
+				dto.setReview_no(rs.getInt("review_no"));
+				dto.setReview_title(rs.getString("review_title"));
+				dto.setReview_contents(rs.getString("review_contents"));
+				dto.setReview_score(rs.getDouble("review_score"));
+				dto.setReview_date(rs.getDate("review_date"));
+				dto.setReview_picture(rs.getString("review_picture"));
+				dto.setReserve_no(rs.getInt("reserve_no"));
+				dto.setMember_id(rs.getString("member_id"));
+				dto.setScore(scoreRound(rs.getDouble("review_score")));
+				
+				list.add(dto);
+			}
+			if(rs != null) {
+				rs.close();
+			}
+			if(pstmt != null) {
+				pstmt.close();
+			}
+			if(con != null) {
+				con.close();
+			}
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+	
+	public int scoreRound(double scoreDouble) {
+		int temp = (int)(scoreDouble * 10) % 10;
+		int scoreInt = (int)scoreDouble;
+		if(temp >=5) {
+			scoreInt++;
+		}
+		return scoreInt;
+	}
+	
 	public List<ReservationDTO> selectReservationsList(String memberId){
 		List<ReservationDTO> list = new ArrayList<ReservationDTO>();
 		
 		try {
 			con = dataFactory.getConnection();
-			System.out.println("커넥션풀 성공");
 			
 			String query = "";
 			query += " SELECT * ";
@@ -208,6 +261,57 @@ public class TripDAO {
 		return list;
 	}
 	
+	public void insertReview(
+			String title,
+			String contents,
+			double reviewScore,
+			Date date,
+			String picture,
+			int reserveNo,
+			String memberId
+			)
+	{
+		
+		try {
+			con = dataFactory.getConnection();
+			System.out.println("커넥션풀 성공");
+			
+			String query = "";
+			query += " INSERT INTO tb_review ";
+			query += " VALUES(";
+			query += " tb_review_seq.nextval";
+			query += " ?,";
+			query += " ?,";
+			query += " ?,";
+			query += " TO_DATE(?, 'YY/MM/DD')";
+			query += " ?,";
+			query += " ?,";
+			query += " ?";
+			query += " )";
+			
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, title);
+			pstmt.setString(2, contents);
+			pstmt.setDouble(3, reviewScore);
+			pstmt.setDate(4, date);
+			pstmt.setString(5, picture);
+			pstmt.setInt(6, reserveNo);
+			pstmt.setString(7, memberId);
+			
+			pstmt.executeUpdate();
+			if(pstmt != null) {
+				pstmt.close();
+			}
+			if(con != null) {
+				con.close();
+			}
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
 	
 	//select room 메소드 
 		public RoomDTO selectRoom(int roomNo){
@@ -232,7 +336,7 @@ public class TripDAO {
 					dto.setRoom_name(rs.getString("room_name"));
 					dto.setRoom_contents(rs.getString("room_contents"));
 					dto.setRoom_picture(rs.getString("room_picture"));
-					dto.setRoom_pay_day(rs.getString("room_pay_day"));
+					dto.setRoom_pay_day(rs.getInt("room_pay_day"));
 					dto.setRoom_pay_night(rs.getInt("room_pay_night"));
 					
 				}

@@ -9,6 +9,7 @@ public class ReservationDTO {
 	private Date reserve_checkin;
 	private Date reserve_checkout;
 	private int reserve_pay;
+	private int reserve_person;
 	private int room_no;
 	private int dorm_no;
 	
@@ -62,6 +63,12 @@ public class ReservationDTO {
 	}
 	public void setDorm_no(int dorm_no) {
 		this.dorm_no = dorm_no;
+	}
+	public int getReserve_person() {
+		return reserve_person;
+	}
+	public void setReserve_person(int reserve_person) {
+		this.reserve_person = reserve_person;
 	}
 	
 	

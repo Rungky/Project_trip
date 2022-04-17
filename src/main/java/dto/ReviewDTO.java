@@ -6,11 +6,12 @@ public class ReviewDTO {
 	private int review_no;
 	private String review_title;
 	private String review_contents;
-	private int review_score;
+	private Double review_score;
 	private Date review_date;
 	private String review_picture;
 	private int reserve_no; 
 	private String member_id;
+	private int score; 
 	
 	
 	
@@ -31,12 +32,6 @@ public class ReviewDTO {
 	}
 	public void setReview_contents(String review_contents) {
 		this.review_contents = review_contents;
-	}
-	public int getReview_score() {
-		return review_score;
-	}
-	public void setReview_score(int review_score) {
-		this.review_score = review_score;
 	}
 	public Date getReview_date() {
 		return review_date;
@@ -62,4 +57,18 @@ public class ReviewDTO {
 	public void setMember_id(String member_id) {
 		this.member_id = member_id;
 	}
+	public Double getReview_score() {
+		return review_score;
+	}
+	public void setReview_score(Double review_score) {
+		this.review_score = review_score;
+	}
+	public int getScore() {
+		return score;
+	}
+	public void setScore(int score) {
+		this.score = score;
+	}
+	
+	
 }

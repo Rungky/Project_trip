@@ -27,19 +27,24 @@
                     </div>
                 </div>
                 <div id="main_contents">
-                    <form id="review_form">
+                    <form id="review_form" action="../test1?action=upload.do" method="post" enctype="multipart/form-data">
                         <div class="review_title">
                             <div class="fs_m">리뷰제목</div>
-                            <input class="input_title" type="text" id="">
+                            <input class="input_title" type="text" name="reviewtitle">
+                        </div>
+                        <div class="review_picture">
+                        	리뷰 사진 등록 <input type="file" name="picture">
                         </div>
                         <div class="review_contents">
                             <div class="fs_m" style="margin-top: 5px;">리뷰내용 작성</div>
-                            <input class="input_contents" type="text" id="" placeholder="사용하신 숙소의 평가를 남겨주세요!">
+                            <textarea class="input_contents" type="text" name="reviewcontents" placeholder="사용하신 숙소의 평가를 남겨주세요!"></textarea>
                         </div>
                         <div class="margin_auto">
                             <br>
-                            <input class="input_submit" type="submit" value="리뷰등록">
-                            <input class="input_reset" type="reset" value="취소하기">
+                            <button class="input_submit" type="submit" name="action" value="upload.do">리뷰등록</button>
+                            <button class="input_reset" type="submit" name="action" value="reservation.do">취소하기</button>
+                            <input type="hidden" name="reserveno" value="${reservationdto.reserve_no}">
+                            <input type="hidden" name="memberid" value="${member}">
                         </div>
                     </form>
                 </div>
