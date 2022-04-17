@@ -91,7 +91,7 @@ public class TripDAO {
 				dto.setLike_cnt(rs.getInt("like_cnt"));
 				dto.setOpt_wifi(rs.getInt("opt_wifi"));
 				dto.setOpt_parking(rs.getInt("opt_parking"));
-				dto.setOpt_airconditioner(rs.getInt("opt_airconditioner"));
+				dto.setOpt_aircon(rs.getInt("opt_airconditioner"));
 				dto.setOpt_dryer(rs.getInt("opt_dryer"));
 				dto.setOpt_wifi(rs.getInt("opt_wifi"));
 				dto.setOpt_port(rs.getInt("opt_port"));
