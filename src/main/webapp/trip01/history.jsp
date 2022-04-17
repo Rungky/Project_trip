@@ -18,10 +18,6 @@
 </head>
 
 <body>
-<%
-	TripDAO dao = new TripDAO();
-	List<ReservationDTO> reservationsList = request.getParameter("reservationList");
-%>
 
     <header>
         <div class="hd">
@@ -57,7 +53,9 @@
                         <tr>
                             <td rowspan="4" class="img"><img class="img2" src="../image/${reservation.reserve_picture }"></td>
                             <td>${room.room_name }</td>
-                            <td rowspan="5" class="rv"><button class="rvbt" name="action" value="review">리뷰</button></td>
+                            <td rowspan="5" class="rv">
+                            	<button class="rvbt" name="action" value="review">리뷰</button>
+                            </td>
                         </tr>
                         <tr>
                             <td>[내맘대로 8시간 STAY-숙박불가] 체크인 시 배정 (15시 체크인) / DayUse</td>
