@@ -98,11 +98,7 @@
                 <button class="button button4">높은 가격 순</button>
             </div>
             <div class="towroom">
-<<<<<<< HEAD
-               
-=======
                		<a class="" href="trip?action=detail.do&dormno=1001">
->>>>>>> fb118253d2225728530d8c30e89b6b8917e99ab1
                     <div class="romm r1">
                         <div class="ggumim">
                             <p>
@@ -129,10 +125,7 @@
                             </strong></p>
                         </div>
                     </div>
-<<<<<<< HEAD
-=======
                     </a>
->>>>>>> fb118253d2225728530d8c30e89b6b8917e99ab1
                     <div class="romm r2">
                         <div class="ggumim">
                             <p>

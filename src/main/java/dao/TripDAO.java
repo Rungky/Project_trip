@@ -65,8 +65,6 @@ public class TripDAO {
 		}
 	}
 	
-<<<<<<< HEAD
-=======
 	public DormDTO selectDorm(int dormNo){
 		DormDTO dto = new DormDTO();
 		try {
@@ -117,52 +115,6 @@ public class TripDAO {
 		return dto;
 	}
 	
-//select room 메소드 
-	public RoomDTO selectRoom(int roomNo){
-		RoomDTO dto = new RoomDTO();
-		try {
-			con = dataFactory.getConnection();
-			System.out.println("커넥션풀 성공");
-			
-			String query = "";
-			query += " SELECT * ";
-			query += " FROM tb_room";
-			query += " WHERE room_no = ?";
-			
-			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, roomNo);
-			
-			ResultSet rs = pstmt.executeQuery();
-			while(rs.next()) {
-				
-				dto.setRoom_no(rs.getInt("room_no"));
-				dto.setDorm_no(rs.getInt("dorm_no"));
-				dto.setRoom_name(rs.getString("room_name"));
-				dto.setRoom_contents(rs.getString("room_contents"));
-				dto.setRoom_picture(rs.getString("room_picture"));
-				dto.setRoom_pay_day(rs.getString("room_pay_day"));
-				dto.setRoom_pay_night(rs.getInt("room_pay_night"));
-				
-			}
-			if(rs != null) {
-				rs.close();
-			}
-			if(pstmt != null) {
-				pstmt.close();
-			}
-			if(con != null) {
-				con.close();
-			}
-			
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		return dto;
-	}
-
-
->>>>>>> fb118253d2225728530d8c30e89b6b8917e99ab1
 	public List<RoomDTO> selectRoomsList(int dormNo){
 		List<RoomDTO> list = new ArrayList<RoomDTO>();
 		

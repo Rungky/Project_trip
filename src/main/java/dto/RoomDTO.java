@@ -9,6 +9,8 @@ public class RoomDTO {
 	private int room_pay_day; 
 	private int room_pay_night;
 	
+	
+	
 	public int getRoom_no() {
 		return room_no;
 	}
