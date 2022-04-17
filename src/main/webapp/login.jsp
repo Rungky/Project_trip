@@ -5,7 +5,11 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="./css/login.css">
+
+<title>Insert title here</title>
+
 <title>로그인</title>
+
 </head>
 <body>
 	<div class="wrap_top">
