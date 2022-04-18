@@ -41,12 +41,9 @@
             <div class="pd">
                 <div class="atc">
                     예약 내역
-                </div>
-                
-                
-  <!--                <c:forEach var="reservation" items="${reservationsList}" var="room" items="${roomsList}" >-->
+                </div>          
+     
                 <table>
-                    <form method="post" action="trip.do">
                         <tr>
                             <td colspan="3">숙소 예약번호 ${reservation.reserve_no }</td>
                         </tr>
@@ -54,7 +51,7 @@
                             <td rowspan="4" class="img"><img class="img2" src="../image/${'reservation.reserve_picture'}"></td>
                             <td>${'room.room_name' }</td>
                             <td rowspan="5" class="rv">
-                            	<button class="rvbt" name="action" value="review">리뷰</button>
+                            	<a href="/project_trip/review.jsp"><button class="rvbt" name="action" value="review">리뷰</button></a>
                             </td>
                         </tr>
                         <tr>
@@ -69,10 +66,7 @@
                         <tr>
                             <td colspan="3" class="right">금액 <span class="pri">${'reservation.reserve_pay'}</span></td>
                         </tr>
-                        
-                    </form>
                 </table>
-				</c:forEach>
             </div>
         </article>
     </section>
