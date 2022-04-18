@@ -47,6 +47,8 @@
 			<br>
 			<!-- 상세페이지에서 넘겨온 내용들 session에 담아서 여기다가 출력 -->
 			<!-- session.member_tel -->
+			<!-- 특히 날짜 부분 값 잘 받아올것 -->
+			
 			<div class="name">
 				<div class="name2">숙소 이름</div>
 				<div class="c1">신라스테이 역삼</div>
