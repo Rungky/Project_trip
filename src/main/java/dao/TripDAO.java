@@ -217,18 +217,15 @@ public class TripDAO {
 	
 	public List<ReservationDTO> selectReservationsList(String memberId){
 		List<ReservationDTO> list = new ArrayList<ReservationDTO>();
-		
+		System.out.println("진입 전1");
 		try {
 			con = dataFactory.getConnection();
-			
 			String query = "";
 			query += " SELECT * ";
 			query += " FROM tb_reservation";
 			query += " WHERE member_id = ?";
-			
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, memberId);
-			
 			ResultSet rs = pstmt.executeQuery();
 			while(rs.next()) {
 				
@@ -239,10 +236,11 @@ public class TripDAO {
 				dto.setReserve_checkin(rs.getDate("reserve_checkin"));
 				dto.setReserve_checkout(rs.getDate("reserve_checkout"));
 				dto.setReserve_pay(rs.getInt("reserve_pay"));
+				dto.setReserve_person(rs.getInt("reserve_person"));
 				dto.setRoom_no(rs.getInt("room_no"));
 				dto.setDorm_no(rs.getInt("dorm_no"));
-				
 				list.add(dto);
+				System.out.println("완료");
 			}
 			if(rs != null) {
 				rs.close();

@@ -131,7 +131,12 @@ public class tripController extends HttpServlet {
 				
 
 				
-			}else {
+			}
+			
+			
+			
+			
+			else {
 				
 			}
 			RequestDispatcher dispatch = request.getRequestDispatcher(nextPage);
