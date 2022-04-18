@@ -44,15 +44,15 @@
                 </div>
                 
                 
-                <c:forEach var="reservation" items="${reservationsList}" var="room" items="${roomsList}" >
+  <!--                <c:forEach var="reservation" items="${reservationsList}" var="room" items="${roomsList}" >-->
                 <table>
                     <form method="post" action="trip.do">
                         <tr>
                             <td colspan="3">숙소 예약번호 ${reservation.reserve_no }</td>
                         </tr>
                         <tr>
-                            <td rowspan="4" class="img"><img class="img2" src="../image/${reservation.reserve_picture }"></td>
-                            <td>${room.room_name }</td>
+                            <td rowspan="4" class="img"><img class="img2" src="../image/${'reservation.reserve_picture'}"></td>
+                            <td>${'room.room_name' }</td>
                             <td rowspan="5" class="rv">
                             	<button class="rvbt" name="action" value="review">리뷰</button>
                             </td>
@@ -61,14 +61,15 @@
                             <td>[내맘대로 8시간 STAY-숙박불가] 체크인 시 배정 (15시 체크인) / DayUse</td>
                         </tr>
                         <tr>
-                            <td>${reservation.reserve_checkin} ~ ${reservation.reserve_checkout} | 1박</td>
+                            <td>${'reservation.reserve_checkin'} ~ ${'reservation.reserve_checkout'} | 1박</td>
                         </tr>
                         <tr>
-                            <td>${reservation.reserve_checkin} | ${reservation.reserve_checkout}</td>
+                            <td>${'reservation.reserve_checkin'} | ${'reservation.reserve_checkout'}</td>
                         </tr>
                         <tr>
-                            <td colspan="3" class="right">금액 <span class="pri">${reservation.reserve_pay}</span></td>
+                            <td colspan="3" class="right">금액 <span class="pri">${'reservation.reserve_pay'}</span></td>
                         </tr>
+                        
                     </form>
                 </table>
 				</c:forEach>
