@@ -17,6 +17,9 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+
 import dao.TripDAO;
 import dto.*;
 
@@ -31,11 +34,15 @@ public class tripController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doHandle(request, response);
+		System.out.println(request.getParameter("action"));
+
 		System.out.println("get");
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doHandle(request, response);
+		System.out.println(request.getParameter("action"));
+		
 		System.out.println("post");
 	}
 	protected void doHandle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -73,66 +80,92 @@ public class tripController extends HttpServlet {
 				nextPage = "/trip01/history.jsp";
 				
 			} else if (action.equals("upload.do")) {
+			
+				System.out.println("start");
+				String title = "";
+				String contents = "";
+				double score = 0;
+				long now = System.currentTimeMillis();
+				Date date = new Date(now);
+				int reservNo = 0;
+				String memberId = "";
+				int dormno = 0;
 				
-				
-				String picture = "";
+				String picture = "1";
 				String encoding = "utf-8"; 
 				
-				File currentDirPath = new File("C:\\Users\\jin58\\eclipse-workspace\\project\\src\\main\\webapp\\image\\reivew");
+				File currentDirPath = new File("C:\\Users\\jin58\\eclipse-workspace\\project_trip\\src\\main\\webapp\\image\\review");
 				DiskFileItemFactory factory = new DiskFileItemFactory();  
 				factory.setRepository(currentDirPath); 
 				factory.setSizeThreshold(1024 * 1024); 
 
 				ServletFileUpload upload = new ServletFileUpload(factory); 
 				try {
-					List items = upload.parseRequest(request);  
+					List items = upload.parseRequest(request); 
+					System.out.println(items);
 					for (int i = 0; i < items.size(); i++) {
 						FileItem fileItem = (FileItem) items.get(i); 
-
 						if (fileItem.isFormField()) {
-							// =을 중심으로 들어온 값의 타입이 텍스트면 파라미터 키와 value를 적어달라
 							System.out.println(fileItem.getFieldName() + "=" + fileItem.getString(encoding));
-						} else { //FormField가 아닐떄
+							
+							if (fileItem.getFieldName().equals("reviewtitle")) {
+								title = fileItem.getString(encoding);
+							}
+							if (fileItem.getFieldName().equals("reviewcontents")) {
+								contents = fileItem.getString(encoding);
+							}
+							if (fileItem.getFieldName().equals("reviewscore")) {
+								score = Double.parseDouble(fileItem.getString(encoding));
+							}
+							if (fileItem.getFieldName().equals("reserveno")) {
+								reservNo = Integer.parseInt(fileItem.getString(encoding));
+							}
+							if (fileItem.getFieldName().equals("memberid")) {
+								memberId = fileItem.getString(encoding);
+							}
+							if (fileItem.getFieldName().equals("dormno")) {
+								dormno = Integer.parseInt(fileItem.getString(encoding));
+							}
+						} else { 
 							System.out.println("param:" + fileItem.getFieldName());
-							System.out.println("file name:" + fileItem.getName()); //업로드한 파일명
-							System.out.println("file size:" + fileItem.getSize() + "bytes"); //파일의 사이즈 
+							System.out.println("file name:" + fileItem.getName());
+							System.out.println("file size:" + fileItem.getSize() + "bytes");
 
-							if (fileItem.getSize() > 0) { //사이즈가 있을떄, 깨진 파일에 관한 이슈가 있음.
-								int idx = fileItem.getName().lastIndexOf("\\"); //파일이 있는 경로에 마지막 슬래쉬를 찾아라
+							if (fileItem.getSize() > 0) { 
+								int idx = fileItem.getName().lastIndexOf("\\"); 
 								if (idx == -1) {
 									idx = fileItem.getName().lastIndexOf("/");
 								}
-								String fileName = fileItem.getName().substring(idx + 1); // '/'이후에 파일명이 있기때문에 +1을 해줌
-								long timestamp = System.currentTimeMillis();  //파일명 앞쪽에 시간을 작성해주기, 시간을 작성해주므로써 파일명이 겹치지 않게 됨.
-								fileName = timestamp + "_" + fileName;
+								String fileName = fileItem.getName().substring(idx + 1); 
+								long timestamp = System.currentTimeMillis(); 
+								System.out.println(timestamp);
+								String temp = "";
+								temp = temp + timestamp;
+								temp = temp.substring(1, temp.length());
+								fileName = temp + "_" + fileName;
 								picture = fileName;
-								File uploadFile = new File(currentDirPath + "\\" + fileName);//내가 파일 저장할 위치를 넘겨줌.
-								fileItem.write(uploadFile); //경로를 지정해주면 파일 업로드를 허락해준다.
+								
+								File uploadFile = new File(currentDirPath + "\\" + fileName);
+								fileItem.write(uploadFile); 
 							} 
 						} 
 					} 
-					String title = request.getParameter("reviewtitle");
-					String contents = request.getParameter("reviewcontents");
-					double score = Double.parseDouble(request.getParameter("reviewscore"));
-					long now = System.currentTimeMillis();
-					Date date = new Date(now);
-					int reservNo = Integer.parseInt(request.getParameter("reservno"));
-					String memberId = request.getParameter("memberid");
-					
-					tripdao.insertReview(title, contents, score, date, picture, reservNo, memberId);
-					
-					nextPage = "/trip/detail.do";
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+				System.out.println(title);
+				System.out.println(contents);
+				System.out.println(score);
+				System.out.println(date);
+				System.out.println(picture);
+				System.out.println(reservNo);
+				System.out.println(memberId);
 				
+				tripdao.insertReview(title, contents, score, date, picture, reservNo, memberId);
 				
-				
-				
+				nextPage = "/trip?action=detail.do&dormno="+dormno+"";
+			} else {
 
-				
-			}else {
-				
 			}
 			RequestDispatcher dispatch = request.getRequestDispatcher(nextPage);
 			dispatch.forward(request, response);

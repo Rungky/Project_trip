@@ -119,6 +119,9 @@
 	                    <tr>
 	                        <td colspan="2" class="date">${item.review_date}</td>
 	                    </tr>
+	                    <tr colspan="2">
+	                    	<td><img class="rev_pt" src="image/review/${item.review_picture}"></td>
+	                    </tr>
 	                </table>
                 </c:forEach>   
             </div>

@@ -254,6 +254,10 @@ table{
     font-weight:lighter;
     font-size: 15px;
 }
+.rev_pt {
+	width : 100%;
+	height: 100%;
+}
 footer{
     color: rgba(0,0,0,0.38);
     background-color: rgb(245,245,245);

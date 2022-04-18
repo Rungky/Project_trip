@@ -12,6 +12,7 @@
    <%@include file="header.jsp" %>
 
     <section>
+     <form id="review_form" action="/project_trip/trip?action=upload.do" method="post" enctype="multipart/form-data">
         <div id="main_wrap">
             <div id="main">
                 <div id="main_title">
@@ -26,8 +27,34 @@
                         <hr>
                     </div>
                 </div>
+                <div>
+						<fieldset>
+							<label for="rate1"></label> 
+							<label for="rate2"></label> 
+							<label for="rate3"></label> 
+							<label for="rate4"></label> 
+							<label for="rate5"></label>
+							<label for="rate6"></label> 
+							<label for="rate7"></label> 
+							<label for="rate8"></label> 
+							<label for="rate9"></label> 
+							<label for="rate10"></label>
+							<input type="radio" name="reviewscore" value="1" id="rate1"  >
+							<input type="radio" name="reviewscore" value="2" id="rate2"  >
+							<input type="radio" name="reviewscore" value="3" id="rate3"  >
+							<input type="radio" name="reviewscore" value="4" id="rate4"  >
+							<input type="radio" name="reviewscore" value="5" id="rate5"  >
+							<input type="radio" name="reviewscore" value="6" id="rate6"  >
+							<input type="radio" name="reviewscore" value="7" id="rate7"  >
+							<input type="radio" name="reviewscore" value="8" id="rate8"  >
+							<input type="radio" name="reviewscore" value="9" id="rate9"  >
+							<input type="radio" name="reviewscore" value="10" id="rate10" checked>
+							<span class="sp_bg">
+							</span>
+						</fieldset>
+				</div>
                 <div id="main_contents">
-                    <form id="review_form" action="../test1?action=upload.do" method="post" enctype="multipart/form-data">
+                   
                         <div class="review_title">
                             <div class="fs_m">리뷰제목</div>
                             <input class="input_title" type="text" name="reviewtitle">
@@ -41,15 +68,17 @@
                         </div>
                         <div class="margin_auto">
                             <br>
-                            <button class="input_submit" type="submit" name="action" value="upload.do">리뷰등록</button>
-                            <button class="input_reset" type="submit" name="action" value="reservation.do">취소하기</button>
-                            <input type="hidden" name="reserveno" value="${reservationdto.reserve_no}">
-                            <input type="hidden" name="memberid" value="${member}">
+                            <button class="input_submit" type="submit">리뷰등록</button>
+                            <button class="input_reset" type="submit">취소하기</button>
+                            <input type="hidden" name="reserveno" value="<%-- ${reservationdto.reserve_no} --%>21">
+                            <input type="hidden" name="memberid" value="admin<%-- ${member} --%>">
+                            <input type="hidden" name="dormno" value="1001">
                         </div>
-                    </form>
+                    
                 </div>
             </div>
         </div>
+        </form>
     </section>
 
      <%@include file="footer.jsp" %>
