@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="dao.TripDAO" import="dto.*"
-	import="java.util.List"
-	import="java.sql.Date"
+	import="java.util.*"
 	%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
@@ -42,9 +41,6 @@
 			<div class="pd">
 				<div class="atc">예약 내역</div>
 
-
-
-
 				<table>
 					<tr>
 						<td colspan="3">숙소 예약번호 ${reservation.reserve_no }</td>
@@ -56,22 +52,11 @@
 						<td rowspan="5" class="rv"><a href="/project_trip/review.jsp"><button
 									class="rvbt" name="action" value="review">리뷰</button></a></td>
 					</tr>
-					<%
-					// session.member_id 담기
-					TripDAO dao = new TripDAO();
-					List<ReservationDTO> reser = dao.selectReservationsList("admin");
-					request.setAttribute("reser", reser);
-					
-					out.println(reser.size());
-					
-					%>
-					<c:forEach var="result" items="reser" >
 						<tr>
 							<td>[내맘대로 8시간 STAY-숙박불가] 체크인 시 배정 (15시 체크인) / DayUse</td>
 						</tr>
-						<tr>
-							<td>${ 'reser.member_id'} ~
-								${result.reserve_checkout} | 1박</td>
+						  
+ 					
 						</tr>
 						<tr>
 							<td>${'reservation.reserve_checkin'}|
@@ -80,7 +65,7 @@
 						<tr>
 							<td colspan="3" class="right">금액 <span class="pri">${result.reserve_pay}</span></td>
 						</tr>
-					</c:forEach>
+					
 				</table>
 			</div>
 		</article>

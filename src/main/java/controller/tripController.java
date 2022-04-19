@@ -75,10 +75,6 @@ public class tripController extends HttpServlet {
 				
 				nextPage = "/trip01/detail.jsp";
 				
-			} else if (action.equals("history.do")) {
-				
-				nextPage = "/trip01/history.jsp";
-				
 			} else if (action.equals("upload.do")) {
 			
 				String title = "";
@@ -162,7 +158,27 @@ public class tripController extends HttpServlet {
 				tripdao.insertReview(title, contents, score, date, picture, reservNo, memberId);
 				
 				nextPage = "/trip?action=detail.do&dormno="+dormno+"";
-			} else {
+			} else if(action.equals("history.do")) {
+				//예약내역페이지, 숙소 no, name, 룸 name 받아오기
+				try {
+					//int dormno = Integer.parseInt(request.getParameter("dorm_no"));
+					TripDAO dao = new TripDAO();
+					// session.member_id 담기
+					List<ReservationDTO> reser = dao.selectReservationsList("admin");
+					request.setAttribute("reser",reser );
+					//객실 코드 받을 수 있음 
+					
+					
+		
+					
+				}catch (Exception e) {
+					e.printStackTrace();
+				}
+
+				nextPage = "/trip01/history.jsp";
+			}
+	
+			else {
 				
 			}
 			
