@@ -170,6 +170,7 @@ public class TripDAO {
 			query += "    rev.reserve_no = res.reserve_no ";
 			query += " AND ";
 			query += "    dorm_no = ? ";
+			query += " ORDER BY review_no desc";
 			
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, dormNo);
@@ -185,7 +186,7 @@ public class TripDAO {
 				dto.setReview_picture(rs.getString("review_picture"));
 				dto.setReserve_no(rs.getInt("reserve_no"));
 				dto.setMember_id(rs.getString("member_id"));
-				dto.setScore(scoreRound(rs.getDouble("review_score")));
+				dto.setScore((int)(rs.getDouble("review_score")));
 				
 				list.add(dto);
 			}
@@ -206,14 +207,6 @@ public class TripDAO {
 		return list;
 	}
 	
-	public int scoreRound(double scoreDouble) {
-		int temp = (int)(scoreDouble * 10) % 10;
-		int scoreInt = (int)scoreDouble;
-		if(temp >=5) {
-			scoreInt++;
-		}
-		return scoreInt;
-	}
 	
 	public List<ReservationDTO> selectReservationsList(String memberId){
 		List<ReservationDTO> list = new ArrayList<ReservationDTO>();
@@ -277,11 +270,11 @@ public class TripDAO {
 			String query = "";
 			query += " INSERT INTO tb_review ";
 			query += " VALUES(";
-			query += " tb_review_seq.nextval";
+			query += " tb_review_seq.nextval,";
 			query += " ?,";
 			query += " ?,";
 			query += " ?,";
-			query += " TO_DATE(?, 'YY/MM/DD')";
+			query += " TO_DATE(?, 'YY/MM/DD'),";
 			query += " ?,";
 			query += " ?,";
 			query += " ?";
