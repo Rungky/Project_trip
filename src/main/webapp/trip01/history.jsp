@@ -45,9 +45,6 @@
 
 
 
-
-
-
 				<table>
 					<tr>
 						<td colspan="3">숙소 예약번호 ${reservation.reserve_no }</td>

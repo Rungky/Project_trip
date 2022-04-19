@@ -165,19 +165,10 @@ public class tripController extends HttpServlet {
 				
 				nextPage = "/trip?action=detail.do&dormno="+dormno+"";
 			} else {
-
-<<<<<<< HEAD
 				
 			}
 			
 			
-			
-			
-			else {
-				
-=======
->>>>>>> 1844864fb8c4c3bdd08d7f5f6892815d603f2ba8
-			}
 			RequestDispatcher dispatch = request.getRequestDispatcher(nextPage);
 			dispatch.forward(request, response);
 		} catch (Exception e ) {
