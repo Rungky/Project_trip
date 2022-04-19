@@ -21,7 +21,7 @@
 			</div>
 			<nav>
 				<ul>
-					<li><a href="/project_trip/trip01/history.jsp">예약 내역</a></li>
+					<li><a href="/project_trip/trip?action=history.do">예약 내역</a></li>
 					<li><a href="/project_trip/qna.jsp">Q&A</a></li>
 					<li><a href="/project_trip/mypage.jsp">${'member_name'}</a></li>
 					<!-- 사용자: session에 담긴(value 아마도 member_name  session.member_name 회원 닉네임 -->
