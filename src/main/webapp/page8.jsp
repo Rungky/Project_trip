@@ -47,7 +47,7 @@
 			<br>
 			<!-- 상세페이지에서 넘겨온 내용들 session에 담아서 여기다가 출력 -->
 			<!-- session.member_tel -->
-			<!-- 특히 날짜 부분 값 잘 받아올것 -->
+			
 			
 			<div class="name">
 				<div class="name2">숙소 이름</div>
@@ -72,8 +72,8 @@
 					<div>87,010원</div>
 				</div>
 			</div>
-			<!--  예약완료 누르면 인서트 메소드 실행 -->
-			<input type="button" value="예약완료" class="box">
+			<!--  member_id 가져가야함-->
+			<a href="/project_trip/trip?action=history.do&member_id=${member_id}"><input type="button" value="예약완료" class="box"></a>
 		</div>
 	</section>
 	<footer>

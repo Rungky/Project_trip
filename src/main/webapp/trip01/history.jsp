@@ -61,7 +61,7 @@ table {
 						<tr>
 							<td colspan="3">숙소 예약번호 ${result.reserve_no}</td>
 						</tr>
-						<tr>
+					<tr>
 							<td rowspan="4" class="img"><img class="img2" style="width:150px; height: 100px; padding: 10px"
 								src="${'https://image.goodchoice.kr/resize_490x348/adimg_new/54325/174064/ab3aa6fb6b901e33c6c6e5bf6c2d7b75.jpg'}"></td>
 							<td>${'room.room_name' }</td>
@@ -70,6 +70,7 @@ table {
 										name="action" value="review">리뷰</button></a></td>
 						</tr>
 						<tr>
+						
 							<td> ${ '룸 컨텐츠'}</td>
 						</tr>
 						<tr>

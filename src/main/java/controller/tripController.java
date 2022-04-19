@@ -161,15 +161,31 @@ public class tripController extends HttpServlet {
 			} else if(action.equals("history.do")) {
 				System.out.println("히스토리 들어옴");
 				try {
+					
+					//tripdao.insertReservation(
+					
+					
+					
 					// session.member_id 담기
 					List<ReservationDTO> reserList = tripdao.selectReservationsList("admin");
 					request.setAttribute("reserList",reserList );
 					//객실 코드 받을 수 있음 
 					
+					
 				}catch (Exception e) {
 					e.printStackTrace();
 				}
 				nextPage = "/trip01/history.jsp";
+			} else if (action.equals("page8.do")) {
+				//가져와야 하는 값 숙소이름, 객실 이름, 체크인 체크아웃 금액 룸 컨텐츠..? 세션..?
+				//member_id member_tel
+				String dorm_no = request.getParameter("dorm_no");
+				String dorm_name = request.getParameter("dorm_name");
+				
+				String room_name = request.getParameter("room_name");
+				
+				
+				nextPage = "/page8.jsp";
 			} else if(action.equals("review.do")) {
 				System.out.println("액션 리뷰 들어옴");
 				//reservationDTO 넘겨주기

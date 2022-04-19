@@ -334,6 +334,57 @@ public class TripDAO {
 	}
 	
 	
+	public void insertReservation(
+			String member_id,
+			Date reserve_checkin,
+			Date reserve_checkout,
+			int reserve_pay,
+			int reserve_person,
+			int room_no,
+			int dorm_no
+			)
+	{
+		
+		try {
+			con = dataFactory.getConnection();
+			System.out.println("커넥션풀 성공");
+			
+			String query = "";
+			query += " INSERT INTO tb_reservation ";
+			query += " VALUES(";
+			query += " tb_reservation_seq.nextval,";
+			query += " ?,";
+			query += " sysdate";
+			query += " ?,";
+			query += " ?,";
+			query += " ?,";
+			query += " ?,";
+			query += " ?";
+			query += " )";
+			
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, member_id);
+			pstmt.setDate (2, reserve_checkin);
+			pstmt.setDate(3, reserve_checkout);
+			pstmt.setInt(4, reserve_pay);
+			pstmt.setInt(5, reserve_person);
+			pstmt.setInt(6, room_no);
+			pstmt.setInt(7, dorm_no);
+			
+			pstmt.executeUpdate();
+			if(pstmt != null) {
+				pstmt.close();
+			}
+			if(con != null) {
+				con.close();
+			}
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
 	
 	
 	
