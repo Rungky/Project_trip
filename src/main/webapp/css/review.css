@@ -35,14 +35,10 @@ section{
     /**border: rgb(233, 9, 43) solid 2px;**/
 }
 
-
-/* fieldset{
-    display: inline-block;
-    border: 0; 
-    padding: 20px;
-    text-align: left;
-    direction: rtl;
-} */
+.center {
+	display: flex;
+	justify-content: center;
+}
 fieldset{
 	margin: 10px;
    	position:relative;
@@ -75,7 +71,7 @@ fieldset > label{
     background-position-y: 100%;
     background-size : 200px;
 	height:32px;
-	width: 300px;
+	width: 200px;
 	pointer-events:none;
 	font-size:0px;
 }
@@ -174,6 +170,19 @@ fieldset > label{
  
 .input_submit{
     margin-right: 25px;
+    
+}
+a {
+	text-decoration: none;
+    color: black;
+}
+
+
+.buttons {
+	width:100%;
+	display: flex;
+	justify-content: space-between;
+	padding: 10px;
 }
 
 @media screen and (max-width:1000px)  {

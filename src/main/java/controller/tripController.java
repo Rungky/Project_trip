@@ -81,7 +81,6 @@ public class tripController extends HttpServlet {
 				
 			} else if (action.equals("upload.do")) {
 			
-				System.out.println("start");
 				String title = "";
 				String contents = "";
 				double score = 0;
@@ -138,13 +137,12 @@ public class tripController extends HttpServlet {
 								}
 								String fileName = fileItem.getName().substring(idx + 1); 
 								long timestamp = System.currentTimeMillis(); 
-								System.out.println(timestamp);
 								String temp = "";
 								temp = temp + timestamp;
 								temp = temp.substring(1, temp.length());
 								fileName = temp + "_" + fileName;
 								picture = fileName;
-								
+								System.out.println("fileName = "+fileName);
 								File uploadFile = new File(currentDirPath + "\\" + fileName);
 								fileItem.write(uploadFile); 
 							} 

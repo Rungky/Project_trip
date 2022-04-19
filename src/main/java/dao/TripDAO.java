@@ -67,6 +67,9 @@ public class TripDAO {
 	
 	public DormDTO selectDorm(int dormNo){
 		DormDTO dto = new DormDTO();
+		DormDTO dtoTemp = scoreAverage(dormNo);
+		dto.setReview_count(dtoTemp.getReview_count());
+		dto.setScoreAvr(dtoTemp.getScoreAvr());
 		try {
 			con = dataFactory.getConnection();
 			
@@ -92,6 +95,7 @@ public class TripDAO {
 				dto.setOpt_dryer(rs.getInt("opt_dryer"));
 				dto.setOpt_port(rs.getInt("opt_port"));
 				dto.setDorm_category_no(rs.getInt("dorm_category_no"));
+				
 			}
 			if(rs != null) {
 				rs.close();
@@ -109,6 +113,30 @@ public class TripDAO {
 		
 		return dto;
 	}
+	
+	public DormDTO scoreAverage(int dormNo){
+		DormDTO dto = new DormDTO();
+		double scoreArv = 0;
+		int count = 0;
+		List<ReviewDTO> reviewdto = selectReviewsList(dormNo);
+		try {
+			
+			for(int i = 0; i<reviewdto.size();i++) {
+				scoreArv += reviewdto.get(i).getReview_score();
+				count++;
+			}
+			scoreArv = scoreArv / count;
+			scoreArv = Math.round(scoreArv*10)/10.0;
+			dto.setReview_count(count);
+			dto.setScoreAvr(scoreArv);
+
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return dto;
+	}
+	
 	
 	public List<RoomDTO> selectRoomsList(int dormNo){
 		List<RoomDTO> list = new ArrayList<RoomDTO>();
@@ -155,6 +183,8 @@ public class TripDAO {
 		
 		return list;
 	}
+	
+	
 	
 	public List<ReviewDTO> selectReviewsList(int dormNo){
 		List<ReviewDTO> list = new ArrayList<ReviewDTO>();

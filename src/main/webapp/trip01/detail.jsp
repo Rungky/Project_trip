@@ -11,13 +11,31 @@
 
     <link rel="stylesheet" href="./css/detail.css">
     <link rel="stylesheet" href="./css/header_footer.css">
+    
+    
+    
+   <script>
+function drop_contents() {
+
+	var click = document.getElementsByClassName("onbutton");
+	var contents = document.getElementsByClassName("off");
+	if (contents[0].style.height == ("195px")) {
+		click[0].innerHTML = "접기";
+		contents[0].style.height = "auto";
+	} else {
+		click[0].innerHTML = "더보기";
+		contents[0].style.height = "195px";
+	}
+
+}
+			</script>
 </head>
 
 <body>
     <header>
         <div class="hd">
             <div>
-                <form action=" ">
+                <form action="/trip">
                     <button class="bt"><img class="rogo" src="./image/logo.png"></button>
                 </form>
             </div>
@@ -35,33 +53,44 @@
         <div class="center">
             <div class="st">
                 <aside>
-                    <img class="image" src="./image/room.jpg">
+                    <img class="image" src="${dormdto.dorm_picture }"> 
                 </aside>
                 <article>
-                    <div>
-                        ${dormdto.dorm_name }
+                    <div class="dormtt">
+                        <h2>${dormdto.dorm_name }</h2>
                     </div>
                     <div>
-                        숙소정보
+                    	<sqan class="avr">${dormdto.scoreAvr}</sqan>리뷰 ${dormdto.review_count}개
                     </div>
-                    <div>
+                    <br>
+                    <div class="dormaddr">
                         ${dormdto.dorm_addr }
                     </div>
-                    <div>
-						<ul>
-							<c:forTokens var="item" items="${dormdto.dorm_contents }" delims=",">
-								<li>${item}</li>
-							</c:forTokens>
-						</ul>
-					</div>
-                    <div>
-                        취소 및 환불 규정<br>
-                        <ul>
-                            <li>체크인일 기준 7일 전 : 100% 환불</li>
-                            <li>체크인일 기준 4~6일 전 : 50% 환불</li>
-                            <li>체크인일 기준 3일 전 ~ 당일 및 : 환불 불가</li>
-                            <li>취소, 환불시 수수료가 발생할 수 있습니다.</li>
-                        </ul>
+                    <br>
+                   	<div class="off" style="height:195px;">
+	                    <div>
+	                    	<div class="top">
+	                    		<c:forTokens var="item2" items="${dormdto.dorm_contents }" begin="0" end="0" delims=",">
+									${item2}
+								</c:forTokens>
+								<button onclick="drop_contents()"class="onbutton">더보기</button>
+							</div>
+							<ul>
+								<c:forTokens var="item" items="${dormdto.dorm_contents }" begin="1" delims=",">
+									<li>${item}</li>
+								</c:forTokens>
+							</ul>
+						</div>
+						
+	                    <div>
+	                        취소 및 환불 규정<br>
+	                        <ul>
+	                            <li>체크인일 기준 7일 전 : 100% 환불</li>
+	                            <li>체크인일 기준 4~6일 전 : 50% 환불</li>
+	                            <li>체크인일 기준 3일 전 ~ 당일 및 : 환불 불가</li>
+	                            <li>취소, 환불시 수수료가 발생할 수 있습니다.</li>
+	                        </ul>
+	                    </div>
                     </div>
                 </article>
             </div>
@@ -95,7 +124,7 @@
 	                    <tr>
 	                        <td colspan="2">
 	                            <form action="">
-	                                <button class="rsv">예약</button>
+	                                <button class="rsv" name="action" value="">예약</button>
 	                            </form>
 	                        </td>
 	                    </tr>

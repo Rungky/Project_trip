@@ -14,6 +14,11 @@ public class DormDTO {
 	private int opt_port;
 	private int dorm_category_no;
 	
+	private int review_count;
+	private double scoreAvr;
+	
+	
+	
 	
 	public int getDorm_no() {
 		return dorm_no;
@@ -87,5 +92,19 @@ public class DormDTO {
 	public void setDorm_category_no(int dorm_category_no) {
 		this.dorm_category_no = dorm_category_no;
 	}
+	public int getReview_count() {
+		return review_count;
+	}
+	public void setReview_count(int review_count) {
+		this.review_count = review_count;
+	}
+	public double getScoreAvr() {
+		return scoreAvr;
+	}
+	public void setScoreAvr(double scoreAvr) {
+		this.scoreAvr = scoreAvr;
+	}
 
+	
+	
 }
