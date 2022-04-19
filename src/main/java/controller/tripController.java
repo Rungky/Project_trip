@@ -163,8 +163,10 @@ public class tripController extends HttpServlet {
 				
 				nextPage = "/trip?action=detail.do&dormno="+dormno+"";
 			} else {
-
+				
 			}
+			
+			
 			RequestDispatcher dispatch = request.getRequestDispatcher(nextPage);
 			dispatch.forward(request, response);
 		} catch (Exception e ) {
