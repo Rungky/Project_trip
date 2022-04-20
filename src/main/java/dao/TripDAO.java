@@ -239,20 +239,29 @@ public class TripDAO {
 	}
 	
 	
-	public List<ReservationDTO> selectReservationsList(String memberId){
+	public List<ReservationDTO> selectReservationsList(String member_id){
 		List<ReservationDTO> list = new ArrayList<ReservationDTO>();
-		System.out.println("진입 전1");
+		
 		try {
 			con = dataFactory.getConnection();
+			System.out.println("진입");
 			String query = "";
-			query += " SELECT * ";
-			query += " FROM tb_reservation";
-			query += " WHERE member_id = ?";
+			query += " SELECT reserve_no, member_id, reserve_date, reserve_checkin, reserve_checkout, ";
+			query += " reserve_pay,reserve_person, room.room_name, dorm.dorm_name ";
+			query += " FROM tb_reservation reser , tb_room room, tb_dorm dorm ";
+			query += " WHERE ";
+			query += "    reser.room_no = room.room_no ";
+			query += " AND ";
+			query += "    reser.dorm_no = dorm.dorm_no ";
+			query += " AND ";
+			query += "    member_id = ? ";
+			query += " ORDER BY reserve_no desc";
+			System.out.println("사이2");
 			pstmt = con.prepareStatement(query);
-			pstmt.setString(1, memberId);
+			pstmt.setString(1, member_id);
+			
 			ResultSet rs = pstmt.executeQuery();
 			while(rs.next()) {
-				
 				ReservationDTO dto = new ReservationDTO();
 				dto.setReserve_no(rs.getInt("reserve_no"));
 				dto.setMember_id(rs.getString("member_id"));
@@ -261,10 +270,10 @@ public class TripDAO {
 				dto.setReserve_checkout(rs.getDate("reserve_checkout"));
 				dto.setReserve_pay(rs.getInt("reserve_pay"));
 				dto.setReserve_person(rs.getInt("reserve_person"));
-				dto.setRoom_no(rs.getInt("room_no"));
-				dto.setDorm_no(rs.getInt("dorm_no"));
+				dto.setRoom_name(rs.getString("room_name"));
+				dto.setDorm_name(rs.getString("dorm_name"));
 				list.add(dto);
-				System.out.println("완료");
+				System.out.println("값 다 넣음");
 			}
 			if(rs != null) {
 				rs.close();
