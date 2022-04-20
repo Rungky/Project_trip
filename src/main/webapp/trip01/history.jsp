@@ -66,7 +66,7 @@ table {
 								src="${'https://image.goodchoice.kr/resize_490x348/adimg_new/54325/174064/ab3aa6fb6b901e33c6c6e5bf6c2d7b75.jpg'}"></td>
 							<td>${'room.room_name' }</td>
 							<td rowspan="5" class="rv"><a
-								href="/project_trip/trip?action=review.do&reserve_no=${result.reserve_no}&member_id=${result.member_id}"><button class="rvbt"
+								href="/project_trip/trip?action=review.do&reserve_no=${result.reserve_no}"><button class="rvbt"
 										name="action" value="review">리뷰</button></a></td>
 						</tr>
 						<tr>

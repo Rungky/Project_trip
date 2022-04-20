@@ -191,7 +191,7 @@ public class tripController extends HttpServlet {
 				//reservationDTO 넘겨주기
 				try {
 					int reserve_no = Integer.parseInt(request.getParameter("reserve_no"));
-					String member_id = request.getParameter("member_id");
+					
 					
 				}catch (Exception e) {
 					e.printStackTrace();
