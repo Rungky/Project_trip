@@ -64,6 +64,7 @@ public class tripController extends HttpServlet {
 				
 				nextPage = "main.jsp";
 			}  else if (action.equals("reservation.do")) {
+				
 List<DormVO> dormList = new ArrayList<DormVO>();
 				
 				// category_no를 이용해 dorm 정보 조회
@@ -224,9 +225,18 @@ List<DormVO> dormList = new ArrayList<DormVO>();
 				System.out.println("히스토리 들어옴");
 				try {
 					// session.member_id 담기
+				
 					List<ReservationDTO> reserList = tripdao.selectReservationsList("admin");
 					request.setAttribute("reserList",reserList );
 					//객실 코드 받을 수 있음 
+					
+	/*				if(reserList != null && reserList.size()> 0) {
+						System.out.println("List내용있음, 예약내역 출력");
+						nextPage = "/trip01/history.jsp";
+					} else {
+						System.out.println("예약내역 없음");
+						nextPage = "/trip01/nohistory.jsp";
+					}*/
 					
 					
 					
