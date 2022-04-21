@@ -12,7 +12,6 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -20,15 +19,19 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
-import com.oreilly.servlet.MultipartRequest;
-import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
-
+import dao.*;
 import dao.TripDAO;
-import dto.*;
+import dto.DormDTO;
+import dto.DormVO;
+import dto.MemberDTO;
+import dto.ReservationDTO;
+import dto.ReviewDTO;
+import dto.RoomDTO;
 
 @WebServlet("/trip")
 public class tripController extends HttpServlet {
 	TripDAO tripdao = new TripDAO();
+	MemberDAO memberDAO = new MemberDAO();
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -47,6 +50,8 @@ public class tripController extends HttpServlet {
 	}
 
 	protected void doHandle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// session 객체 만들기
+		HttpSession session = request.getSession();
 
 		String nextPage = "";
 		String action = " ";
@@ -271,7 +276,7 @@ public class tripController extends HttpServlet {
 			} else if(action.equals("review.do")) {
 				System.out.println("액션 리뷰 들어옴");
 				try {
-					HttpSession session = request.getSession();
+//					HttpSession session = request.getSession();
 					int reserveno = Integer.parseInt(request.getParameter("reserve_no"));
 
 					ReservationDTO reservationdto = tripdao.selectReservation(reserveno);
@@ -284,6 +289,63 @@ public class tripController extends HttpServlet {
 				}
 
 				nextPage = "/review.jsp";
+			}else if (action.equals("loginForm.do")) {
+					nextPage = "/login.jsp";
+
+				} else if (action.equals("joinForm.do")) {
+					nextPage = "/signup.jsp";
+
+				} else if (action.equals("join.do")) { // 회원가입
+					String id = request.getParameter("id");
+					String password = request.getParameter("password");
+					String name = request.getParameter("name");
+					String tel = request.getParameter("tel");
+
+					MemberDTO memberDTO = new MemberDTO();
+					try {
+						memberDTO.setMember_id(id);
+						memberDTO.setMember_pw(password);
+						memberDTO.setMember_name(name);
+						memberDTO.setMember_tel(tel);
+
+						memberDAO.join(memberDTO);
+						System.out.println(id);
+						if (id.equals("") || password.equals("") || name.equals("") || tel.equals("")) {
+							nextPage = "/signup.jsp";
+						} else {
+							nextPage = "/login.jsp";
+						}
+
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				} else if (action.equals("login.do")) {
+					String id = request.getParameter("id");
+					String password = request.getParameter("password");
+
+					MemberDTO memberDTO = new MemberDTO();
+
+					try {
+						memberDTO.setMember_id(id);
+						memberDTO.setMember_pw(password);
+						MemberDTO mem = memberDAO.login(memberDTO);
+
+						if (id.equals(mem.getMember_id()) && password.equals(mem.getMember_pw())) {
+							session.setAttribute("id", mem.getMember_id());
+							nextPage = "/main.jsp";
+						} else {
+							nextPage = "/login.jsp";
+						}
+
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				} else if (action.equals("loginOut.do")) {
+					// session을 초기화
+					session.invalidate();
+
+					// 메인 페이지로 되돌아감
+					nextPage = "/main.jsp";
 			}else {
 				System.out.println("잘못들어옴");
 			}
