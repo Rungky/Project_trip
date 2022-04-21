@@ -70,7 +70,7 @@
 			 	<form  id="tb1" class="calender_box" action="trip">
 			 		<input  class="calender" type="date" name="reserve_checkin" min="${param.reserve_checkin}" value="${param.reserve_checkin}">
 			 		<span style="font-size:30px;">~</span>
-			 		<input class="calender" type="date" name="reserve_checkout" min="${param.reserve_checkout}" value="${param.reserve_checkout}">
+			 		<input class="calender" type="date" name="reserve_checkout" min="${param.reserve_checkin}" value="${param.reserve_checkout}">
 			 		<button class="datebt" name="action" value="detail.do">적용</button>
 			 		<input type="hidden" name="dormno" value="${dormdto.dorm_no}">
 			 	</form>
@@ -111,9 +111,10 @@
 		                            <form action="trip">
 		                                <button class="rsv2" name="action" value="page8.do">예약</button>
 		                                <input type="hidden" name="roomno" value="${item.room_no}">
-		                                <input type="hidden" name="roomno" value="${item.room_name}">
+		                                <input type="hidden" name="roomname" value="${item.room_name}">
 		                                <input type="hidden" name="dormno" value="${dormdto.dorm_no}">
-		                                <input type="hidden" name="dormno" value="${dormdto.dorm_name}">
+		                                <input type="hidden" name="dormname" value="${dormdto.dorm_name}">
+		                                <input type="hidden" name="roompay" value="${roomday * item.room_pay_night}">
 		                                <input type="hidden" name="reserve_checkin" value="${param.reserve_checkin}">
 		                                <input type="hidden" name="reserve_checkout" value="${param.reserve_checkout}">
 		                            </form>
@@ -164,7 +165,7 @@
 		                                <input type="hidden" name="roomname" value="${item.room_name}">
 		                                <input type="hidden" name="dormno" value="${dormdto.dorm_no}">
 		                                <input type="hidden" name="dormname" value="${dormdto.dorm_name}">
-		                                <input type="hidden" name="roompay" value="${item.room_pay_night}">
+		                                <input type="hidden" name="roompay" value="${roompay * item.room_pay_night}">
 		                                <input type="hidden" name="reserve_checkin" value="${param.reserve_checkin}">
 		                                <input type="hidden" name="reserve_checkout" value="${param.reserve_checkout}">
 		                            </form>
