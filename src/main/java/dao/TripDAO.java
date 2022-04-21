@@ -285,16 +285,18 @@ public class TripDAO {
 			con = dataFactory.getConnection();
 			System.out.println("진입");
 			String query = "";
-			query += " SELECT reserve_no, member_id, reserve_date, reserve_checkin, reserve_checkout, ";
-			query += " reserve_pay,reserve_person, room.room_name, dorm.dorm_name, room.room_picture ";
-			query += " FROM tb_reservation reser , tb_room room, tb_dorm dorm ";
-			query += " WHERE ";
-			query += "    reser.room_no = room.room_no ";
-			query += " AND ";
-			query += "    reser.dorm_no = dorm.dorm_no ";
-			query += " AND ";
-			query += "    member_id = ? ";
-			query += " ORDER BY reserve_no desc";
+			query += " select reser.reserve_no, dorm.dorm_name, room.room_name, reser.member_id, reser.reserve_checkin, reser.reserve_date,reser.reserve_checkout, reser.reserve_pay,room.room_picture,reser.reserve_person ";
+			query += " from tb_reservation reser , tb_room room, tb_dorm dorm ";
+			query += " where reser.room_no = room.room_no ";
+			query += " 		and reser.dorm_no = room.dorm_no ";
+			query += " 		and room.dorm_no = dorm.dorm_no ";
+			query += " 		and reser.member_id = ? ";
+			//query += "    reser.dorm_no = room.dorm_no ";
+			//query += " AND ";
+			//query += "    room.dorm_no = dorm.dorm_no ";
+			//query += " AND ";
+			//query += "    reser.member_id = ? ";
+			
 			System.out.println("사이2");
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, member_id);
@@ -303,6 +305,8 @@ public class TripDAO {
 			while(rs.next()) {
 				ReservationDTO dto = new ReservationDTO();
 				dto.setReserve_no(rs.getInt("reserve_no"));
+				dto.setDorm_name(rs.getString("dorm_name"));
+				dto.setRoom_name(rs.getString("room_name")); 
 				dto.setMember_id(rs.getString("member_id"));
 				System.out.println("사이3");
 				dto.setReserve_date(rs.getDate("reserve_date"));
@@ -312,8 +316,6 @@ public class TripDAO {
 				dto.setReserve_pay(rs.getInt("reserve_pay"));
 				dto.setReserve_person(rs.getInt("reserve_person"));
 				System.out.println("사이5");
-				dto.setRoom_name(rs.getString("room_name"));
-				dto.setDorm_name(rs.getString("dorm_name"));
 				System.out.println("사이6");
 				dto.setRoom_picture(rs.getString("room_picture"));
 				list.add(dto);
