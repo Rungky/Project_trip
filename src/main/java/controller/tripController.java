@@ -3,6 +3,8 @@ package controller;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -62,6 +64,66 @@ public class tripController extends HttpServlet {
 				
 				nextPage = "main.jsp";
 			}  else if (action.equals("reservation.do")) {
+List<DormVO> dormList = new ArrayList<DormVO>();
+				
+				// category_no를 이용해 dorm 정보 조회
+				long miliseconds = System.currentTimeMillis();
+				Date start = new Date(miliseconds);
+				Date end = new Date(miliseconds);
+				int wifi = 0;
+				int park = 0;
+				int air = 0;
+				int dry = 0;
+				int port = 0;
+				int room_person = 1;
+				request.setAttribute("date_s", start);
+				request.setAttribute("date_e", end);
+				
+				
+				
+				int cat_no = Integer.parseInt(request.getParameter("dorm_category_no"));
+
+				try {
+					
+					SimpleDateFormat newDtFormat = new SimpleDateFormat("yyyy-MM-dd");
+					
+					if(request.getParameter("start") != null) {
+						java.util.Date utilDate = new java.util.Date();
+						utilDate = newDtFormat.parse(request.getParameter("start"));
+						start = new java.sql.Date(utilDate.getTime());
+						request.setAttribute("date_s", start);
+					}
+					
+					if(request.getParameter("end") != null) {
+						java.util.Date utilDate = new java.util.Date();
+						utilDate = newDtFormat.parse(request.getParameter("end"));
+						end = new java.sql.Date(utilDate.getTime());
+						request.setAttribute("date_e", end);
+					}
+					if(request.getParameter("wifi") != null) {
+						wifi = Integer.parseInt(request.getParameter("wifi"));
+					}
+					if(request.getParameter("parking") != null) {
+						park = Integer.parseInt(request.getParameter("parking"));
+					}
+					if(request.getParameter("aircon") != null) {
+						air = Integer.parseInt(request.getParameter("aircon"));
+					}
+					if(request.getParameter("dryer") != null) {
+						dry = Integer.parseInt(request.getParameter("dryer"));
+					}
+					if(request.getParameter("port") != null) {
+						port = Integer.parseInt(request.getParameter("port"));
+					}
+					
+					TripDAO dao = new TripDAO();
+					dormList = dao.getDormList(cat_no, start, end, wifi, park, air, dry, port, room_person);
+					request.setAttribute("dormList", dormList);
+					
+				} catch(Exception e) {
+					e.printStackTrace();
+				}
+				
 				nextPage = "/reservation.jsp";
 				
 			} else if (action.equals("detail.do")) {

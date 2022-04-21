@@ -507,4 +507,101 @@ public class TripDAO {
 		}
 	}
 	
+public List<DormVO> getDormList(int dorm_category_no, Date start, Date end, int opt_wifi, int opt_parking, int opt_aircon, int opt_dryer, int opt_port, int room_person){
+		
+		List<DormVO> dormList = new ArrayList<DormVO>();
+		
+		try {
+			con = dataFactory.getConnection();
+			System.out.println("커넥션풀 성공");
+			
+			String query = "";
+			query += " SELECT d.dorm_no, ";
+			query += " 		d.dorm_name, ";
+			query += " 		d.dorm_addr, ";
+			query += " 	    d.opt_wifi, ";
+			query += " 	    d.opt_parking, ";
+			query += " 	    d.opt_aircon, ";
+			query += " 	    d.opt_dryer, ";
+			query += " 	    d.opt_port, ";
+			query += " 	    d.dorm_picture, ";
+			query += " 	    d.dorm_category_no, ";
+			query += " 		Min(m.room_pay_night) as min_pay_night, ";
+			query += " 	    count(vo.reserve_no) as count_reserve_no ";
+			query += " FROM tb_dorm d, ";
+			query += " 	    tb_room m left join (tb_reservation r left join tb_review vo on r.reserve_no = vo.reserve_no) ";
+			query += " 	    on m.dorm_no = r.dorm_no ";
+			query += " WHERE d.dorm_category_no = ? ";
+			query += "     	and d.dorm_no = m.dorm_no ";
+			query += " 		and (to_date(?, 'yy/MM/dd') <= r.reserve_checkin or to_date(?, 'yy/MM/dd') >= r.reserve_checkout or r.reserve_checkin is null) ";
+			if(opt_wifi == 1) {
+				query += " 		and d.opt_wifi >= "+opt_wifi+" ";
+			} 
+			if(opt_parking == 1) {
+				query += " 		and d.opt_parking >= "+opt_parking+" ";
+			}
+			if(opt_aircon==1) {
+			query += " 		and d.opt_aircon >= "+opt_aircon+" ";
+			}
+			if(opt_dryer ==1) {
+				query += " 		and d.opt_dryer >= "+opt_dryer+" ";
+			}
+			if(opt_port == 1) {
+				query += " 		and d.opt_port >= "+opt_port+" ";
+			}
+			query += " 		and m.room_person >= ? ";
+			query += " GROUP BY d.dorm_no, ";
+			query += " 		d.dorm_name, ";
+			query += " 		d.dorm_addr, ";
+			query += " 	    d.opt_wifi, ";
+			query += " 	    d.opt_parking, ";
+			query += " 	    d.opt_aircon, ";
+			query += " 	    d.opt_dryer, ";
+			query += " 	    d.opt_port, ";
+			query += " 	    d.dorm_picture, ";
+			query += " 	    d.dorm_category_no ";
+
+			
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, dorm_category_no);
+			pstmt.setDate(2, end);
+			pstmt.setDate(3, start);
+			pstmt.setInt(4, room_person);
+			
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
+				DormVO dto = new DormVO();
+				dto.setDorm_no(rs.getInt("dorm_no"));
+				dto.setDorm_name(rs.getString("dorm_name"));
+				dto.setDorm_addr(rs.getString("dorm_addr"));
+				dto.setDorm_picture(rs.getString("dorm_picture"));
+				dto.setOpt_wifi(rs.getInt("opt_wifi"));
+				dto.setOpt_parking(rs.getInt("opt_parking"));
+				dto.setOpt_aircon(rs.getInt("opt_aircon"));
+				dto.setOpt_dryer(rs.getInt("opt_dryer"));
+				dto.setOpt_wifi(rs.getInt("opt_wifi"));
+				dto.setOpt_port(rs.getInt("opt_port"));
+				dto.setDorm_category_no(rs.getInt("dorm_category_no"));
+				dto.setMin_pay_night(rs.getInt("min_pay_night"));
+				dto.setCount_reserve_no(rs.getInt("count_reserve_no"));
+				
+				dormList.add(dto);
+			}
+			if(rs != null) {
+				rs.close();
+			}
+			if(pstmt != null) {
+				pstmt.close();
+			}
+			if(con != null) {
+				con.close();
+			}
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return dormList;
+	}
+	
 }

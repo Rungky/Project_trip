@@ -229,6 +229,7 @@ label.label_check {
 }
 
 .order {
+	margin-left:150px;
     width: 650px;
     height: 70px;
 }
@@ -263,39 +264,22 @@ label.label_check {
 .towroom {
     width: 680px;
     height: 100%;
+    overflow: scroll;
 }
 
 .romm {
     width: 640px;
     height: 300px;
     margin: 10px 10px;
+    background-size:cover;
     
 }
 
-.romm.r1 {
-    background-image: linear-gradient( rgba(0, 0, 0, 0), rgba(0, 0, 0.5, 0.8) ),url("https://image.goodchoice.kr/resize_490x348/adimg_new/66150/0/2266f6823245493d7ed2d4730c8bca17.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: flex-end;
-    
-}
-
-.romm.r2 {
-    background-image: linear-gradient( rgba(0, 0, 0, 0), rgba(0, 0, 0.5, 0.8) ),url("https://image.goodchoice.kr/resize_490x348/adimg_new/66150/0/2266f6823245493d7ed2d4730c8bca17.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: flex-end;
-    
-}
-
-.romm.r3 {
-    background-image: linear-gradient( rgba(0, 0, 0, 0), rgba(0, 0, 0.5, 0.8) ),url("https://image.goodchoice.kr/resize_490x348/adimg_new/66150/0/2266f6823245493d7ed2d4730c8bca17.jpg");
+.romm {
+    width: 640px;
+    height: 270px;
+    margin: 0 10px;
+    background-image: linear-gradient( rgba(0, 0, 0, 0), rgba(0, 0, 0.5, 0.8) );
     background-repeat: no-repeat;
     background-size: cover;
     display: flex;
@@ -303,6 +287,7 @@ label.label_check {
     justify-content: space-between;
     align-items: flex-end;
 }
+
 
 .ggumim {
     font-size: 24px;
