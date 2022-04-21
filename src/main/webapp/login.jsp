@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="/login1/css/login.css">
+<link rel="stylesheet" href="./css/login.css">
 <title>로그인</title>
 
 <script>
