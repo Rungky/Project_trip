@@ -64,9 +64,10 @@ public class tripController extends HttpServlet {
 				nextPage = "main.jsp";
 			}  else if (action.equals("reservation.do")) {
 				
-List<DormVO> dormList = new ArrayList<DormVO>();
+				List<DormVO> dormList = new ArrayList<DormVO>();
 				
 				// category_no를 이용해 dorm 정보 조회
+				int cat_no =0;
 				long miliseconds = System.currentTimeMillis();
 				Date start = new Date(miliseconds);
 				Date end = new Date(miliseconds);
@@ -77,14 +78,16 @@ List<DormVO> dormList = new ArrayList<DormVO>();
 				int port = 0;
 				int room_person = 1;
 				int order = 0;
+				int price = 0;
 				request.setAttribute("date_s", start);
 				request.setAttribute("date_e", end);
 				
 				
-				
-				int cat_no = Integer.parseInt(request.getParameter("dorm_category_no"));
 
 				try {
+					if(request.getParameter("dorm_category_no") != null) {
+						cat_no = Integer.parseInt(request.getParameter("dorm_category_no"));
+					} 
 					
 					SimpleDateFormat newDtFormat = new SimpleDateFormat("yyyy-MM-dd");
 					
@@ -122,8 +125,11 @@ List<DormVO> dormList = new ArrayList<DormVO>();
 					if(request.getParameter("order") != null) {
 						order = Integer.parseInt(request.getParameter("order"));
 					}
+					if(request.getParameter("price") != null) {
+						price = Integer.parseInt(request.getParameter("price"));
+					}
 					TripDAO dao = new TripDAO();
-					dormList = dao.getDormList(cat_no, start, end, wifi, park, air, dry, port, room_person, order);
+					dormList = dao.getDormList(cat_no, start, end, wifi, park, air, dry, port, room_person, order, price);
 					request.setAttribute("dormList", dormList);
 					
 				} catch(Exception e) {
