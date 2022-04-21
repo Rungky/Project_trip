@@ -145,12 +145,19 @@ public class tripController extends HttpServlet {
 				
 			} else if (action.equals("detail.do")) {
 				int dormno = Integer.parseInt(request.getParameter("dormno"));
+				String checkin= request.getParameter("reserve_checkin");
+				String checkout = request.getParameter("reserve_checkout");
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+				java.util.Date checkindate = sdf.parse(checkin);
+				java.util.Date checkoutdate = sdf.parse(checkout);
+				long reserveday = (checkoutdate.getTime() - checkindate.getTime()) / (24*60*60*1000);
 				DormDTO dormdto = tripdao.selectDorm(dormno);
 				List<RoomDTO> roomsList = tripdao.selectRoomsList(dormno);
 				List<ReviewDTO> reviewsList = tripdao.selectReviewsList(dormno);
 				request.setAttribute("dormdto", dormdto);
 				request.setAttribute("roomsList", roomsList);
 				request.setAttribute("reviewsList", reviewsList);
+				request.setAttribute("roomday", reserveday);
 				
 				nextPage = "/trip01/detail.jsp";
 				
