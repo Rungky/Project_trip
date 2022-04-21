@@ -221,6 +221,9 @@
 	            	<c:if test="${not empty param.room_person}">
 	            		<input type="hidden" name="room_person" value="${param.room_person}">
 	            	</c:if>
+	            	<c:if test="${not empty param.price}">
+	            		<input type="hidden" name="price" value="${param.price}">
+	            	</c:if>
     	            <button type="submit" class="button button4" name="order" value="1">낮은 가격 순</button>
 	                <button type="submit" class="button button4" name="order" value="2">높은 가격 순</button>
                 </form>
