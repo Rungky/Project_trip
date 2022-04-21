@@ -229,7 +229,7 @@ List<DormVO> dormList = new ArrayList<DormVO>();
 				System.out.println("히스토리 들어옴");
 				try {
 					// session.member_id 담기
-					String member = null;
+					String member = "admin";
 					List<ReservationDTO> reserList = tripdao.selectReservationsList(member);
 					request.setAttribute("reserList",reserList );
 					System.out.println(reserList.size());

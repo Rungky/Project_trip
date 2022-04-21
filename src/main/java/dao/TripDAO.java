@@ -360,6 +360,7 @@ public class TripDAO {
 		return total;
 	}
 	
+	//예약 인서트
 	public void insertReservation(
 			String member_id,
 			Date reserve_checkin,
@@ -383,7 +384,7 @@ public class TripDAO {
 			query += " sysdate";
 			query += " ?,";
 			query += " ?,";
-			query += " ?,";
+			query += " 0,";
 			query += " ?,";
 			query += " ?";
 			query += " )";
@@ -393,9 +394,8 @@ public class TripDAO {
 			pstmt.setDate (2, reserve_checkin);
 			pstmt.setDate(3, reserve_checkout);
 			pstmt.setInt(4, reserve_pay);
-			pstmt.setInt(5, reserve_person);
-			pstmt.setInt(6, room_no);
-			pstmt.setInt(7, dorm_no);
+			pstmt.setInt(5, room_no);
+			pstmt.setInt(6, dorm_no);
 			
 			pstmt.executeUpdate();
 			if(pstmt != null) {

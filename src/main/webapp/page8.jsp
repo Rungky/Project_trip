@@ -51,9 +51,9 @@
 			
 			<div class="name">
 				<div class="name2">숙소 이름</div>
-				<div class="c1">신라스테이 역삼</div>
+				<div class="c1">${'dorm_name'}</div>
 				<br>
-				<div class="name2">객실타입/기간</div>
+				<div class="name2">객실 이름</div>
 				<div class="c2">[내맘대로 8시간 STAY-숙박불가]체크인 시 배정</div>
 				<div class="c3">(15시 체크인) / DayUse</div>
 				<br>
