@@ -25,28 +25,26 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import dao.TripDAO;
 import dto.*;
 
-
-
 @WebServlet("/trip")
 public class tripController extends HttpServlet {
 	TripDAO tripdao = new TripDAO();
-	
-	
 
-
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doHandle(request, response);
 		System.out.println(request.getParameter("action"));
 
 		System.out.println("get");
 	}
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doHandle(request, response);
 		System.out.println(request.getParameter("action"));
-		
+
 		System.out.println("post");
 	}
+
 	protected void doHandle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		String nextPage = "";
@@ -231,25 +229,26 @@ List<DormVO> dormList = new ArrayList<DormVO>();
 				System.out.println("히스토리 들어옴");
 				try {
 					// session.member_id 담기
-				
-					List<ReservationDTO> reserList = tripdao.selectReservationsList("admin");
+					String member = null;
+					List<ReservationDTO> reserList = tripdao.selectReservationsList(member);
 					request.setAttribute("reserList",reserList );
+					System.out.println(reserList.size());
 					//객실 코드 받을 수 있음 
-					
-	/*				if(reserList != null && reserList.size()> 0) {
+					if(reserList != null && reserList.size()> 0) {
 						System.out.println("List내용있음, 예약내역 출력");
 						nextPage = "/trip01/history.jsp";
-					} else {
+					//session.member_id값과 비교하기
+						
+					} else if(reserList.size() == 0 && member == null) {
+						nextPage = "/trip01/nohistory2.jsp";
+					} else if(reserList.size() == 0 && member != null) {
 						System.out.println("예약내역 없음");
 						nextPage = "/trip01/nohistory.jsp";
-					}*/
-					
-					
+					}
 					
 				}catch (Exception e) {
 					e.printStackTrace();
 				}
-				nextPage = "/trip01/history.jsp";
 			} else if (action.equals("page8.do")) {
 				//가져와야 하는 값 숙소이름, 객실 이름, 체크인 체크아웃 금액 룸 컨텐츠..? 세션..?
 				//member_id member_tel
