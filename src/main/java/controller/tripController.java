@@ -77,6 +77,7 @@ List<DormVO> dormList = new ArrayList<DormVO>();
 				int dry = 0;
 				int port = 0;
 				int room_person = 1;
+				int order = 0;
 				request.setAttribute("date_s", start);
 				request.setAttribute("date_e", end);
 				
@@ -116,9 +117,14 @@ List<DormVO> dormList = new ArrayList<DormVO>();
 					if(request.getParameter("port") != null) {
 						port = Integer.parseInt(request.getParameter("port"));
 					}
-					
+					if(request.getParameter("room_person") != null) {
+						room_person = Integer.parseInt(request.getParameter("room_person"));
+					}
+					if(request.getParameter("order") != null) {
+						order = Integer.parseInt(request.getParameter("order"));
+					}
 					TripDAO dao = new TripDAO();
-					dormList = dao.getDormList(cat_no, start, end, wifi, park, air, dry, port, room_person);
+					dormList = dao.getDormList(cat_no, start, end, wifi, park, air, dry, port, room_person, order);
 					request.setAttribute("dormList", dormList);
 					
 				} catch(Exception e) {

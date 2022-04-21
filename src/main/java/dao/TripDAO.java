@@ -507,10 +507,9 @@ public class TripDAO {
 		}
 	}
 	
-public List<DormVO> getDormList(int dorm_category_no, Date start, Date end, int opt_wifi, int opt_parking, int opt_aircon, int opt_dryer, int opt_port, int room_person){
+public List<DormVO> getDormList(int dorm_category_no, Date start, Date end, int opt_wifi, int opt_parking, int opt_aircon, int opt_dryer, int opt_port, int room_person, int order){
 		
 		List<DormVO> dormList = new ArrayList<DormVO>();
-		
 		try {
 			con = dataFactory.getConnection();
 			System.out.println("커넥션풀 성공");
@@ -560,6 +559,11 @@ public List<DormVO> getDormList(int dorm_category_no, Date start, Date end, int 
 			query += " 	    d.opt_port, ";
 			query += " 	    d.dorm_picture, ";
 			query += " 	    d.dorm_category_no ";
+			if(order == 1) {
+				query += " ORDER BY min_pay_night ";
+			} else if(order == 2) {
+				query += " ORDER BY min_pay_night DESC ";
+			}
 
 			
 			pstmt = con.prepareStatement(query);
