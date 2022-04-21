@@ -2,7 +2,9 @@ body {
     margin: 0;
     margin-top: 81px;
 }
-
+td {
+	padding : 0;
+}
 header {
     position: fixed;
     top: 0;
@@ -17,6 +19,12 @@ section {
     display: flex;
     justify-content: center;
     width: 1400px;
+}
+.right {
+	text-align : right;
+}
+.pd {
+	padding : 10px;
 }
 .hd {
 	width: 77%;
@@ -68,8 +76,11 @@ nav > ul > li > a{
 }
 .off {
 	background: rgb(250,250,250);
-	padding : 10px;
-	overflow : hidden;
+	padding : 10px 10px 0 10px;
+  	text-overflow: ellipsis;
+  	-webkit-box-orient:vertical;
+	overflow: hidden;
+	-webkit-line-clamp: 3;
 }
 .top {
     display: flex;
@@ -79,6 +90,7 @@ nav > ul > li > a{
 	color: rgb(0,121,107);
 	background : none;
 	border : none;
+	cursor: pointer;
 }
 .avr {
 	border-radius: 4px;
@@ -114,7 +126,7 @@ div > article {
     padding : 50px;
     width: 1000px;
 }
-.st2 > input {
+ input[type=radio] {
     display: none;
 }
 label {
@@ -139,47 +151,105 @@ label:hover {
     margin: 20px 50px 20px 50px;
 }
 table{
-    margin: 20px 50px 20px 50px;
+    margin: 20px 50px 30px 50px;
     width: 90%;
-    margin-bottom: 30px;
 }  
+.review_img {
+    max-width : 1024px;
+}
 #tab1:checked ~ #tb1,
 #tab2:checked ~ #tb2 
 {
     display: table;
+}
+.calender_box {
+	margin: 50px 50px 30px 70px;
+}
+.calender {
+	width:200px;
+	height : 60px;
+	font-size: 30px;
+}
+.datebt {
+	margin: 0 0 5px 20px;
+	width : 100px;
+	height : 40px;
+	font-size : 20px;
+    border: 1px solid rgb(242,17,76);
+    background: #fff;
+    font-weight: bold;
+    color: rgb(242,17,76);
+	cursor:pointer;
 }
 .image2 {
     width: 300px;
     height: 200px;
     margin: 20px;
 }
+.bd-top {
+	border-top:1px solid rgb(0,0,0,0.08);
+}
+.bdbt {
+	 text-align : center;
+}
+#roombt {
+	height : 40px;
+	border : none;
+	font-size : 16px;
+	font-weight : 200;
+	background : #fff url(../image/roombt.png) 100% 50% no-repeat;
+	width: 500px;
+	text-align : left;
+	background-size: 12px auto;
+	cursor: pointer;
+}
+.ti  {
+	font-size: 20px;
+	font-weight: bold;
+	}
 .pr {
     font-weight: bold;
     text-align: right;
-    padding-right: 40px;
+    font-size : 20px;
+}
+.wd{
+	width:230px;
+	padding: 0 10px 0 10px;
 }
 .rsv {
-    width: 90%;
+    width: 250px;
     height: 30px;
     background-color: rgba(230,34,67,1);
     border: none;
     border-radius: 3px;
     color: #fff;
     font-size: 18px;
+    cursor: pointer;
+}
+.rsv2 {
+    width: 500px;
+    height: 30px;
+    background-color: rgba(230,34,67,1);
+    border: none;
+    border-radius: 3px;
+    color: #fff;
+    font-size: 18px;
+    cursor: pointer;
 }
 
 .title {
     font-weight: bold;
     font-size: 20px;
 }
-.star10{
-   width: 100px;
-   margin-right: 10px;
-   height: 10px; 
-   background-image: url("../image/star.jpg");
-   background-position: 0%;
-   background-position-y: 0%;
-   background-size: 100%;
+.star10 {
+	width: 100px;
+	margin-right: 10px;
+	height: 10px;
+	background-image: url("../image/star.jpg");
+	background-position: 0%;
+	background-position-y: 0%;
+	background-size: 100px;
+	background-repeat: no-repeat;
 }
 .star9{
     width: 100px;
@@ -188,7 +258,8 @@ table{
     background-image: url("../image/star.jpg");
     background-position: 0%;
     background-position-y: 10%;
-    background-size: 100%;
+    background-size: 100px;
+    background-repeat: no-repeat;
  }
  .star8{
     width: 100px;
@@ -197,7 +268,8 @@ table{
     background-image: url("../image/star.jpg");
     background-position: 0%;
     background-position-y: 20%;
-    background-size: 100%;
+    background-size: 100px;
+    background-repeat: no-repeat;
  }
  .star7{
     width: 100px;
@@ -206,7 +278,8 @@ table{
     background-image: url("../image/star.jpg");
     background-position: 0%;
     background-position-y: 30%;
-    background-size: 100%;
+    background-size: 100px;
+    background-repeat: no-repeat;
  }
  .star6{
     width: 100px;
@@ -215,7 +288,8 @@ table{
     background-image: url("../image/star.jpg");
     background-position: 0%;
     background-position-y: 40%;
-    background-size: 100%;
+    background-size: 100px;
+    background-repeat: no-repeat;
  }
  .star5{
     width: 100px;
@@ -224,7 +298,8 @@ table{
     background-image: url("../image/star.jpg");
     background-position: 0%;
     background-position-y: 50%;
-    background-size: 100%;
+    background-size: 100px;
+    background-repeat: no-repeat;
  }
  .star4{
     width: 100px;
@@ -233,7 +308,8 @@ table{
     background-image: url("../image/star.jpg");
     background-position: 0%;
     background-position-y:60%;
-    background-size: 100%;
+    background-size: 100px;
+    background-repeat: no-repeat;
  }
  .star3{
     width: 100px;
@@ -242,7 +318,8 @@ table{
     background-image: url("../image/star.jpg");
     background-position: 0%;
     background-position-y: 70%;
-    background-size: 100%;
+    background-size: 100px;
+    background-repeat: no-repeat;
  }
  .star2{
     width: 100px;
@@ -251,7 +328,8 @@ table{
     background-image: url("../image/star.jpg");
     background-position: 0%;
     background-position-y: 80%;
-    background-size: 100%;
+    background-size: 100px;
+    background-repeat: no-repeat;
  }
  .star1{
     width: 100px;
@@ -260,7 +338,8 @@ table{
     background-image: url("../image/star.jpg");
     background-position: 0%;
     background-position-y: 90%;
-    background-size: 100%;
+    background-size: 100px;
+    background-repeat: no-repeat;
  }
  .star0{
     width: 100px;
@@ -269,10 +348,12 @@ table{
     background-image: url("../image/star.jpg");
     background-position: 0%;
     background-position-y: 100%;
-    background-size: 100%;
+    background-size: 100px;
+    background-repeat: no-repeat;
  }
 .score {
     font-size: 15px;
+    padding-left : 105px;
 }
 .rev {
     font-weight:lighter;
@@ -283,13 +364,36 @@ table{
     font-weight:lighter;
     font-size: 15px;
 }
-.rev_pt {
-	width : 100%;
-	height: 100%;
-}
 footer{
     color: rgba(0,0,0,0.38);
     background-color: rgb(245,245,245);
     padding : 50px;
 }
-  
+ 
+.hiddenbt {
+ 	position:fixed;
+ 	width:100vw;
+ 	height: 100vh;
+ 	top:0;
+ 	left:0;
+ 	touch-action: none;
+ 	z-index:200;
+ 	background-color : rgb(0,0,0,0.5);
+ }
+ .roomdetail {
+	width:40vw;
+	height : 40vh;
+	margin: -20vh 0 0 -20vw;
+ 	top: 50vh;
+ 	bottom: 50vh;
+ 	left:50vw;
+ 	right : 50vw;
+ 	position: fixed;
+ 	z-index:200;
+ 	background : white;
+ } 
+.closebt {
+	border: none;
+	background : none;
+	cursor : pointer;
+} 

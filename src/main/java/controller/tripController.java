@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
@@ -144,6 +145,7 @@ List<DormVO> dormList = new ArrayList<DormVO>();
 				
 			} else if (action.equals("upload.do")) {
 			
+//				HttpSession session = request.getSession();
 				String title = "";
 				String contents = "";
 				double score = 0;
@@ -156,7 +158,7 @@ List<DormVO> dormList = new ArrayList<DormVO>();
 				String picture = "1";
 				String encoding = "utf-8"; 
 				
-				File currentDirPath = new File("C:\\Users\\jin58\\eclipse-workspace\\project_trip\\src\\main\\webapp\\image\\review");
+				File currentDirPath = new File("C:\\workstation\\project_trip\\src\\main\\webapp\\image\\review");
 				DiskFileItemFactory factory = new DiskFileItemFactory();  
 				factory.setRepository(currentDirPath); 
 				factory.setSizeThreshold(1024 * 1024); 
@@ -214,6 +216,7 @@ List<DormVO> dormList = new ArrayList<DormVO>();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+//				memberId = (String) session.getAttribute("memberid");
 				System.out.println(title);
 				System.out.println(contents);
 				System.out.println(score);
@@ -261,10 +264,14 @@ List<DormVO> dormList = new ArrayList<DormVO>();
 				nextPage = "/page8.jsp";
 			} else if(action.equals("review.do")) {
 				System.out.println("액션 리뷰 들어옴");
-				//reservationDTO 넘겨주기
 				try {
-					int reserve_no = Integer.parseInt(request.getParameter("reserve_no"));
+					HttpSession session = request.getSession();
+					int reserveno = Integer.parseInt(request.getParameter("reserve_no"));
+
+					ReservationDTO reservationdto = tripdao.selectReservation(reserveno);
 					
+					request.setAttribute("reserveno", reserveno);
+					request.setAttribute("reservationdto", reservationdto);					
 					
 				}catch (Exception e) {
 					e.printStackTrace();

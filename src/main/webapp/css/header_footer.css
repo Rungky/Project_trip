@@ -7,7 +7,8 @@ header {
     position: fixed;
     top: 0;
     width: 100%;
-     background-color: #f7323f;
+    background-color: #f7323f;
+    z-index: 100;
 }
 
 .hd {

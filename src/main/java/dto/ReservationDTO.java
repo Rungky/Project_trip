@@ -10,6 +10,11 @@ public class ReservationDTO {
 	private Date reserve_checkout;
 	private int reserve_pay;
 	private int reserve_person;
+	private int room_no;
+	private int dorm_no;
+	
+	
+	private String dorm_name;
 	private String room_name;
 	
 	public int getReserve_no() {
@@ -66,14 +71,16 @@ public class ReservationDTO {
 	public void setDorm_name(String dorm_name) {
 		this.dorm_name = dorm_name;
 	}
-	private String dorm_name;
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	public int getRoom_no() {
+		return room_no;
+	}
+	public void setRoom_no(int room_no) {
+		this.room_no = room_no;
+	}
+	public int getDorm_no() {
+		return dorm_no;
+	}
+	public void setDorm_no(int dorm_no) {
+		this.dorm_no = dorm_no;
+	}
 }
