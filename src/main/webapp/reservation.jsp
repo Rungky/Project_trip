@@ -82,29 +82,70 @@
 	                <div>
 	                   <ul style="list-style-type: none;">
 	                        <li class="tum">
-	                            <input type="checkbox" id="check_1" class="choice" name="wifi" value="1">
-	                            <label for="check_1" class="label_check">와이파이</label>
+		                        <c:choose>
+		                        	<c:when test="${empty param.wifi}">
+			                            <input type="checkbox" id="check_1" class="choice" name="wifi" value="1">
+			                            <label for="check_1" class="label_check">와이파이</label>
+		                        	</c:when>
+		                        	<c:otherwise>
+		                        		<input type="checkbox" id="check_1" class="choice" name="wifi" value="1" checked>
+			                            <label for="check_1" class="label_check">와이파이</label>
+		                        	</c:otherwise>
+		                        </c:choose>
 	                        </li>
 	                        <li  class="tum">
-	                            <input type="checkbox" id="check_2" class="choice" name="parking" value="1">
-	                            <label for="check_2" class="label_check">주차장</label>
+	                        	<c:choose>
+		                        	<c:when test="${empty param.parking}">
+		                        		<input type="checkbox" id="check_2" class="choice" name="parking" value="1">
+	                            		<label for="check_2" class="label_check">주차장</label>
+		                        	</c:when>
+			                        <c:otherwise>
+			                        	<input type="checkbox" id="check_2" class="choice" name="parking" value="1" checked>
+	                            		<label for="check_2" class="label_check">주차장</label>
+			                        </c:otherwise>
+		                        </c:choose>
 	                        </li>
 	                        <li  class="tum">
-	                            <input type="checkbox" id="check_3" class="choice" name="aircon" value="1">
-	                            <label for="check_3" class="label_check">에어컨</label>
+	                        	<c:choose>
+		                        	<c:when test="${empty param.aircon}">
+		                    			<input type="checkbox" id="check_3" class="choice" name="aircon" value="1">
+			                            <label for="check_3" class="label_check">에어컨</label>
+		                        	</c:when>
+			                        <c:otherwise>
+			                            <input type="checkbox" id="check_3" class="choice" name="aircon" value="1" checked>
+			                            <label for="check_3" class="label_check">에어컨</label>
+			                        </c:otherwise>
+		                        </c:choose>
 	                        </li>
 	                        <li  class="tum">
-	                            <input type="checkbox" id="check_4" class="choice" name="dryer" value="1">
-	                            <label for="check_4" class="label_check">드라이기</label>
+	                        	<c:choose>
+		                        	<c:when test="${empty param.dryer}">
+			                            <input type="checkbox" id="check_4" class="choice" name="dryer" value="1">
+			                            <label for="check_4" class="label_check">드라이기</label>
+		                        	</c:when>
+			                        <c:otherwise>
+			                        	<input type="checkbox" id="check_4" class="choice" name="dryer" value="1" checked>
+			                            <label for="check_4" class="label_check">드라이기</label>
+			                        </c:otherwise>
+		                        </c:choose>
 	                        </li>
 	                        <li  class="tum">
-	                            <input type="checkbox" id="check_5" class="choice" name="port" value="1">
-	                            <label for="check_5" class="label_check">커피포트</label>
+	                        	<c:choose>
+		                        	<c:when test="${empty param.port}">
+			                        	<input type="checkbox" id="check_5" class="choice" name="port" value="1">
+		                            	<label for="check_5" class="label_check">커피포트</label>
+		                        	</c:when>
+			                        <c:otherwise>
+			                            <input type="checkbox" id="check_5" class="choice" name="port" value="1" checked>
+			                            <label for="check_5" class="label_check">커피포트</label>
+			                        </c:otherwise>
+		                        </c:choose>
 	                        </li>
 	                   </ul>
 	                </div>
 	                
 	            </div>
+	            <!--
 	            <div class="ner5">
 	                <h3>최대가격</h3>
 	                <div class="dropdown">
@@ -118,6 +159,7 @@
 						 </div>
 					 </div>
 	            </div>
+	            -->
             </form>
         </div>
         <div class="con2">

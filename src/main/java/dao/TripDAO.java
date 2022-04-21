@@ -507,7 +507,7 @@ public class TripDAO {
 		}
 	}
 	
-	public List<DormVO> getDormList(int dorm_category_no, Date start, Date end, int opt_wifi, int opt_parking, int opt_aircon, int opt_dryer, int opt_port, int room_person, int order){
+public List<DormVO> getDormList(int dorm_category_no, Date start, Date end, int opt_wifi, int opt_parking, int opt_aircon, int opt_dryer, int opt_port, int room_person, int order){
 		
 		List<DormVO> dormList = new ArrayList<DormVO>();
 		try {
