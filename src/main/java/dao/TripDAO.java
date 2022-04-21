@@ -286,7 +286,7 @@ public class TripDAO {
 			System.out.println("진입");
 			String query = "";
 			query += " SELECT reserve_no, member_id, reserve_date, reserve_checkin, reserve_checkout, ";
-			query += " reserve_pay,reserve_person, room.room_name, dorm.dorm_name ";
+			query += " reserve_pay,reserve_person, room.room_name, dorm.dorm_name, room.room_picture ";
 			query += " FROM tb_reservation reser , tb_room room, tb_dorm dorm ";
 			query += " WHERE ";
 			query += "    reser.room_no = room.room_no ";
@@ -304,13 +304,18 @@ public class TripDAO {
 				ReservationDTO dto = new ReservationDTO();
 				dto.setReserve_no(rs.getInt("reserve_no"));
 				dto.setMember_id(rs.getString("member_id"));
+				System.out.println("사이3");
 				dto.setReserve_date(rs.getDate("reserve_date"));
 				dto.setReserve_checkin(rs.getDate("reserve_checkin"));
+				System.out.println("사이4");
 				dto.setReserve_checkout(rs.getDate("reserve_checkout"));
 				dto.setReserve_pay(rs.getInt("reserve_pay"));
 				dto.setReserve_person(rs.getInt("reserve_person"));
+				System.out.println("사이5");
 				dto.setRoom_name(rs.getString("room_name"));
 				dto.setDorm_name(rs.getString("dorm_name"));
+				System.out.println("사이6");
+				dto.setRoom_picture(rs.getString("room_picture"));
 				list.add(dto);
 				System.out.println("값 다 넣음");
 			}

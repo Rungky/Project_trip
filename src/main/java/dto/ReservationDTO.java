@@ -13,7 +13,7 @@ public class ReservationDTO {
 	private int room_no;
 	private int dorm_no;
 	
-	
+	private String room_picture;
 	private String dorm_name;
 	private String room_name;
 	
@@ -82,5 +82,11 @@ public class ReservationDTO {
 	}
 	public void setDorm_no(int dorm_no) {
 		this.dorm_no = dorm_no;
+	}
+	public String getRoom_picture() {
+		return room_picture;
+	}
+	public void setRoom_picture(String room_picture) {
+		this.room_picture = room_picture;
 	}
 }

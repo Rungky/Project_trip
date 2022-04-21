@@ -36,7 +36,7 @@
 			<div>
 				<div>예약자 이름</div>
 				<!-- session.member_name -->
-				<div>${'member_name'}</div>
+				<div>${'member_id'}</div>
 			</div>
 			<br>
 			<div>
@@ -54,22 +54,22 @@
 				<div class="c1">${'dorm_name'}</div>
 				<br>
 				<div class="name2">객실 이름</div>
-				<div class="c2">[내맘대로 8시간 STAY-숙박불가]체크인 시 배정</div>
+				<div class="c2">${'room_name' }</div>
 				<div class="c3">(15시 체크인) / DayUse</div>
 				<br>
 				<div>
 					<div class="name2">체크인</div>
-					<div class="c4">04.12 화 15:00</div>
+					<div class="c4">${'check_in'} </div>
 				</div>
 				<br>
 				<div>
 					<div class="name2">체크아웃</div>
-					<div class="c5">04.12 화 23:59</div>
+					<div class="c5">${'check_out'}</div>
 				</div>
 				<br>
 				<div class="c6">
 					<div>총 결제금액(VAT포함)</div>
-					<div>87,010원</div>
+					<div>${'room_pay'}</div>
 				</div>
 			</div>
 			<!--  member_id 가져가야함-->

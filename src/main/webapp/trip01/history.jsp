@@ -63,7 +63,7 @@ table {
 						</tr>
 					<tr>
 							<td rowspan="4" class="img"><img class="img2" style="width:150px; height: 100px; padding: 10px"
-								src="${'https://image.goodchoice.kr/resize_490x348/adimg_new/54325/174064/ab3aa6fb6b901e33c6c6e5bf6c2d7b75.jpg'}"></td>
+								src="${result.room_picture}"></td>
 							<td>${result.dorm_name}</td>
 							<td rowspan="5" class="rv"><a
 								href="/project_trip/trip?action=review.do&reserve_no=${result.reserve_no}"><button class="rvbt"
