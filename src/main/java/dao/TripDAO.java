@@ -238,6 +238,45 @@ public class TripDAO {
 		return list;
 	}
 	
+	public ReservationDTO selectReservation(int reserveno){
+		ReservationDTO dto = new ReservationDTO();
+		try {
+			con = dataFactory.getConnection();
+			String query = "";
+			query += " SELECT * ";
+			query += " FROM tb_reservation";
+			query += " WHERE reserve_no = ?";
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, reserveno);
+			ResultSet rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				dto.setReserve_no(rs.getInt("reserve_no"));
+				dto.setMember_id(rs.getString("member_id"));
+				dto.setReserve_date(rs.getDate("reserve_date"));
+				dto.setReserve_checkin(rs.getDate("reserve_checkin"));
+				dto.setReserve_checkout(rs.getDate("reserve_checkout"));
+				dto.setReserve_pay(rs.getInt("reserve_pay"));
+				dto.setReserve_person(rs.getInt("reserve_person"));
+				dto.setRoom_no(rs.getInt("room_no"));
+				dto.setDorm_no(rs.getInt("dorm_no"));
+			}
+			if(rs != null) {
+				rs.close();
+			}
+			if(pstmt != null) {
+				pstmt.close();
+			}
+			if(con != null) {
+				con.close();
+			}
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return dto;
+	}
 	
 	public List<ReservationDTO> selectReservationsList(String member_id){
 		List<ReservationDTO> list = new ArrayList<ReservationDTO>();
@@ -507,7 +546,7 @@ public class TripDAO {
 		}
 	}
 	
-public List<DormVO> getDormList(int dorm_category_no, Date start, Date end, int opt_wifi, int opt_parking, int opt_aircon, int opt_dryer, int opt_port, int room_person, int order){
+	public List<DormVO> getDormList(int dorm_category_no, Date start, Date end, int opt_wifi, int opt_parking, int opt_aircon, int opt_dryer, int opt_port, int room_person, int order, int price){
 		
 		List<DormVO> dormList = new ArrayList<DormVO>();
 		try {
@@ -530,8 +569,11 @@ public List<DormVO> getDormList(int dorm_category_no, Date start, Date end, int 
 			query += " FROM tb_dorm d, ";
 			query += " 	    tb_room m left join (tb_reservation r left join tb_review vo on r.reserve_no = vo.reserve_no) ";
 			query += " 	    on m.dorm_no = r.dorm_no ";
-			query += " WHERE d.dorm_category_no = ? ";
-			query += "     	and d.dorm_no = m.dorm_no ";
+			query += " WHERE ";
+			if(dorm_category_no != 0) {
+				query += " 		d.dorm_category_no = "+dorm_category_no+" and ";
+			}
+			query += "     	d.dorm_no = m.dorm_no ";
 			query += " 		and (to_date(?, 'yy/MM/dd') <= r.reserve_checkin or to_date(?, 'yy/MM/dd') >= r.reserve_checkout or r.reserve_checkin is null) ";
 			if(opt_wifi == 1) {
 				query += " 		and d.opt_wifi >= "+opt_wifi+" ";
@@ -549,6 +591,20 @@ public List<DormVO> getDormList(int dorm_category_no, Date start, Date end, int 
 				query += " 		and d.opt_port >= "+opt_port+" ";
 			}
 			query += " 		and m.room_person >= ? ";
+			
+			if(price==1) {
+				query += " 		and room_pay_night <= 50000 ";
+			}
+			if(price==2) {
+				query += " 		and (room_pay_night <= 100000 and room_pay_night > 50000 ) ";
+			}
+			if(price==3) {
+				query += " 		and (room_pay_night <= 200000 and room_pay_night > 100000 ) ";
+			}
+			if(price==4) {
+				query += " 		and (room_pay_night > 200000 ) ";
+			}
+			
 			query += " GROUP BY d.dorm_no, ";
 			query += " 		d.dorm_name, ";
 			query += " 		d.dorm_addr, ";
@@ -567,10 +623,9 @@ public List<DormVO> getDormList(int dorm_category_no, Date start, Date end, int 
 
 			
 			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, dorm_category_no);
-			pstmt.setDate(2, end);
-			pstmt.setDate(3, start);
-			pstmt.setInt(4, room_person);
+			pstmt.setDate(1, end);
+			pstmt.setDate(2, start);
+			pstmt.setInt(3, room_person);
 			
 			ResultSet rs = pstmt.executeQuery();
 			while(rs.next()) {

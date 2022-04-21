@@ -12,22 +12,26 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
-import com.oreilly.servlet.MultipartRequest;
-import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
-
+import dao.*;
 import dao.TripDAO;
-import dto.*;
+import dto.DormDTO;
+import dto.DormVO;
+import dto.MemberDTO;
+import dto.ReservationDTO;
+import dto.ReviewDTO;
+import dto.RoomDTO;
 
 @WebServlet("/trip")
 public class tripController extends HttpServlet {
 	TripDAO tripdao = new TripDAO();
+	MemberDAO memberDAO = new MemberDAO();
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -46,6 +50,8 @@ public class tripController extends HttpServlet {
 	}
 
 	protected void doHandle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// session 객체 만들기
+		HttpSession session = request.getSession();
 
 		String nextPage = "";
 		String action = " ";
@@ -63,9 +69,10 @@ public class tripController extends HttpServlet {
 				nextPage = "main.jsp";
 			}  else if (action.equals("reservation.do")) {
 				
-List<DormVO> dormList = new ArrayList<DormVO>();
+				List<DormVO> dormList = new ArrayList<DormVO>();
 				
 				// category_no를 이용해 dorm 정보 조회
+				int cat_no =0;
 				long miliseconds = System.currentTimeMillis();
 				Date start = new Date(miliseconds);
 				Date end = new Date(miliseconds);
@@ -76,14 +83,16 @@ List<DormVO> dormList = new ArrayList<DormVO>();
 				int port = 0;
 				int room_person = 1;
 				int order = 0;
+				int price = 0;
 				request.setAttribute("date_s", start);
 				request.setAttribute("date_e", end);
 				
 				
-				
-				int cat_no = Integer.parseInt(request.getParameter("dorm_category_no"));
 
 				try {
+					if(request.getParameter("dorm_category_no") != null) {
+						cat_no = Integer.parseInt(request.getParameter("dorm_category_no"));
+					} 
 					
 					SimpleDateFormat newDtFormat = new SimpleDateFormat("yyyy-MM-dd");
 					
@@ -121,8 +130,11 @@ List<DormVO> dormList = new ArrayList<DormVO>();
 					if(request.getParameter("order") != null) {
 						order = Integer.parseInt(request.getParameter("order"));
 					}
+					if(request.getParameter("price") != null) {
+						price = Integer.parseInt(request.getParameter("price"));
+					}
 					TripDAO dao = new TripDAO();
-					dormList = dao.getDormList(cat_no, start, end, wifi, park, air, dry, port, room_person, order);
+					dormList = dao.getDormList(cat_no, start, end, wifi, park, air, dry, port, room_person, order, price);
 					request.setAttribute("dormList", dormList);
 					
 				} catch(Exception e) {
@@ -144,6 +156,7 @@ List<DormVO> dormList = new ArrayList<DormVO>();
 				
 			} else if (action.equals("upload.do")) {
 			
+//				HttpSession session = request.getSession();
 				String title = "";
 				String contents = "";
 				double score = 0;
@@ -156,7 +169,7 @@ List<DormVO> dormList = new ArrayList<DormVO>();
 				String picture = "1";
 				String encoding = "utf-8"; 
 				
-				File currentDirPath = new File("C:\\Users\\jin58\\eclipse-workspace\\project_trip\\src\\main\\webapp\\image\\review");
+				File currentDirPath = new File("C:\\workstation\\project_trip\\src\\main\\webapp\\image\\review");
 				DiskFileItemFactory factory = new DiskFileItemFactory();  
 				factory.setRepository(currentDirPath); 
 				factory.setSizeThreshold(1024 * 1024); 
@@ -214,6 +227,7 @@ List<DormVO> dormList = new ArrayList<DormVO>();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+//				memberId = (String) session.getAttribute("memberid");
 				System.out.println(title);
 				System.out.println(contents);
 				System.out.println(score);
@@ -261,16 +275,77 @@ List<DormVO> dormList = new ArrayList<DormVO>();
 				nextPage = "/page8.jsp";
 			} else if(action.equals("review.do")) {
 				System.out.println("액션 리뷰 들어옴");
-				//reservationDTO 넘겨주기
 				try {
-					int reserve_no = Integer.parseInt(request.getParameter("reserve_no"));
+//					HttpSession session = request.getSession();
+					int reserveno = Integer.parseInt(request.getParameter("reserve_no"));
+
+					ReservationDTO reservationdto = tripdao.selectReservation(reserveno);
 					
+					request.setAttribute("reserveno", reserveno);
+					request.setAttribute("reservationdto", reservationdto);					
 					
 				}catch (Exception e) {
 					e.printStackTrace();
 				}
 
 				nextPage = "/review.jsp";
+			}else if (action.equals("loginForm.do")) {
+					nextPage = "/login.jsp";
+
+				} else if (action.equals("joinForm.do")) {
+					nextPage = "/signup.jsp";
+
+				} else if (action.equals("join.do")) { // 회원가입
+					String id = request.getParameter("id");
+					String password = request.getParameter("password");
+					String name = request.getParameter("name");
+					String tel = request.getParameter("tel");
+
+					MemberDTO memberDTO = new MemberDTO();
+					try {
+						memberDTO.setMember_id(id);
+						memberDTO.setMember_pw(password);
+						memberDTO.setMember_name(name);
+						memberDTO.setMember_tel(tel);
+
+						memberDAO.join(memberDTO);
+						System.out.println(id);
+						if (id.equals("") || password.equals("") || name.equals("") || tel.equals("")) {
+							nextPage = "/signup.jsp";
+						} else {
+							nextPage = "/login.jsp";
+						}
+
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				} else if (action.equals("login.do")) {
+					String id = request.getParameter("id");
+					String password = request.getParameter("password");
+
+					MemberDTO memberDTO = new MemberDTO();
+
+					try {
+						memberDTO.setMember_id(id);
+						memberDTO.setMember_pw(password);
+						MemberDTO mem = memberDAO.login(memberDTO);
+
+						if (id.equals(mem.getMember_id()) && password.equals(mem.getMember_pw())) {
+							session.setAttribute("id", mem.getMember_id());
+							nextPage = "/main.jsp";
+						} else {
+							nextPage = "/login.jsp";
+						}
+
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				} else if (action.equals("loginOut.do")) {
+					// session을 초기화
+					session.invalidate();
+
+					// 메인 페이지로 되돌아감
+					nextPage = "/main.jsp";
 			}else {
 				System.out.println("잘못들어옴");
 			}

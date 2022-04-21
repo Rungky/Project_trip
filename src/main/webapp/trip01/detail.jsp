@@ -8,47 +8,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>details</title>
-
     <link rel="stylesheet" href="./css/detail.css">
     <link rel="stylesheet" href="./css/header_footer.css">
-    
-    
-    
-   <script>
-function drop_contents() {
-
-	var click = document.getElementsByClassName("onbutton");
-	var contents = document.getElementsByClassName("off");
-	if (contents[0].style.height == ("195px")) {
-		click[0].innerHTML = "접기";
-		contents[0].style.height = "auto";
-	} else {
-		click[0].innerHTML = "더보기";
-		contents[0].style.height = "195px";
-	}
-
-}
-			</script>
 </head>
 
 <body>
-    <header>
-        <div class="hd">
-            <div>
-                <form action="/trip">
-                    <button class="bt"><img class="rogo" src="./image/logo.png"></button>
-                </form>
-            </div>
-            <nav>
-                <ul>
-                    <li><a href="">예약 내역</a></li>
-                    <li><a href="">Q&A</a></li>
-                    <li><a href="">로그아웃</a></li>
-
-                </ul>
-            </nav>
-        </div>
-    </header>
+    <%@ include file="../header.jsp" %>
     <section>
         <div class="center">
             <div class="st">
@@ -67,8 +32,7 @@ function drop_contents() {
                         ${dormdto.dorm_addr }
                     </div>
                     <br>
-                   	<div class="off" style="height:195px;">
-	                    <div>
+                   	<div class="off" style="display: -webkit-box;">
 	                    	<div class="top">
 	                    		<c:forTokens var="item2" items="${dormdto.dorm_contents }" begin="0" end="0" delims=",">
 									${item2}
@@ -80,9 +44,6 @@ function drop_contents() {
 									<li>${item}</li>
 								</c:forTokens>
 							</ul>
-						</div>
-						
-	                    <div>
 	                        취소 및 환불 규정<br>
 	                        <ul>
 	                            <li>체크인일 기준 7일 전 : 100% 환불</li>
@@ -90,12 +51,14 @@ function drop_contents() {
 	                            <li>체크인일 기준 3일 전 ~ 당일 및 : 환불 불가</li>
 	                            <li>취소, 환불시 수수료가 발생할 수 있습니다.</li>
 	                        </ul>
-	                    </div>
                     </div>
                 </article>
             </div>
         </div>
     </section>
+    <div id="cancel" onclick="cancel()" class="hiddenbt" style="display:none">
+		&nbsp;	
+	</div>
     <section>
         <div class="center">
             <div class="st2">
@@ -103,41 +66,122 @@ function drop_contents() {
                 <label for="tab1">객실 안내/예약</label>
                 <input id="tab2" type="radio" name="tabs">
                 <label for="tab2">리뷰</label>
-                <c:forEach var="item" items="${roomsList }">
-	                <table id="tb1">
-	                    <tr>
-	                        <td rowspan="3"><img class="image2" src="${item.room_picture }"></td>
-	                        <td rowspan="3">
-	                        	<ul>
-	                        		<c:forTokens var="item2" items="${item.room_contents }" delims=",">
-                            			<li>${item2}</li>
-                            		</c:forTokens>
-                        		</ul>
-	                        </td>
-	                        <td colspan="2">${item.room_name }</td>
-	                        
-	                    </tr>
-	                    <tr>
-	                        <td>가격</td>
-	                        <td class="pr">${item.room_pay_night }</td>
-	                    </tr>
-	                    <tr>
-	                        <td colspan="2">
-	                            <form action="">
-	                                <button class="rsv" name="action" value="">예약</button>
-	                            </form>
-	                        </td>
-	                    </tr>
-	                </table>
-                </c:forEach>    
+                
+			 	<form  id="tb1" class="calender_box" action="trip">
+			 		<input  class="calender" type="date" name="reserve_checkin" min="${param.reserve_checkin}" value="${param.reserve_checkin}">
+			 		<span style="font-size:30px;">~</span>
+			 		<input class="calender" type="date" name="reserve_checkout" min="${param.reserve_checkout}" value="${param.reserve_checkout}">
+			 		<button class="datebt" name="action" value="detail.do">적용</button>
+			 		<input type="hidden" name="dormno" value="${dormdto.dorm_no}">
+			 	</form>
+			 	
+	                <c:forEach var="item" items="${roomsList }">
+                    	          
+	                <c:choose>
+	                <c:when test="${0 == item.room_pay_day }"> <!-- 대실 금액이 눌이아니면 둘다 표시 눌이면 하나만 표시로 두개 나눠서 조건에 맞게 출력 int라서 0이 눌 -->
+		                <table id="tb1">
+		                    <tr>
+		                        <td rowspan="4"><img class="image2" src="${item.room_picture }"></td>
+		                        <!-- 객실 세부 내용 클릭시 콘텐츠 출력 팝업 띄우기  -->
+		                        <td colspan="2" class="ti">${item.room_name }</td>
+		                        
+		                    </tr>
+		                    <tr>
+		                        <td style="font-weight:bold;">가격</td>
+		                        <td class="pr">${item.room_pay_night }원</td>
+		                    </tr>
+		                    <tr>
+		                    	<td colspan="2" class="bd-top bdbt">
+		                    		<button id="roombt">객실 상세</button>
+		                    	</td>
+		                    	<td class="roomdetail" style="display :none;">
+		                    		<div class="right pd" onclick="cancel()">
+		                    			<button class="closebt">X</button>
+		                    		</div>
+		                    		<ul>
+		                        		<c:forTokens var="item2" items="${item.room_contents }" delims=",">
+	                            			<li>${item2}</li>
+	                            		</c:forTokens>
+	                        		</ul> 
+		                    	</td>
+		                    </tr>
+		                    <tr>
+		                    	
+		                        <td class="bdbt" colspan="2">
+		                            <form action="trip">
+		                                <button class="rsv2" name="action" value="page8.do">예약</button>
+		                                <input type="hidden" name="roomno" value="${item.room_no}">
+		                                <input type="hidden" name="roomno" value="${item.room_name}">
+		                                <input type="hidden" name="dormno" value="${dormdto.dorm_no}">
+		                                <input type="hidden" name="dormno" value="${dormdto.dorm_name}">
+		                                <input type="hidden" name="reserve_checkin" value="${param.reserve_checkin}">
+		                                <input type="hidden" name="reserve_checkout" value="${param.reserve_checkout}">
+		                            </form>
+		                        </td>
+		                    </tr>
+		                </table>
+	                </c:when>
+	                <c:otherwise>
+		                <table id="tb1">
+		                    <tr>
+		                        <td rowspan="4"><img class="image2" src="${item.room_picture }"></td>
+                        		<td colspan="2" class="ti">${item.room_name }</td>
+		                    </tr>
+		                    <tr>
+		                    	<td><span class="wd" style="font-weight:bold;">대실</span></td>
+                        		<td><span class="wd" style="font-weight:bold;">숙박</span></td>
+		                    </tr>
+		                    <tr>
+		                        <td>
+			                        <div class="wd right">
+				                        <span class="pr">${item.room_pay_night }원</span>
+			                        </div>
+		                        </td>
+		                        <td>
+		                        	<div class="wd right">
+			                       	 	<span class="pr">${item.room_pay_night }원</span>
+			                        </div>
+		                        </td>
+		                    </tr>
+		                    <tr>
+		                    	
+		                        <td class="bdbt">
+		                            <form class="wd" action="">
+		                                <button class="rsv2" name="action" value="page8.do">예약</button>
+		                                <input type="hidden" name="roomno" value="${item.room_no}">
+		                                <input type="hidden" name="roomname" value="${item.room_name}">
+		                                <input type="hidden" name="dormno" value="${dormdto.dorm_no}">
+		                                <input type="hidden" name="dormname" value="${dormdto.dorm_name}">
+		                                <input type="hidden" name="roompay" value="${item.room_pay_day}">
+		                                <input type="hidden" name="reserve_checkin" value="${param.reserve_checkin}">
+		                                <input type="hidden" name="reserve_checkout" value="${param.reserve_checkout}">
+		                            </form>
+		                        </td>
+		                        <td class="bdbt">
+		                            <form class="wd" action="">
+		                                <button class="rsv2" name="action" value="page8.do">예약</button>
+		                                <input type="hidden" name="roomno" value="${item.room_no}">
+		                                <input type="hidden" name="roomname" value="${item.room_name}">
+		                                <input type="hidden" name="dormno" value="${dormdto.dorm_no}">
+		                                <input type="hidden" name="dormname" value="${dormdto.dorm_name}">
+		                                <input type="hidden" name="roompay" value="${item.room_pay_night}">
+		                                <input type="hidden" name="reserve_checkin" value="${param.reserve_checkin}">
+		                                <input type="hidden" name="reserve_checkout" value="${param.reserve_checkout}">
+		                            </form>
+		                        </td>
+		                    </tr>
+		                </table>
+	                </c:otherwise> 
+	                </c:choose>
+	                </c:forEach>
                 <c:forEach var="item" items="${reviewsList}">       
 	                <table id="tb2">
 	                    <tr>
 	                        <td colspan="2" class="title">${item.review_title}</td>
 	                    </tr>
 	                    <tr>
-	                        <td class="star${item.score}"></td>
-	                        <td class="score">${item.review_score}</td>
+	                        <td class="star${item.score}"><span class="score">${item.review_score}</span></td>
+	                        <td></td>
 	                    </tr>
 	                    <tr>
 	                        <td colspan="2" class="rev">${item.member_id}</td>
@@ -148,20 +192,54 @@ function drop_contents() {
 	                    <tr>
 	                        <td colspan="2" class="date">${item.review_date}</td>
 	                    </tr>
-	                    <tr colspan="2">
-	                    	<td><img class="rev_pt" src="image/review/${item.review_picture}"></td>
-	                    </tr>
+	                    <tr>
+	                    	<td>
+		                  		<img class="review_img" src="image/review/${item.review_picture}">
+		                	</td>
+	                	</tr>
 	                </table>
                 </c:forEach>   
             </div>
         </div>
     </section>
-    <footer>
-        고객 행복 센터 041-111-1111<br>
-        ㈜ 사적모임<br>
-        주소 : 천안시 서북구 대흥로 256<br>
-        전자우편주소 | human@email.com
-    </footer>
-</body>
 
+    <%@ include file="../footer.jsp" %>
+</body>
+<script>
+document.querySelectorAll("#roombt");
+	function drop_contents() {
+		let click = document.getElementsByClassName("onbutton");
+		let contents = document.getElementsByClassName("off");
+		if (contents[0].style.display == ("-webkit-box")) {
+			click[0].innerHTML = "접기";
+			contents[0].style.display = "block";
+		} else {
+			click[0].innerHTML = "더보기";
+			contents[0].style.display = "-webkit-box";
+		}
+	}
+	
+	var roomdetail_list = document.getElementsByClassName("roomdetail");
+	var roombt_list = document.querySelectorAll("#roombt");
+	var hiddenbt = document.getElementsByClassName("hiddenbt");
+	console.log("1");
+	for (let i = 0; i < roombt_list.length; i++) {
+		console.log("2");
+		roombt_list[i].addEventListener("click", function () {
+			console.log("4");
+	        if (hiddenbt[0].style.display == ("none")) {
+	        	roomdetail_list[i].style.display = "block";
+	            hiddenbt[0].style.display = "block";
+	        }
+	    });
+	}
+	function cancel() {
+		for(let j = 0;j<roomdetail_list.length;j++) {
+			if(roomdetail_list[j].style.display == ("block")){
+				roomdetail_list[j].style.display = "none";
+				hiddenbt[0].style.display = "none";
+			}
+		}  
+	}
+</script>
 </html>

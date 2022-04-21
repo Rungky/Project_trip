@@ -55,7 +55,9 @@
         <div class="con1">
         	<form method="get" action="${contextPath}/trip" >
 	            <div class="ner1">
-	            	<input type="hidden" name="dorm_category_no" value="${param.dorm_category_no}">
+	            	<c:if test="${not empty param.dorm_category_no }">
+            			<input type="hidden" name="dorm_category_no" value="${param.dorm_category_no}">
+            		</c:if>
 	            	<input type="hidden" name="action" value="reservation.do">
 	                <h3>날짜</h3>
 	                check In>> <input type="date" id="start" name="start" value="${date_s}"><br>
@@ -145,27 +147,55 @@
 	                </div>
 	                
 	            </div>
-	            <!--
+
 	            <div class="ner5">
-	                <h3>최대가격</h3>
+	                <h3>가격</h3>
 	                <div class="dropdown">
-	                    <button class="dropbtn">가격선택</button>
-						
-						<div class="dropdown-content">  
-						 <a href="">1만원~5만원</a>
-						 <a href="">5만원~10만원</a>     
-						 <a href="">10만원~20만원</a>     
-						 <a href="">20만원 이상</a>          
-						 </div>
+	                    <select name="price" class="dropbtn">
+	                    	<option>-------선택-------</option>
+	                    	<c:choose>
+	                    		<c:when test="${param.price eq 1}">
+	                    			<option value="1" selected>5만원이하</option>
+			                    	<option value="2">5만원~10만원이하</option>
+			                    	<option value="3">10만원~20만원이하</option>
+			                    	<option value="4">20만원~</option>
+	                    		</c:when>
+	                    		<c:when test="${param.price eq 2}">
+	                    			<option value="1">5만원이하</option>
+			                    	<option value="2" selected>5만원~10만원이하</option>
+			                    	<option value="3">10만원~20만원이하</option>
+			                    	<option value="4">20만원~</option>
+	                    		</c:when>
+	                    		<c:when test="${param.price eq 3}">
+	                    			<option value="1">5만원이하</option>
+			                    	<option value="2">5만원~10만원이하</option>
+			                    	<option value="3" selected>10만원~20만원이하</option>
+			                    	<option value="4">20만원~</option>
+	                    		</c:when>
+	                    		<c:when test="${param.price eq 4}">
+									<option value="1">5만원이하</option>
+			                    	<option value="2">5만원~10만원이하</option>
+			                    	<option value="3">10만원~20만원이하</option>
+			                    	<option value="4" selected>20만원~</option>
+	                    		</c:when>
+	                    		<c:otherwise>
+			                    	<option value="1">5만원이하</option>
+			                    	<option value="2">5만원~10만원이하</option>
+			                    	<option value="3">10만원~20만원이하</option>
+			                    	<option value="4">20만원~</option>
+	                    		</c:otherwise>
+	                    	</c:choose>
+	                    </select>
 					 </div>
 	            </div>
-	            -->
             </form>
         </div>
         <div class="con2">
             <div class="order"> 
             	<form method="get" action="${contextPath}/trip" >
-            		<input type="hidden" name="dorm_category_no" value="${param.dorm_category_no}">
+            		<c:if test="${not empty param.dorm_category_no }">
+            			<input type="hidden" name="dorm_category_no" value="${param.dorm_category_no}">
+            		</c:if>
 	            	<input type="hidden" name="action" value="reservation.do">
 	            	<c:if test="${not empty param.start}">
 	            		<input type="hidden" name="start" value="${param.start}">
@@ -190,6 +220,9 @@
 	            	</c:if>
 	            	<c:if test="${not empty param.room_person}">
 	            		<input type="hidden" name="room_person" value="${param.room_person}">
+	            	</c:if>
+	            	<c:if test="${not empty param.price}">
+	            		<input type="hidden" name="price" value="${param.price}">
 	            	</c:if>
     	            <button type="submit" class="button button4" name="order" value="1">낮은 가격 순</button>
 	                <button type="submit" class="button button4" name="order" value="2">높은 가격 순</button>
