@@ -50,7 +50,11 @@ public class QnaService {
 		tripDAO.insertNewQuestion(questionDTO);
 	}
 	
-	public void viwQna(QuestionDTO questionDTO) {
-		tripDAO.selectQuestion(questionDTO);
+	
+	
+	public List<QuestionDTO> listQna(int question_no){
+		List<QuestionDTO> QuestionList = tripDAO.selectQuestion(question_no);
+		
+		return QuestionList;
 	}
 }

@@ -474,18 +474,9 @@ public class tripController extends HttpServlet {
 			}else if(action.equals("answerqna.do")) {
 				List<QuestionDTO> QuestionList = new ArrayList<QuestionDTO>();
 				
+				int product_no = Integer.parseInt(request.getParameter("product_no"));
 				
-				String strPageNum  =request.getParameter("pageNum");
-				String strCountPerPage  =request.getParameter("countPerPage");
-				int pageNum = 1;
-				int countPerPage = 5;
-				if(strPageNum != null) {
-					pageNum = Integer.parseInt(strPageNum);
-				}if(strCountPerPage != null) {
-					countPerPage = Integer.parseInt(strCountPerPage);
-				}
-				
-				QuestionList=qnaservice.listArticles(pageNum,countPerPage);
+				QuestionList=qnaservice.listQna(product_no);
 				System.out.println("size : "+QuestionList.size());
 				request.setAttribute("questionList", QuestionList);
 				nextPage = "/qna_answer.jsp";

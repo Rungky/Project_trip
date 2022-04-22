@@ -686,8 +686,47 @@ public class TripDAO {
 		return dormList;
 	}
 
-public void selectQuestion(QuestionDTO questionDTO) {
+	public List<QuestionDTO> selectQuestion(int question_no) {
+		List<QuestionDTO> QuestionList = new ArrayList();
 		
+		try {
+			con = dataFactory.getConnection();
+
+			String query = "";
+			query += " select * from ";
+			query += " 	tb_question ";
+			query += " where question_no = ?";
+			
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1,question_no);
+
+			ResultSet rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				QuestionDTO question = new QuestionDTO();
+				question.setQuestion_no(rs.getInt("question_no"));
+				question.setQuestion_parentno(rs.getInt("question_parentno"));
+				question.setQuestion_title(rs.getString("question_title"));
+				question.setQuestion_contents(rs.getString("question_contents"));
+				question.setQuestion_picture(rs.getString("question_picture"));
+				question.setQuestion_date(rs.getDate("question_date"));
+				question.setQuestion_view(rs.getInt("question_view"));
+				question.setMember_id(rs.getString("member_id"));
+			
+				
+				QuestionList.add(question);
+			}
+
+			if(rs != null) rs.close();
+			if(pstmt != null) pstmt.close();
+			if(con != null) con.close();
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return QuestionList;
 	}
 	
 
