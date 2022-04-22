@@ -11,13 +11,22 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath }" />
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script>
-	window.onload = function(){
-		count(1);
+	window.onload = function(){		  
+		const resultElement = document.getElementById('result');
+		
+		var room_member = '${param.room_person}';
+		    console.log(room_member);
+		if (room_member != null && room_member != ''){
+			  
+			resultElement.innerText = room_member;
+			document.getElementById('result2').value = room_member;
+		}
 	}
 
 	function count(type)  {
 	  // 결과를 표시할 element
 	  const resultElement = document.getElementById('result');
+
 	  
 	  // 현재 화면에 표시된 값
 	  let number = resultElement.innerText;
@@ -36,12 +45,6 @@
 	  resultElement.innerText = number;
 	  document.getElementById('result2').value = number;
 	  
-	  var room_member = '${param.room_person}';
-	  console.log(room_member);
-	  if (room_member != null && room_member != ''){
-		  resultElement.innerText = room_member;
-		  document.getElementById('result2').value = room_member;
-	  }
 	  
 	}
 </script>
@@ -78,7 +81,18 @@
 	            <div class="ner2">
 	                <h3>상세조건</h3>
 	                <div class="boxx">
-	                    <button type="reset" class="bu re" onClick="resetBtn()">초기화</button>
+	                	<c:choose>
+	                		<c:when test="${empty param.dorm_category_no }">
+			                	<a href="trip?action=reservation.do">
+				                    <button type="button" class="bu re">초기화</button>
+				                </a>
+	                		</c:when>
+	                		<c:otherwise>
+	                			<a href="trip?action=reservation.do&dorm_category_no=${param.dorm_category_no}">
+				                    <input type="button" class="bu re" value ="초기화">
+				                </a>
+	                		</c:otherwise>
+	                	</c:choose>
 	                    <button type="submit" class="bu che" onClick="compleBtn()">적용</button>
 	                </div>
 	            </div>
@@ -204,7 +218,7 @@
         </div>
         <div class="con2">
             <div class="order"> 
-            	<form method="get" action="${contextPath}/trip" >
+            	<form method="post" action="${contextPath}/trip" >
             		<c:if test="${not empty param.dorm_category_no }">
             			<input type="hidden" name="dorm_category_no" value="${param.dorm_category_no}">
             		</c:if>

@@ -10,6 +10,11 @@
     <title>details</title>
     <link rel="stylesheet" href="./css/detail.css">
     <link rel="stylesheet" href="./css/header_footer.css">
+<script>
+	if(${!empty dateerror}){
+		alert("날짜가 맞지않아 오늘 값으로 되었습니다.");
+	}
+</script>
 </head>
 
 <body>
@@ -165,7 +170,7 @@
 		                                <input type="hidden" name="roomname" value="${item.room_name}">
 		                                <input type="hidden" name="dormno" value="${dormdto.dorm_no}">
 		                                <input type="hidden" name="dormname" value="${dormdto.dorm_name}">
-		                                <input type="hidden" name="roompay" value="${roompay * item.room_pay_night}">
+		                                <input type="hidden" name="roompay" value="${roomday * item.room_pay_night}">
 		                                <input type="hidden" name="reserve_checkin" value="${param.reserve_checkin}">
 		                                <input type="hidden" name="reserve_checkout" value="${param.reserve_checkout}">
 		                            </form>
@@ -207,7 +212,6 @@
     <%@ include file="../footer.jsp" %>
 </body>
 <script>
-document.querySelectorAll("#roombt");
 	function drop_contents() {
 		let click = document.getElementsByClassName("onbutton");
 		let contents = document.getElementsByClassName("off");

@@ -150,7 +150,6 @@ public class tripController extends HttpServlet {
 				
 			} else if (action.equals("detail.do")) {
 				int dormno = Integer.parseInt(request.getParameter("dormno"));
-				
 				Calendar cal = Calendar.getInstance();
 				String format = "yyyy-MM-dd";
 				SimpleDateFormat sdf = new SimpleDateFormat(format);
@@ -168,6 +167,15 @@ public class tripController extends HttpServlet {
 				
 				java.util.Date checkindate = sdf.parse(checkin);
 				java.util.Date checkoutdate = sdf.parse(checkout);
+				
+				if(checkindate.after(checkoutdate)) {
+					checkin = sdf.format(today);
+					checkout = tomorrow;
+					checkindate = sdf.parse(checkin);
+					checkoutdate = sdf.parse(checkout);
+					request.setAttribute("dateerror", "error");
+				}
+				
 				long reserveday = (checkoutdate.getTime() - checkindate.getTime()) / (24*60*60*1000);
 				DormDTO dormdto = tripdao.selectDorm(dormno);
 				List<RoomDTO> roomsList = tripdao.selectRoomsList(dormno);
