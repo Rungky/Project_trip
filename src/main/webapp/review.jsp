@@ -68,7 +68,7 @@
                             <button class="input_submit" type="submit">리뷰등록</button>
                             <button class="input_reset" type="reset"><a href="/project_trip/trip?action=detail.do&dormno=${reservationdto.dorm_no}">취소하기</a></button>
                             <input type="hidden" name="reserveno" value="${reservationdto.reserve_no}">
-                            <input type="hidden" name="memberid" value="<%-- ${member} --%>admin">
+                            <input type="hidden" name="memberid" value="${id}">
                             <input type="hidden" name="dormno" value="${reservationdto.dorm_no}">
                         </div>
                 </div>

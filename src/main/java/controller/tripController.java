@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -145,9 +146,22 @@ public class tripController extends HttpServlet {
 				
 			} else if (action.equals("detail.do")) {
 				int dormno = Integer.parseInt(request.getParameter("dormno"));
-				String checkin= request.getParameter("reserve_checkin");
-				String checkout = request.getParameter("reserve_checkout");
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+				
+				Calendar cal = Calendar.getInstance();
+				String format = "yyyy-MM-dd";
+				SimpleDateFormat sdf = new SimpleDateFormat(format);
+				cal.add(cal.DATE, +1);
+				String tomorrow = sdf.format(cal.getTime());
+				
+				java.util.Date today = new java.util.Date();
+				String checkin = sdf.format(today);
+				String checkout = tomorrow;
+				
+				if(request.getParameter("reserve_checkin") != null)
+					checkin= request.getParameter("reserve_checkin");
+				if(request.getParameter("reserve_checkout") != null)
+					checkout = request.getParameter("reserve_checkout");
+				
 				java.util.Date checkindate = sdf.parse(checkin);
 				java.util.Date checkoutdate = sdf.parse(checkout);
 				long reserveday = (checkoutdate.getTime() - checkindate.getTime()) / (24*60*60*1000);
@@ -158,12 +172,14 @@ public class tripController extends HttpServlet {
 				request.setAttribute("roomsList", roomsList);
 				request.setAttribute("reviewsList", reviewsList);
 				request.setAttribute("roomday", reserveday);
+				request.setAttribute("tomorrow", tomorrow);
+				request.setAttribute("checkin", checkin);
+				request.setAttribute("checkout", checkout);
 				
 				nextPage = "/trip01/detail.jsp";
 				
 			} else if (action.equals("upload.do")) {
 			
-//				HttpSession session = request.getSession();
 				String title = "";
 				String contents = "";
 				double score = 0;
@@ -234,7 +250,7 @@ public class tripController extends HttpServlet {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-//				memberId = (String) session.getAttribute("memberid");
+				memberId = (String) session.getAttribute("id");
 				System.out.println(title);
 				System.out.println(contents);
 				System.out.println(score);
@@ -287,9 +303,8 @@ public class tripController extends HttpServlet {
 			} else if(action.equals("review.do")) {
 				System.out.println("액션 리뷰 들어옴");
 				try {
-//					HttpSession session = request.getSession();
 					int reserveno = Integer.parseInt(request.getParameter("reserve_no"));
-
+					System.out.println(session.getAttribute("id"));
 					ReservationDTO reservationdto = tripdao.selectReservation(reserveno);
 					
 					request.setAttribute("reserveno", reserveno);
