@@ -286,7 +286,7 @@ public class tripController extends HttpServlet {
 				try {
 					//(String) session.getAttribute("member_id");
 					// session.member_id 담기
-					String member = "admin";
+					String member = (String)session.getAttribute("id");
 					List<ReservationDTO> reserList = tripdao.selectReservationsList(member);
 					request.setAttribute("reserList",reserList );
 					System.out.println(reserList.size());
@@ -308,11 +308,9 @@ public class tripController extends HttpServlet {
 				}
 			} else if (action.equals("page8.do")) {
 				System.out.println("page8 서블릿 들어옴");
-				//가져와야 하는 값 숙소이름, 객실 이름, 체크인 체크아웃 금액 룸 컨텐츠..? 세션..?
-				//member_id member_tel 처음 받는 값 
-				//String member = (String)session.getAttribute("member_id");
-				//String tel = (String)session.getAttribute("member_tel");
-				//String member_id = (String)session.getAttribute("id");
+				String member = (String)session.getAttribute("id");
+				session.getAttribute("tel");
+				
 				int dorm_no = Integer.parseInt( request.getParameter("dormno"));
 				int room_no = Integer.parseInt( request.getParameter("roomno"));
 				String dorm_name = request.getParameter("dormname");
@@ -324,6 +322,10 @@ public class tripController extends HttpServlet {
 				CheckDTO checkDto = new CheckDTO();
 				checkDto = tripdao.checkList(dorm_no,room_no,dorm_name,room_name,reser_checkin,reserve_checkout,reserve_pay);
 				request.setAttribute("check", checkDto);
+				
+				
+				
+				
 				nextPage = "/page8.jsp";
 			} else if(action.equals("review.do")) {
 				System.out.println("액션 리뷰 들어옴");

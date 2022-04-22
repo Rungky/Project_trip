@@ -36,13 +36,13 @@
 			<div>
 				<div>예약자 이름</div>
 				<!-- session.member_name -->
-				<div>${'member_id'}</div>
+				<div>${id}</div>
 			</div>
 			<br>
 			<div>
 				<div>휴대폰 번호</div>
 				<!-- session.member_tel -->
-				<div>${'member_tel'}</div>
+				<div>${tel}</div>
 			</div>
 			<br>
 			<!-- 상세페이지에서 넘겨온 내용들 session에 담아서 여기다가 출력 -->
