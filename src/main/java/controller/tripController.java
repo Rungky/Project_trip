@@ -26,14 +26,17 @@ import dto.CheckDTO;
 import dto.DormDTO;
 import dto.DormVO;
 import dto.MemberDTO;
+import dto.QuestionDTO;
 import dto.ReservationDTO;
 import dto.ReviewDTO;
 import dto.RoomDTO;
+import service.QnaService;
 
 @WebServlet("/trip")
 public class tripController extends HttpServlet {
 	TripDAO tripdao = new TripDAO();
 	MemberDAO memberDAO = new MemberDAO();
+	QnaService qnaservice = new QnaService();
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -399,7 +402,87 @@ public class tripController extends HttpServlet {
 
 					// 메인 페이지로 되돌아감
 					nextPage = "/main.jsp";
-			}else {
+			}else if(action.equals("qna.do")) {
+				System.out.println("qna 페이지");
+				//questionDTO 담기
+				List<QuestionDTO> QuestionList = new ArrayList<QuestionDTO>();
+				
+				String strPageNum  =request.getParameter("pageNum");
+				String strCountPerPage  =request.getParameter("countPerPage");
+				int pageNum = 1;
+				int countPerPage = 5;
+				if(strPageNum != null) {
+					pageNum = Integer.parseInt(strPageNum);
+				}if(strCountPerPage != null) {
+					countPerPage = Integer.parseInt(strCountPerPage);
+				}
+				
+				QuestionList=qnaservice.listArticles(pageNum,countPerPage);
+				System.out.println("size : "+QuestionList.size());
+				request.setAttribute("questionList", QuestionList);
+				
+				request.setAttribute("pageNum", pageNum);
+				request.setAttribute("countPerPage", countPerPage);
+				nextPage = "/qna.jsp";
+			}else if(action.equals("qnaForm.do")) {
+				nextPage = "/questionWrite.jsp";
+			}else if(action.equals("addqna.do")) {
+				String title = request.getParameter("title");
+				String content = request.getParameter("content");
+				
+				QuestionDTO qdto = new QuestionDTO();
+				qdto.setQuestion_title(title);
+				qdto.setQuestion_contents(content);
+				qdto.setQuestion_parentno(0);
+				
+				
+				long miliseconds = System.currentTimeMillis();
+		        Date date = new Date(miliseconds);
+				qdto.setQuestion_date(date);
+				qdto.setQuestion_picture("sss");
+				qdto.setQuestion_view(0);
+				qdto.setMember_id("admin");
+				
+				qnaservice.addArticle(qdto);
+				nextPage = "/trip?action=qna.do";
+			}else if(action.equals("replyqna.do")) {
+				String recontent = request.getParameter("recontent");
+				String parentNO = request.getParameter("parentNO");
+				
+				QuestionDTO qdto = new QuestionDTO();
+				qdto.setQuestion_contents(recontent);
+				qdto.setQuestion_parentno(Integer.parseInt(parentNO));
+				qdto.setQuestion_title("retitle");
+				
+				long miliseconds = System.currentTimeMillis();
+		        Date date = new Date(miliseconds);
+				qdto.setQuestion_date(date);
+				qdto.setQuestion_picture("picture");
+				qdto.setQuestion_view(0);
+				qdto.setMember_id("admin");
+				
+				qnaservice.addReply(qdto);
+				nextPage = "/trip?action=qna.do";
+			}else if(action.equals("answerqna.do")) {
+				List<QuestionDTO> QuestionList = new ArrayList<QuestionDTO>();
+				
+				
+				String strPageNum  =request.getParameter("pageNum");
+				String strCountPerPage  =request.getParameter("countPerPage");
+				int pageNum = 1;
+				int countPerPage = 5;
+				if(strPageNum != null) {
+					pageNum = Integer.parseInt(strPageNum);
+				}if(strCountPerPage != null) {
+					countPerPage = Integer.parseInt(strCountPerPage);
+				}
+				
+				QuestionList=qnaservice.listArticles(pageNum,countPerPage);
+				System.out.println("size : "+QuestionList.size());
+				request.setAttribute("questionList", QuestionList);
+				nextPage = "/qna_answer.jsp";
+			}
+				else {
 				System.out.println("잘못들어옴");
 			}
 			

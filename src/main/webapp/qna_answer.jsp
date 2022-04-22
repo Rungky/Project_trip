@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
+<c:set var="contextPath" value="${ pageContext.request.contextPath}" />
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,24 +30,29 @@
                         <hr>
                     </div>
                 </div>
+                <c:forEach var="question" items="${questionList}" varStatus="questionNum">
                 <div id="main_contents">
-                    <form id="review_form">
+                    <form id="review_form" action="${contextPath}/trip">
+                    <input type="hidden" name="action" value="replyqna.do">
                         <div class="review_title">
                             <!--데이터 받아와서 표시하기-->
-                            <div class="fs_m2 fw_6">질문제목 : 예약취소 문의드립니다.</div>
-                            <div class="fs_m2">안녕하세요 예약번호 1022872 입니다. 체크인 날짜 변경 가능한가요? </div>
+                            <div class="fs_m2 fw_6">질문제목 : ${question.question_title}</div>
+                            <div class="fs_m2">${question.question_contents}</div>
                         </div> <br>
+                    
                         <div class="review_contents">
                             <div class="fs_m fw_6" style="margin-top: 5px;">답변내용 작성</div>
-                            <input class="input_contents" type="text" id="" placeholder="질문에 대한 답변을 남겨주세요!">
+                            <input class="input_contents" type="text" name="recontent" placeholder="질문에 대한 답변을 남겨주세요!">
                         </div>
                         <div class="margin_auto">
                             <br>
+                            <input type="hidden" name="parentNO" value="${question_parentno}">
                             <input class="input_submit" type="submit" value="답변등록">
                             <input class="input_reset" type="reset" value="취소하기">
                         </div>
                     </form>
                 </div>
+               </c:forEach>
             </div>
         </div>
     </section>

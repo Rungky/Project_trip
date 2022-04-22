@@ -46,5 +46,11 @@ public class QnaService {
 	public void addArticle(QuestionDTO questionDTO) {
 		tripDAO.insertNewQuestion(questionDTO);
 	}
+	public void addReply(QuestionDTO questionDTO) {
+		tripDAO.insertNewQuestion(questionDTO);
+	}
 	
+	public void viwQna(QuestionDTO questionDTO) {
+		tripDAO.selectQuestion(questionDTO);
+	}
 }
