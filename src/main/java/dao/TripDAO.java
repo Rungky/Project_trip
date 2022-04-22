@@ -291,11 +291,7 @@ public class TripDAO {
 			query += " 		and reser.dorm_no = room.dorm_no ";
 			query += " 		and room.dorm_no = dorm.dorm_no ";
 			query += " 		and reser.member_id = ? ";
-			//query += "    reser.dorm_no = room.dorm_no ";
-			//query += " AND ";
-			//query += "    room.dorm_no = dorm.dorm_no ";
-			//query += " AND ";
-			//query += "    reser.member_id = ? ";
+			
 			
 			System.out.println("사이2");
 			pstmt = con.prepareStatement(query);

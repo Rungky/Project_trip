@@ -54,7 +54,7 @@
 				<div class="c1">${'dorm_name'}</div>
 				<br>
 				<div class="name2">객실 이름</div>
-				<div class="c2">${'room_name' }</div>
+				<div class="c2">${roomsList.room_name}</div>
 				<div class="c3">(15시 체크인) / DayUse</div>
 				<br>
 				<div>
@@ -73,7 +73,7 @@
 				</div>
 			</div>
 			<!--  member_id 가져가야함-->
-			<a href="/project_trip/trip?action=history.do&member_id=${member_id}"><input type="button" value="예약완료" class="box"></a>
+			<a href="/project_trip/trip?action=result.do&member_id=${member_id}"><input type="button" value="예약완료" class="box"></a>
 		</div>
 	</section>
 	<footer>

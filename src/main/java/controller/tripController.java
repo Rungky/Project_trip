@@ -246,7 +246,25 @@ public class tripController extends HttpServlet {
 				tripdao.insertReview(title, contents, score, date, picture, reservNo, memberId);
 				
 				nextPage = "/trip?action=detail.do&dormno="+dormno+"";
-			} else if(action.equals("history.do")) {
+			} else if(action.equals("result.do")) {
+				System.out.println("result 들어옴");
+				String member = request.getParameter("member_id");
+				
+				try {
+					//받아온 값 가지고 인서트 해주고, 그거를 history.do로 가서 결과값 출력해주기
+					System.out.println("인서트 해주는 부분");
+					//tripdao.insertReservation
+					String dorm_name = request.getParameter("dormname");
+					System.out.println(dorm_name);
+					//insertReservation
+					
+					System.out.println(member);
+				}catch (Exception e) {
+					e.printStackTrace();
+				}
+				
+				nextPage = "/trip?action=history.do&member_id=" + member + "";
+			}else if(action.equals("history.do")) {
 				System.out.println("히스토리 들어옴");
 				try {
 					//(String) session.getAttribute("member_id");
@@ -273,15 +291,18 @@ public class tripController extends HttpServlet {
 				}
 			} else if (action.equals("page8.do")) {
 				//가져와야 하는 값 숙소이름, 객실 이름, 체크인 체크아웃 금액 룸 컨텐츠..? 세션..?
-				//member_id member_tel
+				//member_id member_tel 처음 받는 값 
 				//String member = (String)session.getAttribute("member_id");
 				//String tel = (String)session.getAttribute("member_tel");
 				MemberDTO memberDTO = new MemberDTO();
 				//String member_id = (String)session.getAttribute("id");
-				String dorm_no = request.getParameter("dorm_no");
-				String dorm_name = request.getParameter("dorm_name");
-				String room_name = request.getParameter("room_name");
-				String room_pay = request.getParameter("roompay");
+				int dorm_no = Integer.parseInt( request.getParameter("dormno"));
+				//int room_no = Integer.parseInt( request.getParameter("roomno"));
+				//String dorm_name = request.getParameter("dormname");
+				//String room_name = request.getParameter("roomname");
+				//String room_pay = request.getParameter("roompay");
+				
+				
 				
 				nextPage = "/page8.jsp";
 			} else if(action.equals("review.do")) {
