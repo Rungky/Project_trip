@@ -84,8 +84,14 @@ table {
     padding-left: 100px;
 }
 .rvbt {
-    width: 100px;
+    width: 70px;
 }
+
+.re {
+    width: 100px;
+    margin-left: 15px;
+}
+
 .right {
     text-align: right;
 }

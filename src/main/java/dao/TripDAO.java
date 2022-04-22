@@ -274,23 +274,28 @@ public class TripDAO {
 		return dto;
 	}
 
-	public List<ReservationDTO> selectReservationsList(String member_id) {
+	public List<ReservationDTO> selectReservationsList(String member) {
 		List<ReservationDTO> list = new ArrayList<ReservationDTO>();
 
 		try {
 			con = dataFactory.getConnection();
 			System.out.println("진입");
 			String query = "";
-			query += " select reser.reserve_no, dorm.dorm_name, room.room_name, reser.member_id, reser.reserve_checkin, reser.reserve_date,reser.reserve_checkout, reser.reserve_pay,room.room_picture,reser.reserve_person ";
+			query += " select reser.reserve_no, dorm.dorm_name, ";
+			query += " 		  room.room_name, reser.member_id, ";
+			query += " 		  reser.reserve_checkin, reser.reserve_date, ";
+			query += " 		  reser.reserve_checkout, reser.reserve_pay, ";
+			query += " 		  room.room_picture, reser.reserve_person ";
 			query += " from tb_reservation reser , tb_room room, tb_dorm dorm ";
 			query += " where reser.room_no = room.room_no ";
 			query += " 		and reser.dorm_no = room.dorm_no ";
 			query += " 		and room.dorm_no = dorm.dorm_no ";
 			query += " 		and reser.member_id = ? ";
+			query += " order by reserve_no desc ";
 
 			System.out.println("사이2");
 			pstmt = con.prepareStatement(query);
-			pstmt.setString(1, member_id);
+			pstmt.setString(1, member);
 
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
@@ -328,6 +333,38 @@ public class TripDAO {
 
 		return list;
 	}
+	
+	
+	public void reserDelete(int reserve_no) {
+		try {
+			con = dataFactory.getConnection();
+			String query=" ";
+			query+="DELETE FROM TB_RESERVATION ";
+			query += "WHERE reserve_no= ? ";
+			query += "";
+			
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, reserve_no);
+		
+			ResultSet rs = pstmt.executeQuery();
+			System.out.println("예약삭제완료");
+			if (rs != null) {
+				rs.close();
+			}
+			if (pstmt != null) {
+				pstmt.close();
+			}
+			if (con != null) {
+				con.close();
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	
 
 	public CheckDTO checkList(int dorm_no, int room_no, String dorm_name, String room_name, Date reserve_checkin,
 			Date reserve_checkout, int reserve_pay

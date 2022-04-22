@@ -10,7 +10,14 @@
 <title>예약페이지</title>
 <link rel="stylesheet" href="css/page8.css">
 <link rel="stylesheet" href="./css/header_footer.css">
+<script>
 
+function alarm() {
+	alert("예약이 완료되었습니다!");
+}
+
+
+</script>
 </head>
 <body>
 	<%@ include file="./header.jsp"%>
@@ -57,7 +64,7 @@
 			</div>
 			<!--  member_id 가져가야함-->
 			<form action="trip">
-				<button class="box" name="action" value="result.do">예약</button>
+				<button class="box" name="action" value="result.do" onclick="alarm()">예약</button>
 				<input type="hidden" name="dorm_no" value="${check.dorm_no}">
 				<input type="hidden" name="room_no" value="${check.room_no}">
 				<input type="hidden" name="reserve_checkin" value="${check.reserve_checkin}">

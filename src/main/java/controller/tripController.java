@@ -307,7 +307,15 @@ public class tripController extends HttpServlet {
 				}
 				
 				nextPage = "/trip?action=history.do&member_id=" + member + "";
-			}else if(action.equals("history.do")) {
+			} else if(action.equals("reserDelete.do")) {
+				System.out.println("예약취소부분");
+				int reserve_no = Integer.parseInt(request.getParameter("reserve_no"));
+				tripdao.reserDelete(reserve_no);
+				
+				
+				nextPage = "/trip?action=history.do";
+			}
+			else if(action.equals("history.do")) {
 				String member = (String)session.getAttribute("id");
 				System.out.println("히스토리 들어옴");
 				try {
