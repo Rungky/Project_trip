@@ -406,8 +406,8 @@ public class TripDAO {
 	}
 
 	// 예약 인서트
-	public void insertReservation(String member_id, Date reserve_checkin, Date reserve_checkout, int reserve_pay,
-			int reserve_person, int room_no, int dorm_no) {
+	public void insertReservation(String member, Date reserve_checkin, Date reserve_checkout, int reserve_pay,
+			int room_no, int dorm_no) {
 
 		try {
 			con = dataFactory.getConnection();
@@ -418,7 +418,8 @@ public class TripDAO {
 			query += " VALUES(";
 			query += " tb_reservation_seq.nextval,";
 			query += " ?,";
-			query += " sysdate";
+			query += " sysdate,";
+			query += " ?,";
 			query += " ?,";
 			query += " ?,";
 			query += " 0,";
@@ -427,13 +428,14 @@ public class TripDAO {
 			query += " )";
 
 			pstmt = con.prepareStatement(query);
-			pstmt.setString(1, member_id);
+			pstmt.setString(1, member);
 			pstmt.setDate(2, reserve_checkin);
 			pstmt.setDate(3, reserve_checkout);
 			pstmt.setInt(4, reserve_pay);
 			pstmt.setInt(5, room_no);
 			pstmt.setInt(6, dorm_no);
-
+			System.out.println("인서트 완료");
+			
 			pstmt.executeUpdate();
 			if (pstmt != null) {
 				pstmt.close();
