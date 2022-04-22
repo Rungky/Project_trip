@@ -21,6 +21,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import dao.*;
 import dao.TripDAO;
+import dto.CheckDTO;
 import dto.DormDTO;
 import dto.DormVO;
 import dto.MemberDTO;
@@ -290,20 +291,23 @@ public class tripController extends HttpServlet {
 					e.printStackTrace();
 				}
 			} else if (action.equals("page8.do")) {
+				System.out.println("page8 서블릿 들어옴");
 				//가져와야 하는 값 숙소이름, 객실 이름, 체크인 체크아웃 금액 룸 컨텐츠..? 세션..?
 				//member_id member_tel 처음 받는 값 
 				//String member = (String)session.getAttribute("member_id");
 				//String tel = (String)session.getAttribute("member_tel");
-				MemberDTO memberDTO = new MemberDTO();
 				//String member_id = (String)session.getAttribute("id");
 				int dorm_no = Integer.parseInt( request.getParameter("dormno"));
-				//int room_no = Integer.parseInt( request.getParameter("roomno"));
-				//String dorm_name = request.getParameter("dormname");
-				//String room_name = request.getParameter("roomname");
-				//String room_pay = request.getParameter("roompay");
-				
-				
-				
+				int room_no = Integer.parseInt( request.getParameter("roomno"));
+				String dorm_name = request.getParameter("dormname");
+				String room_name = request.getParameter("roomname");
+				int reserve_pay = Integer.parseInt(request.getParameter("roompay"));
+				Date reser_checkin = Date.valueOf(request.getParameter("reserve_checkin"));
+				Date reserve_checkout = Date.valueOf(request.getParameter("reserve_checkout"));
+		
+				CheckDTO checkDto = new CheckDTO();
+				checkDto = tripdao.checkList(dorm_no,room_no,dorm_name,room_name,reser_checkin,reserve_checkout,reserve_pay);
+				request.setAttribute("check", checkDto);
 				nextPage = "/page8.jsp";
 			} else if(action.equals("review.do")) {
 				System.out.println("액션 리뷰 들어옴");

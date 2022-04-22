@@ -51,25 +51,25 @@
 			
 			<div class="name">
 				<div class="name2">숙소 이름</div>
-				<div class="c1">${'dorm_name'}</div>
+				<div class="c1">${check.dorm_name}</div>
 				<br>
 				<div class="name2">객실 이름</div>
-				<div class="c2">${roomsList.room_name}</div>
-				<div class="c3">(15시 체크인) / DayUse</div>
+				<div class="c2">${check.room_name}</div>
+				<div class="c3"></div>
 				<br>
 				<div>
 					<div class="name2">체크인</div>
-					<div class="c4">${'check_in'} </div>
+					<div class="c4">${check.reserve_checkin} </div>
 				</div>
 				<br>
 				<div>
 					<div class="name2">체크아웃</div>
-					<div class="c5">${'check_out'}</div>
+					<div class="c5">${check.reserve_checkout}</div>
 				</div>
 				<br>
 				<div class="c6">
 					<div>총 결제금액(VAT포함)</div>
-					<div>${'room_pay'}</div>
+					<div>${check.reserve_pay}</div>
 				</div>
 			</div>
 			<!--  member_id 가져가야함-->

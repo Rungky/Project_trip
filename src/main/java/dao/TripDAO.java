@@ -334,6 +334,30 @@ public class TripDAO {
 		return list;
 	}
 	
+	
+	public CheckDTO checkList(
+			int dorm_no,
+			int room_no,
+			String dorm_name,
+			String room_name,
+			Date reserve_checkin,
+			Date reserve_checkout,
+			int reserve_pay
+			
+			) {
+		CheckDTO dto = new CheckDTO();
+		
+			dto.setDorm_no(dorm_no);
+			dto.setRoom_no(room_no);
+			dto.setDorm_name(dorm_name);
+			dto.setRoom_name(room_name);
+			dto.setReserve_checkin(reserve_checkin);
+			dto.setReserve_checkout(reserve_checkout);
+			dto.setReserve_pay(reserve_pay);
+			return dto;
+	}
+	
+	
 	public void insertReview(
 			String title,
 			String contents,
