@@ -32,25 +32,7 @@ table {
 
 <body>
 
-	<header>
-		<div class="hd">
-			<div>
-				<a href="/project_trip/main.jsp">
-					<button class="bt">
-						<img class="rogo" src="image/logo.png">
-					</button>
-				</a>
-			</div>
-			<nav>
-				<ul>
-					<li><a href="/project_trip/trip?action=history.do">예약 내역</a></li>
-					<li><a href="/project_trip/qna.jsp">Q&A</a></li>
-					<li><a href="/project_trip/mypage.jsp">${dto.member_name}</a></li>
-					<!-- 사용자: session에 담긴(value 아마도 member_name  session.member_name 회원 닉네임 -->
-				</ul>
-			</nav>
-		</div>
-	</header>
+	<%@ include file="../header.jsp" %>
 	<section>
 		<article style='display:flex; justify-content:center;'>
 				<div class="pd">
@@ -87,10 +69,7 @@ table {
 			</div>
 		</article>
 	</section>
-	<footer>
-		고객 행복 센터 041-111-1111<br> ㈜ 사적모임<br> 주소 : 천안시 서북구 대흥로 256<br>
-		전자우편주소 | human@email.com
-	</footer>
+	<%@ include file="../footer.jsp" %>
 </body>
 
 </html>

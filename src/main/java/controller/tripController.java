@@ -279,13 +279,21 @@ public class tripController extends HttpServlet {
 				nextPage = "/trip?action=detail.do&dormno="+dormno+"";
 			} else if(action.equals("result.do")) {
 				System.out.println("result 들어옴");
-				String member = request.getParameter("member_id");
+				String member = (String)session.getAttribute("id");
 				
 				try {
 					//받아온 값 가지고 인서트 해주고, 그거를 history.do로 가서 결과값 출력해주기
 					System.out.println("인서트 해주는 부분");
-					//tripdao.insertReservation
-					String dorm_name = request.getParameter("dormname");
+					int dorm_no = Integer.parseInt( request.getParameter("dorm_no"));
+					System.out.println(dorm_no);
+					int room_no = Integer.parseInt( request.getParameter("room_no"));
+					System.out.println(room_no);
+					Date reserve_checkin = Date.valueOf(request.getParameter("reserve_checkin"));
+					Date reserve_checkout = Date.valueOf(request.getParameter("reserve_checkout"));
+					int reserve_pay = Integer.parseInt(request.getParameter("reserve_pay"));
+					System.out.println(reserve_pay);
+					tripdao.insertReservation(member,reserve_checkin, reserve_checkout,reserve_pay,room_no,dorm_no );
+					System.out.println("인서트 성공");
 					
 				}catch (Exception e) {
 					e.printStackTrace();
@@ -293,9 +301,9 @@ public class tripController extends HttpServlet {
 				
 				nextPage = "/trip?action=history.do&member_id=" + member + "";
 			}else if(action.equals("history.do")) {
+				String member = (String)session.getAttribute("id");
 				System.out.println("히스토리 들어옴");
 				try {
-					String member = (String)session.getAttribute("id");
 					MemberDTO dto = tripdao.memberDto(member);
 					request.setAttribute("dto", dto);
 					
@@ -324,7 +332,7 @@ public class tripController extends HttpServlet {
 				MemberDTO dto = tripdao.memberDto(member);
 				request.setAttribute("dto", dto);
 				
-				
+				//예약하기전 출력
 				int dorm_no = Integer.parseInt( request.getParameter("dormno"));
 				int room_no = Integer.parseInt( request.getParameter("roomno"));
 				String dorm_name = request.getParameter("dormname");
@@ -337,10 +345,7 @@ public class tripController extends HttpServlet {
 				checkDto = tripdao.checkList(dorm_no,room_no,dorm_name,room_name,reser_checkin,reserve_checkout,reserve_pay);
 				request.setAttribute("check", checkDto);
 				
-				
-				
-				
-				nextPage = "/page8.jsp";
+				nextPage = "/page8.jsp";;
 			} else if(action.equals("review.do")) {
 				System.out.println("액션 리뷰 들어옴");
 				try {

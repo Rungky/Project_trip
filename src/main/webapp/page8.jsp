@@ -12,23 +12,7 @@
 
 </head>
 <body>
-	<header>
-		<div class="hd">
-			<div>
-				<a href="/project_trip/main.jsp">
-					<button class="bt"><img class="rogo" src="image/logo.png"></button>
-				</a>
-			</div>
-			<nav>
-				<ul>
-					<li><a href="/project_trip/trip?action=history.do">예약 내역</a></li>
-					<li><a href="/project_trip/qna.jsp">Q&A</a></li>
-					<li><a href="/project_trip/mypage.jsp">${dto.member_name}</a></li>
-					<!-- 사용자: session에 담긴(value 아마도 member_name  session.member_name 회원 닉네임 -->
-				</ul>
-			</nav>
-		</div>
-	</header>
+	<%@ include file="./header.jsp"%>
 	<section>
 		<div class="sec">
 			<div class="info">예약자 정보</div>
@@ -45,8 +29,8 @@
 			<br>
 			<!-- 상세페이지에서 넘겨온 내용들 session에 담아서 여기다가 출력 -->
 			<!-- session.member_tel -->
-			
-			
+
+
 			<div class="name">
 				<div class="name2">숙소 이름</div>
 				<div class="c1">${check.dorm_name}</div>
@@ -57,7 +41,7 @@
 				<br>
 				<div>
 					<div class="name2">체크인</div>
-					<div class="c4">${check.reserve_checkin} </div>
+					<div class="c4">${check.reserve_checkin}</div>
 				</div>
 				<br>
 				<div>
@@ -71,12 +55,16 @@
 				</div>
 			</div>
 			<!--  member_id 가져가야함-->
-			<a href="/project_trip/trip?action=result.do&member_id=${member_id}"><input type="button" value="예약완료" class="box"></a>
+			<form class="box" action="trip">
+				<button class="rsv2" name="action" value="result.do">예약</button>
+				<input type="hidden" name="dorm_no" value="${check.dorm_no}">
+				<input type="hidden" name="room_no" value="${check.room_no}">
+				<input type="hidden" name="reserve_checkin" value="${check.reserve_checkin}">
+				<input type="hidden" name="reserve_checkout" value="${check.reserve_checkout}">
+				<input type="hidden" name="reserve_pay" value="${check.reserve_pay}">
+			</form>
 		</div>
 	</section>
-	<footer>
-		고객 행복 센터 | 041-111-1111<br> ㈜ 사적모임<br> 주소 : 천안시 서북구 대흥로 256<br>
-		전자우편주소 | human@email.com
-	</footer>
+	<%@ include file="./footer.jsp"%>
 </body>
 </html>
