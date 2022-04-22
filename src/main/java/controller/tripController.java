@@ -81,9 +81,16 @@ public class tripController extends HttpServlet {
 				
 				// category_no를 이용해 dorm 정보 조회
 				int cat_no =0;
-				long miliseconds = System.currentTimeMillis();
-				Date start = new Date(miliseconds);
-				Date end = new Date(miliseconds);
+				
+				Calendar cal = Calendar.getInstance();
+				SimpleDateFormat newDtFormat = new SimpleDateFormat("yyyy-MM-dd");
+				String date1 = newDtFormat.format(cal.getTime());
+				Date start = new Date(newDtFormat.parse(date1).getTime());
+
+				cal.add(cal.DATE, +1);
+				String date2 = newDtFormat.format(cal.getTime());
+				
+				Date end = new Date(newDtFormat.parse(date2).getTime());
 				int wifi = 0;
 				int park = 0;
 				int air = 0;
@@ -102,19 +109,19 @@ public class tripController extends HttpServlet {
 						cat_no = Integer.parseInt(request.getParameter("dorm_category_no"));
 					} 
 					
-					SimpleDateFormat newDtFormat = new SimpleDateFormat("yyyy-MM-dd");
+					
 					
 					if(request.getParameter("start") != null) {
-						java.util.Date utilDate = new java.util.Date();
-						utilDate = newDtFormat.parse(request.getParameter("start"));
-						start = new java.sql.Date(utilDate.getTime());
+					
+						start = new Date(newDtFormat.parse(request.getParameter("start")).getTime());
+						
 						request.setAttribute("date_s", start);
 					}
 					
 					if(request.getParameter("end") != null) {
-						java.util.Date utilDate = new java.util.Date();
-						utilDate = newDtFormat.parse(request.getParameter("end"));
-						end = new java.sql.Date(utilDate.getTime());
+						
+						end = new Date(newDtFormat.parse(request.getParameter("end")).getTime());
+						
 						request.setAttribute("date_e", end);
 					}
 					if(request.getParameter("wifi") != null) {
