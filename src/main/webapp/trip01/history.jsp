@@ -45,7 +45,7 @@ table {
 				<ul>
 					<li><a href="/project_trip/trip?action=history.do">예약 내역</a></li>
 					<li><a href="/project_trip/qna.jsp">Q&A</a></li>
-					<li><a href="/project_trip/mypage.jsp">${'member_name'}</a></li>
+					<li><a href="/project_trip/mypage.jsp">${dto.member_name}</a></li>
 					<!-- 사용자: session에 담긴(value 아마도 member_name  session.member_name 회원 닉네임 -->
 				</ul>
 			</nav>
@@ -63,7 +63,7 @@ table {
 						</tr>
 					<tr>
 							<td rowspan="4" class="img"><img class="img2" style="width:150px; height: 100px; padding: 10px"
-								src="${'result.room_picture'}"></td>
+								src="${result.room_picture}"></td>
 							<td>${result.dorm_name}</td>
 							<td rowspan="5" class="rv"><a
 								href="/project_trip/trip?action=review.do&reserve_no=${result.reserve_no}"><button class="rvbt"
