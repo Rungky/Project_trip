@@ -272,10 +272,7 @@ public class tripController extends HttpServlet {
 					System.out.println("인서트 해주는 부분");
 					//tripdao.insertReservation
 					String dorm_name = request.getParameter("dormname");
-					System.out.println(dorm_name);
-					//insertReservation
 					
-					System.out.println(member);
 				}catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -284,9 +281,10 @@ public class tripController extends HttpServlet {
 			}else if(action.equals("history.do")) {
 				System.out.println("히스토리 들어옴");
 				try {
-					//(String) session.getAttribute("member_id");
-					// session.member_id 담기
 					String member = (String)session.getAttribute("id");
+					MemberDTO dto = tripdao.memberDto(member);
+					request.setAttribute("dto", dto);
+					
 					List<ReservationDTO> reserList = tripdao.selectReservationsList(member);
 					request.setAttribute("reserList",reserList );
 					System.out.println(reserList.size());
@@ -294,7 +292,7 @@ public class tripController extends HttpServlet {
 					if(reserList != null && reserList.size()> 0) {
 						System.out.println("List내용있음, 예약내역 출력");
 						nextPage = "/trip01/history.jsp";
-					//session.member_id값과 비교하기
+					
 						
 					} else if(reserList.size() == 0 && member == null) {
 						nextPage = "/trip01/nohistory2.jsp";
@@ -309,7 +307,9 @@ public class tripController extends HttpServlet {
 			} else if (action.equals("page8.do")) {
 				System.out.println("page8 서블릿 들어옴");
 				String member = (String)session.getAttribute("id");
-				session.getAttribute("tel");
+				MemberDTO dto = tripdao.memberDto(member);
+				request.setAttribute("dto", dto);
+				
 				
 				int dorm_no = Integer.parseInt( request.getParameter("dormno"));
 				int room_no = Integer.parseInt( request.getParameter("roomno"));

@@ -23,7 +23,7 @@
 				<ul>
 					<li><a href="/project_trip/trip?action=history.do">예약 내역</a></li>
 					<li><a href="/project_trip/qna.jsp">Q&A</a></li>
-					<li><a href="/project_trip/mypage.jsp">${'member_name'}</a></li>
+					<li><a href="/project_trip/mypage.jsp">${dto.member_name}</a></li>
 					<!-- 사용자: session에 담긴(value 아마도 member_name  session.member_name 회원 닉네임 -->
 				</ul>
 			</nav>
@@ -35,14 +35,12 @@
 			<br>
 			<div>
 				<div>예약자 이름</div>
-				<!-- session.member_name -->
 				<div>${id}</div>
 			</div>
 			<br>
 			<div>
 				<div>휴대폰 번호</div>
-				<!-- session.member_tel -->
-				<div>${tel}</div>
+				<div>${dto.member_tel}</div>
 			</div>
 			<br>
 			<!-- 상세페이지에서 넘겨온 내용들 session에 담아서 여기다가 출력 -->
