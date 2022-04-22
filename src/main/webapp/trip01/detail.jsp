@@ -68,9 +68,9 @@
                 <label for="tab2">리뷰</label>
                 
 			 	<form  id="tb1" class="calender_box" action="trip">
-			 		<input  class="calender" type="date" name="reserve_checkin" min="${param.reserve_checkin}" value="${param.reserve_checkin}">
+			 		<input  class="calender" type="date" name="reserve_checkin" min="${checkin}" value="${checkin}">
 			 		<span style="font-size:30px;">~</span>
-			 		<input class="calender" type="date" name="reserve_checkout" min="${param.reserve_checkin}" value="${param.reserve_checkout}">
+			 		<input class="calender" type="date" name="reserve_checkout" min="${tomorrow}" value="${checkout}">
 			 		<button class="datebt" name="action" value="detail.do">적용</button>
 			 		<input type="hidden" name="dormno" value="${dormdto.dorm_no}">
 			 	</form>

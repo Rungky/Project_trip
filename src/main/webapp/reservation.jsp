@@ -11,6 +11,10 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath }" />
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script>
+	window.onload = function(){
+		count(1);
+	}
+
 	function count(type)  {
 	  // 결과를 표시할 element
 	  const resultElement = document.getElementById('result');
@@ -31,6 +35,14 @@
 	  // 결과 출력
 	  resultElement.innerText = number;
 	  document.getElementById('result2').value = number;
+	  
+	  var room_member = '${param.room_person}';
+	  console.log(room_member);
+	  if (room_member != null && room_member != ''){
+		  resultElement.innerText = room_member;
+		  document.getElementById('result2').value = room_member;
+	  }
+	  
 	}
 </script>
 
@@ -152,7 +164,7 @@
 	                <h3>가격</h3>
 	                <div class="dropdown">
 	                    <select name="price" class="dropbtn">
-	                    	<option>-------선택-------</option>
+	                    	<option value="5">-------선택-------</option>
 	                    	<c:choose>
 	                    		<c:when test="${param.price eq 1}">
 	                    			<option value="1" selected>5만원이하</option>
@@ -234,26 +246,23 @@
 					<c:when test="${not empty dormList }">
 		            	<c:forEach var="i" items="${dormList }" step="1" >
 		               		<a href="trip?action=detail.do&dormno=${i.dorm_no }&reserve_checkin=${date_s}&reserve_checkout=${date_e}">
-		                    <div class="romm" style="background-image:url(${i.getDorm_picture()})">
+		                    <div class="romm" style="background-image:linear-gradient( rgba(0, 0, 0, 0), rgba(0, 0, 0.5, 0.8) ),url(${i.getDorm_picture()})">
 		                        <div class="ggumim">
 		                            <p>
 		                                <strong>
-		                                    ${i.dorm_name }
+		                                    <h3 class="font1">${i.dorm_name }</h3>
 		                                </strong>
 		                            </p>
 		                            <p>
-		                                <span>리뷰</span>
-		                                <span>(</span>
-		                                <span>${i.count_reserve_no }</span>
-		                                <span>)</span>
+		                                <span class="font1">리뷰(<span class="font1">${i.count_reserve_no}</span>)</span>
 		                            </p>
 		                            <p>
-		                                <strong>${i.dorm_addr}</strong>
+		                                <strong class="font1 addr">${i.dorm_addr}</strong>
 		                            </p>
 		                        </div>
 		                        <div class="price">
 		                            <p><strong>
-		                                ${i.min_pay_night}원
+		                                <h3 class="font1">${i.min_pay_night}원</h3>
 		                            </strong></p>
 		                        </div>
 		                    </div>
