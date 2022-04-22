@@ -6,6 +6,7 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -20,7 +21,7 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
-import dao.*;
+import dao.MemberDAO;
 import dao.TripDAO;
 import dto.CheckDTO;
 import dto.DormDTO;
@@ -30,6 +31,7 @@ import dto.QuestionDTO;
 import dto.ReservationDTO;
 import dto.ReviewDTO;
 import dto.RoomDTO;
+import service.MemberService;
 import service.QnaService;
 
 @WebServlet("/trip")
@@ -37,6 +39,7 @@ public class tripController extends HttpServlet {
 	TripDAO tripdao = new TripDAO();
 	MemberDAO memberDAO = new MemberDAO();
 	QnaService qnaservice = new QnaService();
+	MemberService memberService = new MemberService();
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -276,13 +279,21 @@ public class tripController extends HttpServlet {
 				nextPage = "/trip?action=detail.do&dormno="+dormno+"";
 			} else if(action.equals("result.do")) {
 				System.out.println("result 들어옴");
-				String member = request.getParameter("member_id");
+				String member = (String)session.getAttribute("id");
 				
 				try {
 					//받아온 값 가지고 인서트 해주고, 그거를 history.do로 가서 결과값 출력해주기
 					System.out.println("인서트 해주는 부분");
-					//tripdao.insertReservation
-					String dorm_name = request.getParameter("dormname");
+					int dorm_no = Integer.parseInt( request.getParameter("dorm_no"));
+					System.out.println(dorm_no);
+					int room_no = Integer.parseInt( request.getParameter("room_no"));
+					System.out.println(room_no);
+					Date reserve_checkin = Date.valueOf(request.getParameter("reserve_checkin"));
+					Date reserve_checkout = Date.valueOf(request.getParameter("reserve_checkout"));
+					int reserve_pay = Integer.parseInt(request.getParameter("reserve_pay"));
+					System.out.println(reserve_pay);
+					tripdao.insertReservation(member,reserve_checkin, reserve_checkout,reserve_pay,room_no,dorm_no );
+					System.out.println("인서트 성공");
 					
 				}catch (Exception e) {
 					e.printStackTrace();
@@ -290,9 +301,9 @@ public class tripController extends HttpServlet {
 				
 				nextPage = "/trip?action=history.do&member_id=" + member + "";
 			}else if(action.equals("history.do")) {
+				String member = (String)session.getAttribute("id");
 				System.out.println("히스토리 들어옴");
 				try {
-					String member = (String)session.getAttribute("id");
 					MemberDTO dto = tripdao.memberDto(member);
 					request.setAttribute("dto", dto);
 					
@@ -321,7 +332,7 @@ public class tripController extends HttpServlet {
 				MemberDTO dto = tripdao.memberDto(member);
 				request.setAttribute("dto", dto);
 				
-				
+				//예약하기전 출력
 				int dorm_no = Integer.parseInt( request.getParameter("dormno"));
 				int room_no = Integer.parseInt( request.getParameter("roomno"));
 				String dorm_name = request.getParameter("dormname");
@@ -334,10 +345,7 @@ public class tripController extends HttpServlet {
 				checkDto = tripdao.checkList(dorm_no,room_no,dorm_name,room_name,reser_checkin,reserve_checkout,reserve_pay);
 				request.setAttribute("check", checkDto);
 				
-				
-				
-				
-				nextPage = "/page8.jsp";
+				nextPage = "/page8.jsp";;
 			} else if(action.equals("review.do")) {
 				System.out.println("액션 리뷰 들어옴");
 				try {
@@ -480,14 +488,75 @@ public class tripController extends HttpServlet {
 				System.out.println("size : "+QuestionList.size());
 				request.setAttribute("questionList", QuestionList);
 				nextPage = "/qna_answer.jsp";
-			}
-				else {
+			}else if (action.equals("main.do")) {
+				
+				List<DormDTO> dormList = new ArrayList(); 
+				dormList = memberDAO.selectDormList();
+				request.setAttribute("dormList", dormList);
+				
+				Calendar cal = Calendar.getInstance();
+				String format = "yyyy-MM-dd";
+				SimpleDateFormat sdf = new SimpleDateFormat(format);
+				Calendar calendar = new GregorianCalendar();
+				SimpleDateFormat SDF = new SimpleDateFormat("yyyy-MM-dd");
+				
+				String reserve_checkin = SDF.format(calendar.getTime());		
+				calendar.add(Calendar.DATE, +1);	
+				String reserve_chekout = SDF.format(calendar.getTime());		
+				
+				request.setAttribute("reserve_checkin",reserve_checkin);
+				request.setAttribute("reserve_checkout", reserve_chekout);
+				nextPage = "/main.jsp";
+				
+			}else if (action.equals("mypage.do")){
+				// 로그인 미구현으로 인한 임시코드
+				//session.setAttribute("member_id","co9382");
+				//================
+				
+				String member_id = (String) session.getAttribute("id");
+				MemberDTO memberDTO = memberService.selectMember(member_id);
+				request.setAttribute("member",memberDTO);
+				nextPage = "/mypage.jsp";
+			} else if (action.equals("modify_name.do")) {
+
+				String member_id = (String) request.getParameter("member_id");
+				String member_name = (String) request.getParameter("member_name");
+				System.out.println("받은 아이디와 새 닉네임:"+member_id+"&"+member_name);
+				
+				if (member_id != null && !("".equals(member_id)) && member_name != null && !("".equals(member_name))) {
+					memberService.modifyMemberName(member_id, member_name);
+					System.out.println("닉네임 수정완료");
+				}		
+				nextPage="/trip?action=mypage.do";  
+			}else if (action.equals("modify_pw.do")) {
+				
+				String member_id = request.getParameter("member_id");
+				String member_pw = request.getParameter("member_pw");
+				System.out.println("받은 아이디와 새비밀번호:"+member_id+"&"+member_pw);
+				if(member_id !=null &&!("".equals(member_id))&& member_pw !=null &&!("".equals(member_pw))) {
+					memberService.modifyMemberPw(member_id, member_pw);
+					System.out.println("비밀번호 수정완료");
+				}
+				nextPage="/trip?action=mypage.do";  // 수정된정보를 포함하여 마이페이지로 이동 
+				
+			}else if(action.equals("logout.do")) {
+				session.invalidate();
+				nextPage="/trip?action=main.do";   //메인으로 이동
+				
+			}else if(action.equals("removeMember.do")) {
+				
+				String member_id = (String) request.getParameter("member_id");
+				//System.out.println(member_id);
+				memberService.removeMember(member_id);
+				nextPage="/trip?action=main.do";   //메인으로 이동
+			}else {
 				System.out.println("잘못들어옴");
 			}
 			
-			
+			System.out.println("1 >> nextPage:  "+ nextPage);
 			RequestDispatcher dispatch = request.getRequestDispatcher(nextPage);
 			dispatch.forward(request, response);
+		
 		} catch (Exception e ) {
 			e.printStackTrace();
 		}
