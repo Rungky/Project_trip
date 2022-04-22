@@ -10,7 +10,7 @@
 		<div>
 			<form action="${contextPath}/trip">
 				<button class="bt">
-					<img class="rogo" src="/image/logo.png">
+					<img class="rogo" src="./image/mainLogo.png">
 				</button>
 			</form>
 		</div>
