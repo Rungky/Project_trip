@@ -74,7 +74,7 @@ public class tripController extends HttpServlet {
 			
 			if (action.equals(" ")) {
 				
-				nextPage = "main.jsp";
+				nextPage = "/trip?action=main.do";
 			}  else if (action.equals("reservation.do")) {
 				
 				List<DormVO> dormList = new ArrayList<DormVO>();
@@ -404,7 +404,7 @@ public class tripController extends HttpServlet {
 
 						if (id.equals(mem.getMember_id()) && password.equals(mem.getMember_pw())) {
 							session.setAttribute("id", mem.getMember_id());
-							nextPage = "/main.jsp";
+							nextPage = "/trip?action=main.do";
 						} else {
 							nextPage = "/login.jsp";
 						}
@@ -417,7 +417,7 @@ public class tripController extends HttpServlet {
 					session.invalidate();
 
 					// 메인 페이지로 되돌아감
-					nextPage = "/main.jsp";
+					nextPage = "/trip?action=main.do";
 			}else if(action.equals("qna.do")) {
 				System.out.println("qna 페이지");
 				//questionDTO 담기
@@ -548,6 +548,7 @@ public class tripController extends HttpServlet {
 				String member_id = (String) request.getParameter("member_id");
 				//System.out.println(member_id);
 				memberService.removeMember(member_id);
+				session.invalidate();
 				nextPage="/trip?action=main.do";   //메인으로 이동
 			}else {
 				System.out.println("잘못들어옴");

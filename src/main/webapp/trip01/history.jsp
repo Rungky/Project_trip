@@ -11,9 +11,9 @@
 <title>history</title>
 
 <link rel="stylesheet" href="../css/history.css">
-<link rel="stylesheet" href="./css/header_footer.css">
+<link rel="stylesheet" href="../css/header_footer.css">
 <style>
-.atc {
+/* .atc {
     font-size: 25px;
     font-weight: bold;
     padding-bottom: 10px;
@@ -26,7 +26,7 @@ table {
     background-color: antiquewhite;
     padding: 10px 80px 10px 10px;
     width: 1000px;
-}
+} */
 </style>
 </head>
 
