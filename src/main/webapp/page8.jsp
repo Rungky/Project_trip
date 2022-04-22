@@ -55,8 +55,8 @@
 				</div>
 			</div>
 			<!--  member_id 가져가야함-->
-			<form class="box" action="trip">
-				<button class="rsv2" name="action" value="result.do">예약</button>
+			<form action="trip">
+				<button class="box" name="action" value="result.do">예약</button>
 				<input type="hidden" name="dorm_no" value="${check.dorm_no}">
 				<input type="hidden" name="room_no" value="${check.room_no}">
 				<input type="hidden" name="reserve_checkin" value="${check.reserve_checkin}">
