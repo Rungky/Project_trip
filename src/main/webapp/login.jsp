@@ -40,7 +40,7 @@ function loginChk() {
 	            <form action="${ contextPath}/trip" method="post" name="f1">
 	            	<input type="hidden" name="action" value="login.do">
 	                <div class="login_top">
-	                    <input type="text" name="id" placeholder="이메일 주소" />
+	                    <input type="text" name="id" placeholder="아이디" />
 	                    <input type="password" name="password" placeholder="비밀번호" />
 	                </div>
 	                <div>

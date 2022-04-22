@@ -6,6 +6,7 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -20,7 +21,7 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
-import dao.*;
+import dao.MemberDAO;
 import dao.TripDAO;
 import dto.CheckDTO;
 import dto.DormDTO;
@@ -30,6 +31,7 @@ import dto.QuestionDTO;
 import dto.ReservationDTO;
 import dto.ReviewDTO;
 import dto.RoomDTO;
+import service.MemberService;
 import service.QnaService;
 
 @WebServlet("/trip")
@@ -37,6 +39,7 @@ public class tripController extends HttpServlet {
 	TripDAO tripdao = new TripDAO();
 	MemberDAO memberDAO = new MemberDAO();
 	QnaService qnaservice = new QnaService();
+	MemberService memberService = new MemberService();
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -489,14 +492,75 @@ public class tripController extends HttpServlet {
 				System.out.println("size : "+QuestionList.size());
 				request.setAttribute("questionList", QuestionList);
 				nextPage = "/qna_answer.jsp";
-			}
-				else {
+			}else if (action.equals("main.do")) {
+				
+				List<DormDTO> dormList = new ArrayList(); 
+				dormList = memberDAO.selectDormList();
+				request.setAttribute("dormList", dormList);
+				
+				Calendar cal = Calendar.getInstance();
+				String format = "yyyy-MM-dd";
+				SimpleDateFormat sdf = new SimpleDateFormat(format);
+				Calendar calendar = new GregorianCalendar();
+				SimpleDateFormat SDF = new SimpleDateFormat("yyyy-MM-dd");
+				
+				String reserve_checkin = SDF.format(calendar.getTime());		
+				calendar.add(Calendar.DATE, +1);	
+				String reserve_chekout = SDF.format(calendar.getTime());		
+				
+				request.setAttribute("reserve_checkin",reserve_checkin);
+				request.setAttribute("reserve_checkout", reserve_chekout);
+				nextPage = "/main.jsp";
+				
+			}else if (action.equals("mypage.do")){
+				// 로그인 미구현으로 인한 임시코드
+				//session.setAttribute("member_id","co9382");
+				//================
+				
+				String member_id = (String) session.getAttribute("id");
+				MemberDTO memberDTO = memberService.selectMember(member_id);
+				request.setAttribute("member",memberDTO);
+				nextPage = "/mypage.jsp";
+			} else if (action.equals("modify_name.do")) {
+
+				String member_id = (String) request.getParameter("member_id");
+				String member_name = (String) request.getParameter("member_name");
+				System.out.println("받은 아이디와 새 닉네임:"+member_id+"&"+member_name);
+				
+				if (member_id != null && !("".equals(member_id)) && member_name != null && !("".equals(member_name))) {
+					memberService.modifyMemberName(member_id, member_name);
+					System.out.println("닉네임 수정완료");
+				}		
+				nextPage="/trip?action=mypage.do";  
+			}else if (action.equals("modify_pw.do")) {
+				
+				String member_id = request.getParameter("member_id");
+				String member_pw = request.getParameter("member_pw");
+				System.out.println("받은 아이디와 새비밀번호:"+member_id+"&"+member_pw);
+				if(member_id !=null &&!("".equals(member_id))&& member_pw !=null &&!("".equals(member_pw))) {
+					memberService.modifyMemberPw(member_id, member_pw);
+					System.out.println("비밀번호 수정완료");
+				}
+				nextPage="/trip?action=mypage.do";  // 수정된정보를 포함하여 마이페이지로 이동 
+				
+			}else if(action.equals("logout.do")) {
+				session.invalidate();
+				nextPage="/trip?action=main.do";   //메인으로 이동
+				
+			}else if(action.equals("removeMember.do")) {
+				
+				String member_id = (String) request.getParameter("member_id");
+				//System.out.println(member_id);
+				memberService.removeMember(member_id);
+				nextPage="/trip?action=main.do";   //메인으로 이동
+			}else {
 				System.out.println("잘못들어옴");
 			}
 			
-			
+			System.out.println("1 >> nextPage:  "+ nextPage);
 			RequestDispatcher dispatch = request.getRequestDispatcher(nextPage);
 			dispatch.forward(request, response);
+		
 		} catch (Exception e ) {
 			e.printStackTrace();
 		}

@@ -16,14 +16,14 @@
 		</div>
 		<nav>
 			<ul>
-				<li><a href="">예약 내역</a></li>
-				<li><a href="">Q&A</a></li>
+				<li><a href="trip?action=history.do">예약 내역</a></li>
+				<li><a href="trip?action=qna.do">Q&A</a></li>
 				
 				<c:if test="${empty id}">
 					<li><a href="trip?action=loginForm.do">로그인</a></li>
 				</c:if>
 				<c:if test="${!empty id}">
-					<li><a href="trip?action=loginOut.do">로그아웃</a></li>
+					<li><a href="trip?action=mypage.do">${id} </a></li>
 				</c:if>
 			</ul>
 		</nav>
