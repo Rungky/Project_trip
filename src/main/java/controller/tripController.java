@@ -130,7 +130,7 @@ public class tripController extends HttpServlet {
 					if(request.getParameter("order") != null) {
 						order = Integer.parseInt(request.getParameter("order"));
 					}
-					if(request.getParameter("price") != null) {
+					if(!("5".equals(request.getParameter("price"))) && request.getParameter("price") != null) {
 						price = Integer.parseInt(request.getParameter("price"));
 					}
 					TripDAO dao = new TripDAO();
