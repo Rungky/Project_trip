@@ -9,13 +9,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>history</title>
-<script>
-
-function result() {
-	alert("예약이 취소되었습니다")
-	
-}
-
+<script type="text/javascript">
 
 
 
@@ -63,7 +57,7 @@ table {
 								href="/project_trip/trip?action=review.do&reserve_no=${result.reserve_no}"><button
 										class="rvbt" name="action" value="review">리뷰</button></a> <a
 								href="/project_trip/trip?action=reserDelete.do&reserve_no=${result.reserve_no}"><button
-										class="re" name="action" value="review" onclick="result()">예약 취소하기</button></a></td>
+										class="re" name="action" value="review" onclick="return confirm('예약을 취소하시겠습니까?')">예약 취소하기</button></a></td>
 						</tr>
 						<tr>
 

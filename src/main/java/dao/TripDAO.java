@@ -276,7 +276,6 @@ public class TripDAO {
 
 	public List<ReservationDTO> selectReservationsList(String member) {
 		List<ReservationDTO> list = new ArrayList<ReservationDTO>();
-
 		try {
 			con = dataFactory.getConnection();
 			System.out.println("진입");
@@ -293,7 +292,6 @@ public class TripDAO {
 			query += " 		and reser.member_id = ? ";
 			query += " order by reserve_no desc ";
 
-			System.out.println("사이2");
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, member);
 
@@ -366,10 +364,15 @@ public class TripDAO {
 	
 	
 
-	public CheckDTO checkList(int dorm_no, int room_no, String dorm_name, String room_name, Date reserve_checkin,
-			Date reserve_checkout, int reserve_pay
-
-	) {
+	public CheckDTO checkList(
+			int dorm_no, 
+			int room_no, 
+			String dorm_name, 
+			String room_name, 
+			Date reserve_checkin,
+			Date reserve_checkout, 
+			int reserve_pay) 
+	{
 		CheckDTO dto = new CheckDTO();
 
 		dto.setDorm_no(dorm_no);
@@ -443,8 +446,13 @@ public class TripDAO {
 	}
 
 	// 예약 인서트
-	public void insertReservation(String member, Date reserve_checkin, Date reserve_checkout, int reserve_pay,
-			int room_no, int dorm_no) {
+	public void insertReservation(
+			String member, 
+			Date reserve_checkin, 
+			Date reserve_checkout, 
+			int reserve_pay,
+			int room_no, 
+			int dorm_no) {
 
 		try {
 			con = dataFactory.getConnection();
@@ -480,11 +488,9 @@ public class TripDAO {
 			if (con != null) {
 				con.close();
 			}
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	// member
