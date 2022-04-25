@@ -460,7 +460,7 @@ public class tripController extends HttpServlet {
 			}else if(action.equals("addqna.do")) {
 				String title = request.getParameter("title");
 				String content = request.getParameter("content");
-				
+				String id= (String)session.getAttribute("id");
 				
 				QuestionDTO qdto = new QuestionDTO();
 				qdto.setQuestion_title(title);
@@ -473,7 +473,7 @@ public class tripController extends HttpServlet {
 				qdto.setQuestion_date(date);
 				qdto.setQuestion_picture("sss");
 				qdto.setQuestion_view(0);
-				qdto.setMember_id("admin");
+				qdto.setMember_id(id);
 				
 				qnaservice.addArticle(qdto);
 				nextPage = "/trip?action=qna.do";

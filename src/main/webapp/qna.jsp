@@ -20,7 +20,7 @@
         <div id="wrap_qna">
             <div id="qna">
                  <div id="qna_head" class="fs_m2 fw_7">
-                    <div id="my_qna"> 나의 문의내역 </div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <div id="my_qna"> 문의내역 </div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <div id="new_qna"><a href="${contextPath}/trip?action=qnaForm.do">새 문의 작성</a> </div>
                 </div>
                 
@@ -47,7 +47,7 @@
 			             		
 			                    <!--/<hr>-->
 			                    <div class="qna_contents">
-			                    	<div>${id}</div>
+			                    	<div>${question.member_id}</div>
 			                        <div class="qna_contents2" class="fs_m"> ${question.question_contents} </div>
 			                        <c:set var="questionListsize" value="${fn:length(questionList)}"/>
 			                    	<c:forEach var="question2" items="${questionList}"> 
