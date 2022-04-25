@@ -89,7 +89,7 @@
                 <input type="hidden" name ="member_id" value="${member.member_id}">
                  <input type="hidden" name="action" value="modify_pw.do">
                 <br>
-                <a href="#">내가 예약한 숙소보기</a>
+                <a href="trip?action=history.do">내가 예약한 숙소보기</a>
             </form>
 			 <br>
             <hr>

@@ -34,19 +34,10 @@ public class loginFilter extends HttpFilter implements Filter {
 		HttpServletResponse httpResponse = (HttpServletResponse) response;
 		HttpSession session = httpRequest.getSession();
 		
-		
 		String action = request.getParameter("action");
 		String path1 = httpRequest.getRequestURI();
-//		String path = httpRequest.getQueryString();
-		System.out.println("action : " + action); // null값이 들어옴
+		System.out.println("action : " + action);
 		System.out.println("path1 : " + path1);
-		// 제외한 url이 들어 왔을때 동작할 코드 작성
-		
-		
-		
-			// 세션이 없는 경우 : 로그인페이지로
-		// 단, ㅣ요런요런 페이지는 세션 없이 접근 가능
-		// 세션 있는 경우 : 원래 의도했던 곳으로 인도
 		
 		  if (action == null 
 				  || action.equals("login.do") 
@@ -69,7 +60,6 @@ public class loginFilter extends HttpFilter implements Filter {
 		  }
 	}
 
-	// 필터 객체가 제거될 때 실행됨.
 	public void destroy() {
 	}
 
