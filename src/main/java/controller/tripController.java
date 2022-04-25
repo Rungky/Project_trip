@@ -291,7 +291,7 @@ public class tripController extends HttpServlet {
 				} else {
 					System.out.println("INSERT");
 					tripdao.insertReview(title, contents, score, date, picture, reservNo, memberId);
-					nextPage = "/trip?action=detail.do&dormno="+dormno+"";
+					response.sendRedirect("/project_trip/trip?action=detail.do&dormno="+dormno+"");
 				}
 					
 				
