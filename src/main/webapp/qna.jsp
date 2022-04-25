@@ -25,50 +25,52 @@
                 </div>
                 
                <c:choose>
-			<c:when test="${ empty questionList}">
-				<div>등록된 글이 없습니다</div>
-			</c:when>
+					<c:when test="${ empty questionList}">
+						<div>등록된 글이 없습니다</div>
+					</c:when>
                 
-                <c:when test="${! empty questionList}">
-                <c:forEach var="question" items="${questionList}" varStatus="questionNum">
-                <div id="qna_main">
-                    <div class="qna_title">
-                        <div>
-                            <div class="fs_m fw_6">${question.question_title}</div>
-                            <div class="fs_s margin_top">작성일 ${question.question_date}</div>
-                        </div>
-                        <div class="answer_button">
-                            <button class="btn_doAnswer" data-id="${question.question_no}">답변하기</button>
-                            <button class="btn_open">▼</button>
-                        </div>
-                    </div>
-             
-                    <!--/<hr>-->
-                    <div class="qna_contents">
-                    <div>${question.member_id}</div>
-                        <div class="qna_contents2" class="fs_m"> ${question.question_contents} </div>
-                        <div class="qna_answer fs_s2">
-                            <br>
-                            <div><span class="fw_6 fs_m2">답변 &nbsp;</span><span class="fs_s">작성일 ${question.question_date}</span></div>
-                            <div>
-                                
-                            </div>
-                        </div>
-                    </div>
-       
-                </div>
-                </c:forEach>
-                </c:when>
+	                <c:when test="${! empty questionList}">
+		                <c:forEach var="question" items="${questionList}" varStatus="questionNum">
+		                <c:choose>
+		                	<c:when test="${question.question_parentno == 0 }">
+			                <div id="qna_main">
+			                    <div class="qna_title">
+			                        <div>
+			                            <div class="fs_m fw_6">${question.question_title}</div>
+			                            <div class="fs_s margin_top">작성일 ${question.question_date}</div>
+			                        </div>
+			                        <div class="answer_button">
+			                            <button class="btn_doAnswer" data-id="${question.question_no}">답변하기</button>
+			                            <button class="btn_open">▼</button>
+			                        </div>
+			                    </div>
+			             		
+			                    <!--/<hr>-->
+			                    <div class="qna_contents">
+			                    	<div>${id}</div>
+			                        <div class="qna_contents2" class="fs_m"> ${question.question_contents} </div>
+			                        <c:set var="questionListsize" value="${fn:length(questionList)}"/>
+			                    	<c:forEach var="question2" items="${questionList}"> 
+			                    	
+				                    	<c:if test="${question.question_no == question2.question_parentno}">
+			                        	<div class="qna_answer fs_s2">
+				                            <br>
+				                            <div><span class="fw_6 fs_m2">답변 &nbsp;</span><span class="fs_s">작성일 ${question2.question_date}</span></div>
+				                            <div>
+				                            	${question2.question_contents}
+				                            </div>
+			                        	</div>
+			                        	</c:if>
+		                        	</c:forEach>
+			                    </div>
+			       			
+			                </div>
+			                </c:when>
+		                </c:choose>
+		                </c:forEach>
+	                </c:when>
                 </c:choose>
-                <div id="qna_page">
-                    <div>
-                        <a href>[이전]</a>&nbsp;
-                        <a href>[1]</a>
-                        <a href>[2]</a>
-                        <a href>[3]</a>&nbsp;
-                        <a href>[다음]</a>
-                    </div>
-                </div>
+               
             </div>
         </div>
     </section>

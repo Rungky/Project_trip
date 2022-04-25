@@ -46,7 +46,7 @@
                         </div>
                         <div class="margin_auto">
                             <br>
-                            <input type="hidden" name="parentNO" value="${question_parentno}">
+                            <input type="hidden" name="parentNO" value="${question.question_no}">
                             <input class="input_submit" type="submit" value="답변등록">
                             <input class="input_reset" type="reset" value="취소하기">
                         </div>

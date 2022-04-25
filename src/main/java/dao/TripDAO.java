@@ -543,6 +543,9 @@ public class TripDAO {
 				String query = "";
 				query += " select * from ";
 				query += " 	tb_question ";
+				query += " 	start with question_parentno=0 ";
+				query += " 	connect by prior question_no = question_parentno ";
+				query += " order siblings by question_no desc ";
 				
 				
 				//페이징 구현
@@ -614,6 +617,42 @@ public class TripDAO {
 				e.printStackTrace();
 			}
 		}
+		
+		//답글쓰기
+		public void insertReplyQuestion (QuestionDTO questionDTO) {
+			try {
+				con = dataFactory.getConnection();
+				String query = "";
+				query += " INSERT INTO tb_question (";
+				query += " 		question_no, question_parentno, question_title, question_contents, ";
+				query += " 		question_picture, question_date,question_view,member_id )";
+				query += " values (";
+				query += " 		tb_question_seq.nextval, ?, ?, ?, ";
+				query += " 		?, ?, ?, ? ";
+				query += " )";
+				pstmt = con.prepareStatement(query);
+				
+				pstmt.setInt(1, questionDTO.getQuestion_parentno());
+				pstmt.setString(2, questionDTO.getQuestion_title());
+				pstmt.setString(3, questionDTO.getQuestion_contents());
+				pstmt.setString(4, questionDTO.getQuestion_picture());
+				pstmt.setDate(5, questionDTO.getQuestion_date());
+				pstmt.setInt(6, questionDTO.getQuestion_view());
+				pstmt.setString(7, questionDTO.getMember_id());
+				
+				int result = pstmt.executeUpdate();
+				System.out.println("새글등록 : result : "+ result);
+				
+//				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(con != null) con.close();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		
 	public List<DormVO> getDormList(int dorm_category_no, Date start, Date end, int opt_wifi, int opt_parking,
 			int opt_aircon, int opt_dryer, int opt_port, int room_person, int order, int price) {
 
@@ -775,6 +814,48 @@ public class TripDAO {
 	}
 	
 
+	public List<QuestionDTO> selectReply() {
+		List<QuestionDTO> QuestionList = new ArrayList();
+		
+		try {
+			con = dataFactory.getConnection();
+
+			String query = "";
+			query += " select question_contents from ";
+			query += " 	tb_question ";
+			query += " where question_no = question_parentno";
+			
+			pstmt = con.prepareStatement(query);
+			
+			ResultSet rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				QuestionDTO question = new QuestionDTO();
+				question.setQuestion_no(rs.getInt("question_no"));
+				question.setQuestion_parentno(rs.getInt("question_parentno"));
+				question.setQuestion_title(rs.getString("question_title"));
+				question.setQuestion_contents(rs.getString("question_contents"));
+				question.setQuestion_picture(rs.getString("question_picture"));
+				question.setQuestion_date(rs.getDate("question_date"));
+				question.setQuestion_view(rs.getInt("question_view"));
+				question.setMember_id(rs.getString("member_id"));
+			
+				
+				QuestionList.add(question);
+			}
+
+			if(rs != null) rs.close();
+			if(pstmt != null) pstmt.close();
+			if(con != null) con.close();
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return QuestionList;
+	}
+	
 	public void plusViewCount(int articleNo) {
 		try {
 			

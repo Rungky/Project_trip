@@ -461,6 +461,7 @@ public class tripController extends HttpServlet {
 				String title = request.getParameter("title");
 				String content = request.getParameter("content");
 				
+				
 				QuestionDTO qdto = new QuestionDTO();
 				qdto.setQuestion_title(title);
 				qdto.setQuestion_contents(content);
@@ -493,7 +494,7 @@ public class tripController extends HttpServlet {
 				qdto.setMember_id("admin");
 				
 				qnaservice.addReply(qdto);
-				nextPage = "/trip?action=qna.do";
+				nextPage = "/trip?action=replylist.do";
 			}else if(action.equals("answerqna.do")) {
 				List<QuestionDTO> QuestionList = new ArrayList<QuestionDTO>();
 				
@@ -503,6 +504,14 @@ public class tripController extends HttpServlet {
 				System.out.println("size : "+QuestionList.size());
 				request.setAttribute("questionList", QuestionList);
 				nextPage = "/qna_answer.jsp";
+			}else if(action.equals("replylist.do")) {
+				List<QuestionDTO> QuestionList = new ArrayList<QuestionDTO>();
+				
+				QuestionList=qnaservice.ReplyQna();
+				System.out.println("size : "+QuestionList.size());
+				request.setAttribute("questionList", QuestionList);
+				nextPage = "/trip?action=qna.do";
+			
 			}else if (action.equals("main.do")) {
 				
 				List<DormDTO> dormList = new ArrayList(); 

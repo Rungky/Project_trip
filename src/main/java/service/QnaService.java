@@ -47,13 +47,17 @@ public class QnaService {
 		tripDAO.insertNewQuestion(questionDTO);
 	}
 	public void addReply(QuestionDTO questionDTO) {
-		tripDAO.insertNewQuestion(questionDTO);
+		tripDAO.insertReplyQuestion(questionDTO);
 	}
-	
-	
 	
 	public List<QuestionDTO> listQna(int question_no){
 		List<QuestionDTO> QuestionList = tripDAO.selectQuestion(question_no);
+		
+		return QuestionList;
+	}
+	
+	public List<QuestionDTO> ReplyQna(){
+		List<QuestionDTO> QuestionList = tripDAO.selectReply();
 		
 		return QuestionList;
 	}
