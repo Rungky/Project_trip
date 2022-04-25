@@ -4,11 +4,11 @@ body {
     margin-top: 81px;
 }
 
-header {
+/*header {
     position: fixed;
     top: 0;
     width: 100%;
-     background-color: #f7323f;
+     background-color: rgb(18, 18, 86);
 }
 
 .hd {
@@ -51,6 +51,7 @@ nav > ul > li > a{
     color: #fff;
     text-decoration: none;
 }
+*/
 
 /* section부분 */
 .container {

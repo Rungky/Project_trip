@@ -7,7 +7,8 @@ header {
     position: fixed;
     top: 0;
     width: 100%;
-    background-color: #f7323f;
+   background-color:  rgb(18, 18, 86);
+    /*background-color: rgb(43, 43, 43);*/
     z-index: 100;
 }
 
@@ -21,10 +22,10 @@ header {
 }
 .bt {
     position: relative;
-    width: 100px;
+    width: 135px;
     height: 30px;
     cursor: pointer;
-    background-color: #f7323f;
+    background-color: rgb(18, 18, 86);
     border: none;
     margin: 10px;
     overflow-y:hidden;

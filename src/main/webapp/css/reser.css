@@ -8,7 +8,7 @@ a{
 	text-decoration: none;
 }
 
-header {
+/*header {
     position: fixed;
     top: 0;
     width: 100%;
@@ -56,6 +56,7 @@ nav > ul > li > a{
     text-decoration: none;
 }
 
+*/
 /* section부분 */
 .container {
     width: 1024px !important;
@@ -182,10 +183,6 @@ label.label_check {
     background-size: 21px auto;
     user-select: none;
 }
-
-
-
-
 
 
 .ner5 {

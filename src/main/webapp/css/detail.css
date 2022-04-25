@@ -9,7 +9,7 @@ header {
     position: fixed;
     top: 0;
     width: 100%;
-     background-color: #f7323f;
+     background-color: rgb(18, 18, 86);
 }
 section {
     display: flex;
@@ -39,7 +39,7 @@ section {
     width: 100px;
     height: 30px;
     cursor: pointer;
-    background-color: #f7323f;
+    background-color: rgb(18, 18, 86);
     border: none;
     margin: 10px;
     overflow-y:hidden;
@@ -108,8 +108,8 @@ nav > ul > li > a{
 	overflow : hidden;
 } */
 div > aside {
-    width: 500px;
-    height: 400px;
+    width: 800px;
+    height: 360px;
     padding: 20px 40px 20px 40px;
 }
 div > article {
@@ -138,11 +138,11 @@ label {
     color: #bbb;
 }
 label:hover {
-    color: #ff0000;
+    color: rgb(18, 18, 86);
     cursor: pointer;}
     input:checked + label {
         color: rgb(0, 0, 0);
-        border-bottom:3px solid red ;
+        border-bottom:3px solid rgb(18, 18, 86);
 }
 #tb1, #tb2 {
     display: none;
@@ -166,19 +166,20 @@ table{
 	margin: 50px 50px 30px 70px;
 }
 .calender {
-	width:200px;
-	height : 60px;
-	font-size: 30px;
+    width: 200px;
+    height: 30px;
+    font-size: 20px;
+    font-weight: 600;
 }
 .datebt {
 	margin: 0 0 5px 20px;
 	width : 100px;
 	height : 40px;
 	font-size : 20px;
-    border: 1px solid rgb(242,17,76);
+    border: 1px solid rgb(18, 18, 86);
     background: #fff;
     font-weight: bold;
-    color: rgb(242,17,76);
+    color: rgb(18, 18, 86);
 	cursor:pointer;
 }
 .image2 {
@@ -219,7 +220,7 @@ table{
 .rsv {
     width: 250px;
     height: 30px;
-    background-color: rgba(230,34,67,1);
+    background-color: rgb(18, 18, 86);
     border: none;
     border-radius: 3px;
     color: #fff;
@@ -228,8 +229,8 @@ table{
 }
 .rsv2 {
     width: 500px;
-    height: 30px;
-    background-color: rgba(230,34,67,1);
+    height: 40px;
+    background-color: rgb(18, 18, 86);
     border: none;
     border-radius: 3px;
     color: #fff;
