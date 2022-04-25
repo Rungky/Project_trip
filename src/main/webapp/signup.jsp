@@ -49,7 +49,7 @@ function joinChk() {
         <section>
 	        <div class="signup_main">
 				<a href="${contextPath}/trip">
-					<img src="https://image.goodchoice.kr/images/web_v3/ic_bi_yeogi_250px.png" alt="로고">
+					<img src="./image/loginLogo.png" alt="로고">
 				</a>
 				<h2>회원가입</h2>
 	            <form action="${contextPath}/trip" method="post" name="f1">

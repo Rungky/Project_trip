@@ -35,7 +35,7 @@ function loginChk() {
         <section>
 	        <div class="login_main">
 	            <a href="${contextPath}/trip">
-					<img src="https://image.goodchoice.kr/images/web_v3/ic_bi_yeogi_250px.png" alt="로고">
+					<img src="./image/loginLogo.png" alt="로고">
 				</a><p></p>
 	            <form action="${ contextPath}/trip" method="post" name="f1">
 	            	<input type="hidden" name="action" value="login.do">

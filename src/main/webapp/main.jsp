@@ -19,7 +19,7 @@
 		<section>
 			<div class="banner">
 				<img
-					src="https://image.goodchoice.kr/images/web_v3/mainspot_220322.png">
+					src="./image/main.png">
 			</div>
 		</section>
 	</div>

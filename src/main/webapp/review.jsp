@@ -22,7 +22,7 @@
             <div id="main">
                 <div id="main_title">
                     <div class="margin_auto"><img class="review_logo"
-                            src="https://image.goodchoice.kr/images/web_v3/ic_bi_yeogi_250px.png" alt="로고"> </div>
+                            src="./image/loginLogo.png" alt="로고"> </div>
                     <div style="margin-top: 5px;">
                         <div class="fs_m2 fw_6">소중한 리뷰를 남겨주세요!</div>
                         <div class="fs_s">
