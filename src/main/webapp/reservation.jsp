@@ -75,8 +75,8 @@
             		</c:if>
 	            	<input type="hidden" name="action" value="reservation.do">
 	                <h3>날짜</h3>
-	                check In>> <input type="date" id="start" name="start" value="${date_s}"><br>
-	                check Out>> <input type="date" id="end" name="end" value="${date_e}">
+	                check In>> <input type="date" id="start" name="start" value="${date_s}" min="${date_s}"><br>
+	                check Out>> <input type="date" id="end" name="end" value="${date_e}" min="${date_s}">
 	            </div>
 	            <div class="ner2">
 	                <h3>상세조건</h3>
