@@ -35,7 +35,7 @@
                     <input class="question_input_title" type="text" placeholder="제목을 입력해주세요." name="title">
                     <p>문의 내용</p>
                     <textarea type="text" placeholder="내용을 입력해주세요." name="content"></textarea><br>
-                    <input class="question_input_btn" type="reset" value="취소"><input class="question_input_btn" type="submit" value="작성완료">
+                    <input class="question_input_btn" type="submit" value="작성완료"><input class="question_input_btn" type="reset" value="취소">
                 </form>    
             </div>
         </div>
