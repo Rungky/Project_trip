@@ -229,6 +229,7 @@ public class tripController extends HttpServlet {
 							System.out.println(fileItem.getFieldName() + "=" + fileItem.getString(encoding));
 							
 							if (fileItem.getFieldName().equals("reviewtitle")) {
+								
 								title = fileItem.getString(encoding);
 							}
 							if (fileItem.getFieldName().equals("reviewcontents")) {
@@ -280,10 +281,21 @@ public class tripController extends HttpServlet {
 				System.out.println(picture);
 				System.out.println(reservNo);
 				System.out.println(memberId);
+				System.out.println("");
 				
-				tripdao.insertReview(title, contents, score, date, picture, reservNo, memberId);
 				
-				nextPage = "/trip?action=detail.do&dormno="+dormno+"";
+				if (title.equals("") || contents.equals("")) {
+					request.setAttribute("textnull", "textnull");
+					System.out.println("텍스트 null오류");
+					nextPage = "/trip?action=review.do&reserve_no="+reservNo+"";
+				} else {
+					System.out.println("INSERT");
+					tripdao.insertReview(title, contents, score, date, picture, reservNo, memberId);
+					nextPage = "/trip?action=detail.do&dormno="+dormno+"";
+				}
+					
+				
+				
 			} else if(action.equals("result.do")) {
 				System.out.println("result 들어옴");
 				String member = (String)session.getAttribute("id");

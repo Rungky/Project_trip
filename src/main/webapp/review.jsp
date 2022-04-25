@@ -7,7 +7,13 @@
 <title>리뷰 페이지</title>
  <link href="./css/header_footer.css" rel="stylesheet">
   <link href="./css/review.css" rel="stylesheet">
+<script>
+	if(${!empty textnull}){
+		alert("제목이나 내용이 작성되지 않았습니다!");
+	}
+</script>
 </head>
+
 <body>
    <%@include file="header.jsp" %>
     <section>
