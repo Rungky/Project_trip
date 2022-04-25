@@ -493,7 +493,7 @@ public class tripController extends HttpServlet {
 				
 				qnaservice.addArticle(qdto);
 				response.sendRedirect("/project_trip/trip?action=qna.do");
-
+				return;
 //				nextPage = "/trip?action=qna.do";
 				
 			}else if(action.equals("replyqna.do")) {
