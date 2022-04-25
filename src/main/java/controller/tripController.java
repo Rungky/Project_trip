@@ -318,14 +318,17 @@ public class tripController extends HttpServlet {
 					e.printStackTrace();
 				}
 				
-				nextPage = "/trip?action=history.do&member_id=" + member + "";
+				response.sendRedirect("/project_trip/trip?action=history.do&member_id=" + member);
+				return;
+//				nextPage = "/trip?action=history.do&member_id=" + member + "";
 			} else if(action.equals("reserDelete.do")) {
 				System.out.println("예약취소부분");
 				int reserve_no = Integer.parseInt(request.getParameter("reserve_no"));
 				tripdao.reserDelete(reserve_no);
 				
-				
-				nextPage = "/trip?action=history.do";
+				response.sendRedirect("/project_trip/trip?action=history.do");
+				return;
+//				nextPage = "/trip?action=history.do";
 			}
 			else if(action.equals("history.do")) {
 				String member = (String)session.getAttribute("id");
@@ -371,6 +374,7 @@ public class tripController extends HttpServlet {
 				CheckDTO checkDto = new CheckDTO();
 				checkDto = tripdao.checkList(dorm_no,room_no,dorm_name,room_name,reser_checkin,reserve_checkout,reserve_pay);
 				request.setAttribute("check", checkDto);
+				
 				
 				nextPage = "/page8.jsp";;
 			} else if(action.equals("review.do")) {
@@ -488,7 +492,10 @@ public class tripController extends HttpServlet {
 				qdto.setMember_id(id);
 				
 				qnaservice.addArticle(qdto);
-				nextPage = "/trip?action=qna.do";
+				response.sendRedirect("/project_trip/trip?action=qna.do");
+
+//				nextPage = "/trip?action=qna.do";
+				
 			}else if(action.equals("replyqna.do")) {
 				String recontent = request.getParameter("recontent");
 				String parentNO = request.getParameter("parentNO");
@@ -506,7 +513,9 @@ public class tripController extends HttpServlet {
 				qdto.setMember_id("admin");
 				
 				qnaservice.addReply(qdto);
-				nextPage = "/trip?action=replylist.do";
+				response.sendRedirect("/project_trip/trip?action=replylist.do");
+				return;
+//				nextPage = "/trip?action=replylist.do";
 			}else if(action.equals("answerqna.do")) {
 				List<QuestionDTO> QuestionList = new ArrayList<QuestionDTO>();
 				
