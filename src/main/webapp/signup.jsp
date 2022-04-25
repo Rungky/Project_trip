@@ -49,10 +49,10 @@ function joinChk() {
         <section>
 	        <div class="signup_main">
 				<a href="${contextPath}/trip">
-					<img src="./image/loginLogo.png" alt="로고">
+					<img src="./image/logo-black.png" alt="로고">
 				</a>
-				<h2>회원가입</h2>
 	            <form action="${contextPath}/trip" method="post" name="f1">
+				<h2 style="text-align: center;">회원가입</h2>
 	            	<input type="hidden" name="action" value="join.do">
 	                <div class="signup_top">
                         <p>이메일 아이디</p>

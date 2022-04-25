@@ -48,13 +48,13 @@ section{
 }
 
 #my_qna{
-    border-bottom: 2px solid #f7323f;
+    border-bottom: 2px solid #0070C0;
 }
 
  #new_qna:hover{
-    color: #f7323f;
+    color: #0070C0;
     color:rgb(173, 173, 173);
-    border-bottom: 2px solid #f7323f;
+    border-bottom: 2px solid #0070C0;
 }
 
 #qna_main{

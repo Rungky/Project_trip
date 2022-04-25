@@ -13,7 +13,7 @@ header {
     display: flex;
     justify-content: space-around;
     padding: 20px;
-    background-color: #f7323f;
+    background-color: rgb(18, 18, 86);
     color: aliceblue;
 }
 .bt {
@@ -21,7 +21,7 @@ header {
     width: 95px;
     height: 20px;
     cursor: pointer;
-    background-color: #f7323f;
+    background-color: rgb(18, 18, 86);
     border: none;
     margin: 10px;
 }

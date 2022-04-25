@@ -20,7 +20,7 @@
             <div id="main">
                 <div id="main_title">
                     <div class="margin_auto"><img class="review_logo"
-                            src="./image/loginLogo.png" alt="로고"> </div>
+                            src="./image/logo-black.png" alt="로고"> </div>
                     <div style="margin-top: 5px;">
                         <div class="fs_m2 fw_6">문의에 답변을 남겨주세요!</div>
                         <div class="fs_s">

@@ -30,10 +30,10 @@
 						src="${contextPath}/image/ico_category_h.png"></span>
 					<p style="color: black; font-weight: 600;">호텔</p>
 			</a></li>
-			<li><a href="${contextPath}/trip?action=reservation.do&dorm_category_no=2"> <span class="link_icon"> <img
-						src="${contextPath}/image/ico_category_p.png"></span>
-					<p style="color: black; font-weight: 600;">펜션</p>
-			</a></li>
+			<li><a href="${contextPath}/trip?action=reservation.do&dorm_category_no=4"> <span class="link_icon"><img
+						src="${contextPath}/image/ico_category_g.png"></span>
+					<p style="color: black; font-weight: 600;">게스트하우스</p>
+			</a></li>	
 			<li><a href="${contextPath}/trip?action=reservation.do"> <span class="link_icon"><img
 						src="${contextPath}/image/ico_category_do.png"></span>
 					<p style="color: black; font-weight: 600;">전체 보기</p>
@@ -42,9 +42,9 @@
 						src="${contextPath}/image/ico_category_r.png"></span>
 					<p style="color: black; font-weight: 600;">리조트</p>
 			</a></li>
-			<li><a href="${contextPath}/trip?action=reservation.do&dorm_category_no=4"> <span class="link_icon"><img
-						src="${contextPath}/image/ico_category_g.png"></span>
-					<p style="color: black; font-weight: 600;">게스트하우스</p>
+			<li><a href="${contextPath}/trip?action=reservation.do&dorm_category_no=2"> <span class="link_icon"> <img
+						src="${contextPath}/image/ico_category_p.png"></span>
+					<p style="color: black; font-weight: 600;">펜션</p>
 			</a></li>
 		</ul>
 	</div>
@@ -85,7 +85,7 @@
 						<!-- 	<div class="category">숙소</div> -->
 							<div class="wrap_text">
 								<div>
-									<p>${i.dorm_name}</p>
+									<p style="font-size: 19px;">${i.dorm_name}</p>
 									<p>${i.dorm_addr}</p>
 								</div>
 							</div> </a>

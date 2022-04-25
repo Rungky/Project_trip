@@ -35,13 +35,13 @@ function loginChk() {
         <section>
 	        <div class="login_main">
 	            <a href="${contextPath}/trip">
-					<img src="./image/loginLogo.png" alt="로고">
+					<img src="./image/logo-black.png" alt="로고">
 				</a><p></p>
 	            <form action="${ contextPath}/trip" method="post" name="f1">
 	            	<input type="hidden" name="action" value="login.do">
 	                <div class="login_top">
-	                    <input type="text" name="id" placeholder="아이디" />
-	                    <input type="password" name="password" placeholder="비밀번호" />
+	                    <input type="text" name="id" placeholder="✉️아이디" />
+	                    <input type="password" name="password" placeholder="🔒비밀번호" />
 	                </div>
 	                <div>
 	                    <input class="login_btn_box" type="submit" value="로그인" onclick="loginChk()"/>

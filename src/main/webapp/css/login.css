@@ -1,5 +1,5 @@
 .wrap_top{
-	margin: 130px auto;
+	margin: 100px auto;
 }
 
 
@@ -26,23 +26,24 @@ section {
   }
   
   section .login_main a > img {
-    width: 200px;
-    height: 41px;
-    margin-bottom: 50px;
+    width: 250px;
+    height: 140px;
+    margin-bottom: 0px;
   }
   
   section .login_btn_box {
     text-align: center;
     width: 90%;
-    height: 50px;
+    height: 45px;
     border-radius: 10px;
     border: none;
     margin-top: 30px;
     margin-bottom: 10px;
     padding-top: 7px;
-    background: rgb(255,0,85);
+    background: #0070C0;
     color: white;
     font-size: 15px;
+    font-weight: 500;
   }
   section .login_main p {
     text-align: right;

@@ -58,6 +58,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>목록 페이지</title>
     <link rel="stylesheet" href="css/reser.css">
+    <link rel="stylesheet" href="./css/header_footer.css">
 </head>
 
 <body topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0">

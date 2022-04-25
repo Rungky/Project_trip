@@ -1,9 +1,11 @@
 .wrap_top{
-	margin: 40px auto;
+	margin: 0 auto;
+	margin-top: -40px;
+	margin-bottom: 40px;
 }
 
 section {
-    padding-top: 50px;
+    padding-top: 100px;
     display: flex;
     justify-content: center;
 }
@@ -24,14 +26,15 @@ section .signup_main .signup_top > input {
 }
   
 section .signup_main a > img {
-    width: 200px;
-    height: 41px;
-    margin-bottom: 10px;
+    width: 250px;
+    height: 140px;
  }  
+
 
 section .signup_main form {
     width: 400px;
     text-align: left;
+    margin-top: -25px;
 }
   
 section .signup_btn_box {
@@ -43,7 +46,8 @@ section .signup_btn_box {
     margin-top: 30px;
     margin-bottom: 10px;
     padding-top: 7px;
-   background: rgb(255,0,85);
+   background: #0070C0;
     color: white;
     font-size: 15px;
+    font-weight: 600;
 }
