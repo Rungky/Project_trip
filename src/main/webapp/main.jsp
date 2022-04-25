@@ -15,7 +15,6 @@
 <title>main</title>
 
 	<%@ include file="./header.jsp"%>
-	<div class="blank"></div>
 	<div class="wrap_top">
 		<section>
 			<div class="banner">
