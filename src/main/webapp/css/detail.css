@@ -108,8 +108,8 @@ nav > ul > li > a{
 	overflow : hidden;
 } */
 div > aside {
-    width: 800px;
-    height: 360px;
+    width: 850px;
+    height: 350px;
     padding: 20px 40px 20px 40px;
 }
 div > article {
@@ -166,7 +166,7 @@ table{
 	margin: 50px 50px 30px 70px;
 }
 .calender {
-    width: 200px;
+    width: 180px;
     height: 30px;
     font-size: 20px;
     font-weight: 600;

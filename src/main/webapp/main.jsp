@@ -85,7 +85,7 @@
 						<!-- 	<div class="category">숙소</div> -->
 							<div class="wrap_text">
 								<div>
-									<p>${i.dorm_name}</p>
+									<p style="font-size: 19px;">${i.dorm_name}</p>
 									<p>${i.dorm_addr}</p>
 								</div>
 							</div> </a>
