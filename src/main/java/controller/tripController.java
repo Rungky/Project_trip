@@ -188,7 +188,21 @@ public class tripController extends HttpServlet {
 				
 				long reserveday = (checkoutdate.getTime() - checkindate.getTime()) / (24*60*60*1000);
 				DormDTO dormdto = tripdao.selectDorm(dormno);
+				Date checkIn = new Date(checkindate.getTime());
+				Date checkOut = new Date(checkoutdate.getTime());
 				List<RoomDTO> roomsList = tripdao.selectRoomsList(dormno);
+				List<RoomDTO> reservedroomsList = tripdao.reservedRoomsList(dormno, checkIn, checkOut);
+				for(int i = 0 ; i <roomsList.size();i++) {
+					for(int j = 0; j <reservedroomsList.size();j++) {
+						if (roomsList.get(i).getRoom_no()==reservedroomsList.get(j).getRoom_no()) {
+							roomsList.get(i).setReserved(1);
+							break;
+						} else {
+							roomsList.get(i).setReserved(0);
+						}
+					} 
+				}
+				
 				List<ReviewDTO> reviewsList = tripdao.selectReviewsList(dormno);
 				request.setAttribute("dormdto", dormdto);
 				request.setAttribute("roomsList", roomsList);

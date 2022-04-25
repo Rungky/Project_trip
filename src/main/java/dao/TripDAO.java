@@ -182,6 +182,52 @@ public class TripDAO {
 
 		return list;
 	}
+	
+	public List<RoomDTO> reservedRoomsList(int dormNo, Date checkIn, Date checkOut) {
+		List<RoomDTO> list = new ArrayList<RoomDTO>();
+
+		try {
+			con = dataFactory.getConnection();
+
+			String query = "";                                                            
+			query +=	"	SELECT room.dorm_no, room.room_no";
+			query +=	"	FROM tb_room room, tb_reservation reser";
+			query +=	"	WHERE";
+			query +=	"	    (";
+			query +=	"	        '"+checkIn+"' <= reser.reserve_checkin AND  reser.reserve_checkin < '"+checkOut+"'";
+			query +=	"	        OR '"+checkIn+"' < reser.reserve_checkout AND  reser.reserve_checkout <= '"+checkOut+"'";
+			query +=	"	        OR '"+checkIn+"' > reser.reserve_checkin AND  reser.reserve_checkout > '"+checkOut+"'";
+			query +=	"	    )";
+			query +=	"	    AND reser.room_no = room.room_no";
+			query +=	"	    AND room.dorm_no = "+dormNo+"";
+			
+			pstmt = con.prepareStatement(query);
+
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+
+				RoomDTO dto = new RoomDTO();
+				dto.setRoom_no(rs.getInt("room_no"));
+				dto.setDorm_no(rs.getInt("dorm_no"));
+
+				list.add(dto);
+			}
+			if (rs != null) {
+				rs.close();
+			}
+			if (pstmt != null) {
+				pstmt.close();
+			}
+			if (con != null) {
+				con.close();
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return list;
+	}
 
 	public List<ReviewDTO> selectReviewsList(int dormNo) {
 		List<ReviewDTO> list = new ArrayList<ReviewDTO>();

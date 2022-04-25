@@ -10,8 +10,16 @@ public class RoomDTO {
 	private int room_pay_night;
 	private int room_person;
 	
+	private int reserved;
 	
 	
+	
+	public int getReserved() {
+		return reserved;
+	}
+	public void setReserved(int reserved) {
+		this.reserved = reserved;
+	}
 	public int getRoom_no() {
 		return room_no;
 	}

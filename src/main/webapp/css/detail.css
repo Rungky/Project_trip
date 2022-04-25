@@ -237,6 +237,17 @@ table{
     cursor: pointer;
 }
 
+.rsv2-2 {
+    width: 500px;
+    height: 30px;
+    border: none;
+    border-radius: 3px;
+    color: #fff;
+    font-size: 18px;
+    text-align: center;
+    background-color: rgb(239, 239, 239);
+}
+
 .title {
     font-weight: bold;
     font-size: 20px;

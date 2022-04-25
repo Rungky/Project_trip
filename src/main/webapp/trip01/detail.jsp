@@ -113,6 +113,7 @@
 		                    <tr>
 		                    	
 		                        <td class="bdbt" colspan="2">
+		                        	<c:if test="${item.reserved == 0}">
 		                            <form action="trip">
 		                                <button class="rsv2" name="action" value="page8.do">예약</button>
 		                                <input type="hidden" name="roomno" value="${item.room_no}">
@@ -123,6 +124,10 @@
 		                                <input type="hidden" name="reserve_checkin" value="${param.reserve_checkin}">
 		                                <input type="hidden" name="reserve_checkout" value="${param.reserve_checkout}">
 		                            </form>
+		                            </c:if>
+		                            <c:if test="${item.reserved == 1}">
+		                            	<div class="rsv2-2">판매 완료</div>
+		                            </c:if>
 		                        </td>
 		                    </tr>
 		                </table>
