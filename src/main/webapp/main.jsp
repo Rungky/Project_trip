@@ -19,7 +19,7 @@
 		<section>
 			<div class="banner">
 				<img
-					src="./image/main.png">
+					src="./image/main.jpg">
 			</div>
 		</section>
 	</div>
