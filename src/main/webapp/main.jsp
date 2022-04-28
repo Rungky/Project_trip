@@ -81,7 +81,7 @@
 				<div>
 					<div class="a_wrap">
 						<a href="trip?action=detail.do&dormno=${i.dorm_no }&reserve_checkin=${reserve_checkin}&reserve_checkout=${reserve_checkout}">
-						<img src="${i.dorm_picture}">
+						<img src="${contextPath}/image/dorm/${i.dorm_picture}">
 						<!-- 	<div class="category">숙소</div> -->
 							<div class="wrap_text">
 								<div>
