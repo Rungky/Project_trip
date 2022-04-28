@@ -261,7 +261,7 @@
 					<c:when test="${not empty dormList }">
 		            	<c:forEach var="i" items="${dormList }" step="1" >
 		               		<a href="trip?action=detail.do&dormno=${i.dorm_no }&reserve_checkin=${date_s}&reserve_checkout=${date_e}">
-		                    <div class="romm" style="background-image:linear-gradient( rgba(0, 0, 0, 0), rgba(0, 0, 0.5, 0.8) ),url(${i.getDorm_picture()})">
+		                    <div class="romm" style="background-image:linear-gradient( rgba(0, 0, 0, 0), rgba(0, 0, 0.5, 0.8) ),url(./image/dorm/${i.getDorm_picture()})">
 		                        <div class="ggumim">
 		                            <p>
 		                                <strong>

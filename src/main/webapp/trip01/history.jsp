@@ -51,7 +51,7 @@ table {
 						<tr>
 							<td rowspan="4" class="img"><img class="img2"
 								style="width: 150px; height: 100px; padding: 10px"
-								src="${result.room_picture}"></td>
+								src="./image/room/${result.room_picture}"></td>
 							<td>${result.dorm_name}</td>
 							<td rowspan="5" class="rv"><a
 								href="/project_trip/trip?action=review.do&reserve_no=${result.reserve_no}"><button

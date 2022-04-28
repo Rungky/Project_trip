@@ -23,7 +23,7 @@
         <div class="center">
             <div class="st">
                 <aside>
-                    <img class="image" src="${dormdto.dorm_picture }"> 
+                    <img class="image" src="./image/dorm/${dormdto.dorm_picture }"> 
                 </aside>
                 <article>
                     <div class="dormtt">
@@ -86,7 +86,7 @@
 	                <c:when test="${0 == item.room_pay_day }"> <!-- 대실 금액이 눌이아니면 둘다 표시 눌이면 하나만 표시로 두개 나눠서 조건에 맞게 출력 int라서 0이 눌 -->
 		                <table id="tb1">
 		                    <tr>
-		                        <td rowspan="4"><img class="image2" src="${item.room_picture }"></td>
+		                        <td rowspan="4"><img class="image2" src="./image/room/${item.room_picture }"></td>
 		                        <!-- 객실 세부 내용 클릭시 콘텐츠 출력 팝업 띄우기  -->
 		                        <td colspan="2" class="ti">${item.room_name }</td>
 		                        
@@ -135,7 +135,7 @@
 	                <c:otherwise>
 		                <table id="tb1">
 		                    <tr>
-		                        <td rowspan="4"><img class="image2" src="${item.room_picture }"></td>
+		                        <td rowspan="4"><img class="image2" src="./image/room/${item.room_picture }"></td>
                         		<td colspan="2" class="ti">${item.room_name }</td>
 		                    </tr>
 		                    <tr>
