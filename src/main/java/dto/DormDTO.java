@@ -17,9 +17,6 @@ public class DormDTO {
 	private int review_count;
 	private double scoreAvr;
 	
-	
-	
-	
 	public int getDorm_no() {
 		return dorm_no;
 	}
@@ -104,7 +101,4 @@ public class DormDTO {
 	public void setScoreAvr(double scoreAvr) {
 		this.scoreAvr = scoreAvr;
 	}
-
-	
-	
 }

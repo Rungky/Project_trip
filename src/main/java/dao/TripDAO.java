@@ -137,6 +137,127 @@ public class TripDAO {
 		return dto;
 	}
 
+	public void changeLike(int dormNo, int num) {
+		int totalCount = selectDorm(dormNo).getLike_cnt();
+		try {
+			con = dataFactory.getConnection();
+
+			String query = "";
+			query += " UPDATE tb_dorm SET ";
+			query += " like_cnt = "+(totalCount+num)+"";
+			query += " WHERE dorm_no = ?";
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, dormNo);
+			pstmt.executeUpdate();
+			if (pstmt != null) {
+				pstmt.close();
+			}
+			if (con != null) {
+				con.close();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public boolean checkLike(int dormNo, String id) {
+		int like = 0;
+		boolean like_bl = false; 
+		try {
+			con = dataFactory.getConnection();
+
+			String query = "";
+			query += " SELECT COUNT(*) as count ";
+			query += " FROM tb_like";
+			query += " WHERE dorm_no = ?";
+			query += " AND member_id = ?";
+
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, dormNo);
+			pstmt.setString(2, id);
+			
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				like = rs.getInt("count");
+			}
+			if (rs != null) {
+				rs.close();
+			}
+			if (pstmt != null) {
+				pstmt.close();
+			}
+			if (con != null) {
+				con.close();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if (like == 0) {
+			like_bl = false;
+		} else {
+			like_bl = true;
+		}
+		return like_bl;
+	}
+	
+	public void insertLike(int dormNo, String id) {
+		LikeDTO dto = new LikeDTO();
+		try {
+			con = dataFactory.getConnection();
+
+			String query = "";
+			query += " INSERT INTO tb_like";
+			query += " VALUES (";
+			query += " tb_like_seq.nextval,";
+			query += " TO_DATE(SYSDATE, 'YY/MM/DD'),";
+			query += " ?,";
+			query += " ?";
+			query += " )";
+
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, id);
+			pstmt.setInt(2, dormNo);
+			
+			pstmt.executeUpdate();
+			
+			if (pstmt != null) {
+				pstmt.close();
+			}
+			if (con != null) {
+				con.close();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void deleteLike(int dormNo, String id) {
+		LikeDTO dto = new LikeDTO();
+		try {
+			con = dataFactory.getConnection();
+
+			String query = "";
+			query += " DELETE FROM tb_like";
+			query += " WHERE member_id=?";
+			query += " AND dorm_no=?";
+
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, id);
+			pstmt.setInt(2, dormNo);
+			
+			pstmt.executeUpdate();
+			
+			if (pstmt != null) {
+				pstmt.close();
+			}
+			if (con != null) {
+				con.close();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public List<RoomDTO> selectRoomsList(int dormNo) {
 		List<RoomDTO> list = new ArrayList<RoomDTO>();
 
@@ -221,11 +342,9 @@ public class TripDAO {
 			if (con != null) {
 				con.close();
 			}
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 		return list;
 	}
 

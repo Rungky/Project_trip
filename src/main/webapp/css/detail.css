@@ -92,6 +92,10 @@ nav > ul > li > a{
 	border : none;
 	cursor: pointer;
 }
+.inf {
+	display: flex;
+	justify-content: space-between;
+}
 .avr {
 	border-radius: 4px;
 	background: rgb(255,167,38);
@@ -99,6 +103,12 @@ nav > ul > li > a{
 	color: #fff;
 	padding: 0 4px;	
 	margin-right: 7px;
+}
+.likebt {
+	font-size: 18px;
+	background : none;
+	border : none;
+	cursor : pointer;
 }
 .dormaddr {
 	color: rgba(0,0,0,0.56);

@@ -2,6 +2,7 @@ package controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -159,6 +160,11 @@ public class tripController extends HttpServlet {
 				nextPage = "/reservation.jsp";
 				
 			} else if (action.equals("detail.do")) {
+				String id = "";
+				if (session.getAttribute("id") != null) {
+					id = (String) session.getAttribute("id");
+				}
+				
 				int dormno = Integer.parseInt(request.getParameter("dormno"));
 				Calendar cal = Calendar.getInstance();
 				String format = "yyyy-MM-dd";
@@ -178,7 +184,7 @@ public class tripController extends HttpServlet {
 				java.util.Date checkindate = sdf.parse(checkin);
 				java.util.Date checkoutdate = sdf.parse(checkout);
 				
-				if(checkindate.after(checkoutdate)) {
+				if(checkindate.after(checkoutdate) || checkin.equals(checkout)) {
 					checkin = sdf.format(today);
 					checkout = tomorrow;
 					checkindate = sdf.parse(checkin);
@@ -192,6 +198,7 @@ public class tripController extends HttpServlet {
 				Date checkOut = new Date(checkoutdate.getTime());
 				List<RoomDTO> roomsList = tripdao.selectRoomsList(dormno);
 				List<RoomDTO> reservedroomsList = tripdao.reservedRoomsList(dormno, checkIn, checkOut);
+				boolean like_tg = tripdao.checkLike(dormno, id);
 				for(int i = 0 ; i <roomsList.size();i++) {
 					for(int j = 0; j <reservedroomsList.size();j++) {
 						if (roomsList.get(i).getRoom_no()==reservedroomsList.get(j).getRoom_no()) {
@@ -211,9 +218,27 @@ public class tripController extends HttpServlet {
 				request.setAttribute("tomorrow", tomorrow);
 				request.setAttribute("checkin", checkin);
 				request.setAttribute("checkout", checkout);
+				request.setAttribute("like_tg", like_tg);
 				
 				nextPage = "/trip01/detail.jsp";
 				
+			} else if (action.equals("like.do")) {
+				int dormno = Integer.parseInt(request.getParameter("dormno"));
+				String id = (String) session.getAttribute("id");
+				boolean like_tg = Boolean.parseBoolean(request.getParameter("like"));
+				System.out.println(like_tg);
+				if(like_tg) {
+					tripdao.deleteLike(dormno,id);
+					tripdao.changeLike(dormno, -1);
+				} else {
+					tripdao.insertLike(dormno,id);
+					tripdao.changeLike(dormno, 1);
+				}
+				like_tg = !like_tg;
+				PrintWriter out = response.getWriter();
+				out.print("{\"param\":\""+like_tg+"\"}");
+				System.out.println(like_tg);
+				return;
 			} else if (action.equals("upload.do")) {
 			
 				String title = "";
@@ -306,6 +331,7 @@ public class tripController extends HttpServlet {
 					System.out.println("INSERT");
 					tripdao.insertReview(title, contents, score, date, picture, reservNo, memberId);
 					response.sendRedirect("/project_trip/trip?action=detail.do&dormno="+dormno+"");
+					return;
 				}
 					
 				
