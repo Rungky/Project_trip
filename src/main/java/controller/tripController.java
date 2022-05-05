@@ -226,7 +226,6 @@ public class tripController extends HttpServlet {
 				int dormno = Integer.parseInt(request.getParameter("dormno"));
 				String id = (String) session.getAttribute("id");
 				boolean like_tg = Boolean.parseBoolean(request.getParameter("like"));
-				System.out.println(like_tg);
 				if(like_tg) {
 					tripdao.deleteLike(dormno,id);
 					tripdao.changeLike(dormno, -1);
@@ -237,7 +236,6 @@ public class tripController extends HttpServlet {
 				like_tg = !like_tg;
 				PrintWriter out = response.getWriter();
 				out.print("{\"param\":\""+like_tg+"\"}");
-				System.out.println(like_tg);
 				return;
 			} else if (action.equals("upload.do")) {
 			
@@ -250,7 +248,7 @@ public class tripController extends HttpServlet {
 				String memberId = "";
 				int dormno = 0;
 				
-				String picture = "1";
+				String picture = "none";
 				String encoding = "utf-8"; 
 				
 				File currentDirPath = new File("C:\\workstation\\project_trip\\src\\main\\webapp\\image\\review");
@@ -326,7 +324,8 @@ public class tripController extends HttpServlet {
 				if (title.equals("") || contents.equals("")) {
 					request.setAttribute("textnull", "textnull");
 					System.out.println("텍스트 null오류");
-					nextPage = "/trip?action=review.do&reserve_no="+reservNo+"";
+					request.setAttribute("reserve_no", reservNo);
+					nextPage = "/trip?action=review.do";
 				} else {
 					System.out.println("INSERT");
 					tripdao.insertReview(title, contents, score, date, picture, reservNo, memberId);
@@ -441,9 +440,8 @@ public class tripController extends HttpServlet {
 				} else if (action.equals("join.do")) { // 회원가입
 					String id = request.getParameter("id");
 					String password = request.getParameter("password");
-					String name = request.getParameter("name");
+					String name = new String(request.getParameter("name").getBytes("iso-8859-1"), "utf-8");
 					String tel = request.getParameter("tel");
-
 					MemberDTO memberDTO = new MemberDTO();
 					try {
 						memberDTO.setMember_id(id);
@@ -452,11 +450,12 @@ public class tripController extends HttpServlet {
 						memberDTO.setMember_tel(tel);
 
 						memberDAO.join(memberDTO);
-						System.out.println(id);
+						System.out.println("id : "+id+" name : "+name);
 						if (id.equals("") || password.equals("") || name.equals("") || tel.equals("")) {
 							nextPage = "/signup.jsp";
 						} else {
-							nextPage = "/login.jsp";
+							response.sendRedirect("/project_trip/login.jsp");
+							return;
 						}
 
 					} catch (Exception e) {
