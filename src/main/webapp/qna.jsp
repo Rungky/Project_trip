@@ -23,16 +23,12 @@
                     <div id="my_qna"> 문의내역 </div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <div id="new_qna"><a href="${contextPath}/trip?action=qnaForm.do">새 문의 작성</a> </div>
                 </div>
-                
                <c:choose>
 					<c:when test="${ empty questionList}">
 						<div>등록된 글이 없습니다</div>
 					</c:when>
-                
 	                <c:when test="${! empty questionList}">
-		                <c:forEach var="question" items="${questionList}" varStatus="questionNum">
-		                <c:choose>
-		                	<c:when test="${question.question_parentno == 0 }">
+		                <c:forEach var="question" items="${questionList}" begin="${beginPage}" end="${endPage}" varStatus="questionNum">
 			                <div id="qna_main">
 			                    <div class="qna_title">
 			                        <div>
@@ -44,33 +40,69 @@
 			                            <button class="btn_open">▼</button>
 			                        </div>
 			                    </div>
-			             		
 			                    <!--/<hr>-->
 			                    <div class="qna_contents">
 			                    	<div>${question.member_id}</div>
 			                        <div class="qna_contents2" class="fs_m"> ${question.question_contents} </div>
-			                        <c:set var="questionListsize" value="${fn:length(questionList)}"/>
-			                    	<c:forEach var="question2" items="${questionList}"> 
-			                    	
-				                    	<c:if test="${question.question_no == question2.question_parentno}">
+			                    	<c:forEach var="answerList" items="${answerList}"> 
+				                    	<c:if test="${question.question_no == answerList.question_parentno}">
 			                        	<div class="qna_answer fs_s2">
 				                            <br>
-				                            <div><span class="fw_6 fs_m2">답변 &nbsp;</span><span class="fs_s">작성일 ${question2.question_date}</span></div>
+				                            <div><span class="fw_6 fs_m2">답변 &nbsp;</span><span class="fs_s">작성일 ${answerList.question_date}</span></div>
 				                            <div>
-				                            	${question2.question_contents}
+				                            	${answerList.question_contents}
 				                            </div>
 			                        	</div>
 			                        	</c:if>
 		                        	</c:forEach>
 			                    </div>
-			       			
 			                </div>
-			                </c:when>
-		                </c:choose>
 		                </c:forEach>
 	                </c:when>
                 </c:choose>
-               
+            </div>
+            <div class="center">
+	            <div class="paging">
+					<c:if test="${nowPageCount != 1}">
+						<form>
+							<button class="pagebt" name="action" value="qna.do">이전</button>
+							<input type="hidden" name="nowPage" value="${(nowPageCount-1)*5-1}">
+						</form>
+					</c:if>
+					<c:if test="${nowPageCount != totalPageCount}">
+						<c:forEach var="i" begin="${1+ (5 * (nowPageCount-1))}"
+							end="${5 + (5 * (nowPageCount-1))}">
+							<div class="">
+								<form>
+									<c:if test="${nowPage == i}">
+										<button name="action" value="qna.do" class="pagebt nowpage">${i}</button>
+									</c:if>
+									<c:if test="${nowPage != i}">
+										<button name="action" value="qna.do" class="pagebt">${i}</button>
+									</c:if>
+									<input type="hidden" name="nowPage" value="${i}">
+								</form>
+							</div>
+						</c:forEach>
+					</c:if>
+					<c:if test="${nowPageCount == totalPageCount}">
+						<c:forEach var="i" begin="${1+ (5 * (nowPageCount-1))}"
+							end="${totalPage}">
+							<div class="">
+								<form>
+									<button name="action" value="qna.do" class="pagebt">${i}</button>
+									<input type="hidden" name="nowPage" value="${i}">
+								</form>
+							</div>
+						</c:forEach>
+					</c:if>
+					<c:if test="${nowPageCount != totalPageCount}">
+						<form>
+							<button class="pagebt" name="action" value="qna.do">다음</button>
+							<input type="hidden" name="nowPage" value="${(nowPageCount+1)*5-4}">
+						</form>
+					</c:if>
+	            </div>
             </div>
         </div>
     </section>

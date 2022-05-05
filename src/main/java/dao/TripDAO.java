@@ -697,8 +697,126 @@ public class TripDAO {
 
 		return dto;
 	}
+	// 게시물 수
+	public int countQuestion(String id) {
+		int count = 0 ;
+		try {
+			con = dataFactory.getConnection();
 
-	//글조회
+			String query = "";
+			query += " SELECT COUNT(*) as count FROM ";
+			query += " TB_QUESTION ";
+			query += " WHERE question_parentno = 0";
+			query += " AND member_id = ?";
+		
+			pstmt = con.prepareStatement(query);
+
+			pstmt.setString(1, id);
+			
+			ResultSet rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				count = rs.getInt("count");
+			}
+
+			if(rs != null) rs.close();
+			if(pstmt != null) pstmt.close();
+			if(con != null) con.close();
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return count;
+	}
+	
+	// 부모 없는글 조회
+	public List<QuestionDTO> selectMemberQuestion(String id) {
+		List<QuestionDTO> QuestionList = new ArrayList();
+		
+		try {
+			con = dataFactory.getConnection();
+
+			String query = "";
+			query += " SELECT * FROM ";
+			query += " tb_question ";
+			query += " WHERE question_parentno=0 ";
+			query += " AND member_id= ? ";
+			query += " ORDER BY question_no DESC ";
+			
+			pstmt = con.prepareStatement(query);
+
+			pstmt.setString(1, id);
+			ResultSet rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				QuestionDTO question = new QuestionDTO();
+				question.setQuestion_no(rs.getInt("question_no"));
+				question.setQuestion_parentno(rs.getInt("question_parentno"));
+				question.setQuestion_title(rs.getString("question_title"));
+				question.setQuestion_contents(rs.getString("question_contents"));
+				question.setQuestion_picture(rs.getString("question_picture"));
+				question.setQuestion_date(rs.getDate("question_date"));
+				question.setQuestion_view(rs.getInt("question_view"));
+				question.setMember_id(rs.getString("member_id"));
+				
+				QuestionList.add(question);
+			}
+
+			if(rs != null) rs.close();
+			if(pstmt != null) pstmt.close();
+			if(con != null) con.close();
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return QuestionList;
+	}
+	
+	// 자식글 조회
+		public List<QuestionDTO> selectAnswer() {
+			List<QuestionDTO> QuestionList = new ArrayList();
+			try {
+				con = dataFactory.getConnection();
+
+				String query = "";
+				query += " SELECT * FROM ";
+				query += " tb_question ";
+				query += " WHERE question_parentno != 0 ";
+				
+				pstmt = con.prepareStatement(query);
+
+				ResultSet rs = pstmt.executeQuery();
+				
+				while(rs.next()) {
+					QuestionDTO question = new QuestionDTO();
+					question.setQuestion_no(rs.getInt("question_no"));
+					question.setQuestion_parentno(rs.getInt("question_parentno"));
+					question.setQuestion_title(rs.getString("question_title"));
+					question.setQuestion_contents(rs.getString("question_contents"));
+					question.setQuestion_picture(rs.getString("question_picture"));
+					question.setQuestion_date(rs.getDate("question_date"));
+					question.setQuestion_view(rs.getInt("question_view"));
+					question.setMember_id(rs.getString("member_id"));
+					
+					QuestionList.add(question);
+				}
+
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(con != null) con.close();
+
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			return QuestionList;
+		}
+	//모든 글조회
 		public List<QuestionDTO> selectAllQuestion(int pageNum, int countPerPage) {
 			List<QuestionDTO> QuestionList = new ArrayList();
 			

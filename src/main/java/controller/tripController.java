@@ -490,25 +490,47 @@ public class tripController extends HttpServlet {
 					nextPage = "/trip?action=main.do";
 			}else if(action.equals("qna.do")) {
 				System.out.println("qna 페이지");
-				//questionDTO 담기
-				List<QuestionDTO> QuestionList = new ArrayList<QuestionDTO>();
-				
-				String strPageNum  =request.getParameter("pageNum");
-				String strCountPerPage  =request.getParameter("countPerPage");
-				int pageNum = 1;
-				int countPerPage = 5;
-				if(strPageNum != null) {
-					pageNum = Integer.parseInt(strPageNum);
-				}if(strCountPerPage != null) {
-					countPerPage = Integer.parseInt(strCountPerPage);
+				String id = ""; // 로그인 판단하는 값 선언
+				if(session.getAttribute("id")!=null) // 로그인 했으면 아이디 받아오기
+					id = (String) session.getAttribute("id");
+				if("".equals(id)) { // 로그인 안하면 로그인 페이지로
+					response.sendRedirect("/project_trip/trip?action=loginForm.do"); // 로그인 페이지로
+					return; // 메소드 종료
 				}
+				int nowPage = 1; // 기본 값
+				if(request.getParameter("nowPage")!=null) // 지금 페이지가 어딘지 값 받기
+					nowPage = Integer.parseInt(request.getParameter("nowPage"));
+//				System.out.println("nowPage : " + nowPage);
+				int total = tripdao.countQuestion(id);  // 게시물 수 부모 없는글 카운트
+//				System.out.println("total : " + total);
+				int pageNum = 5; // 한 페이지 게시물 5 개씩 (임의로 정함)
+				int pagingNum = 5; // 페이징 5개씩
+				int totalPage = (int) Math.ceil((double)total / pageNum); // 총 페이지 수
+//				System.out.println("totalPage : " + totalPage);
+				int totalPageCount = (totalPage+4) / pagingNum; // 페이징 수
+//				System.out.println("totalPageCount : " + totalPageCount);
+				int nowPageCount = (nowPage+4) / pagingNum; // 지금 페이징
+//				System.out.println("nowPageCount : " + nowPageCount);
+				int beginPage = 1 + (pageNum * (nowPage-1)); // 해당 페이지 게시물 begin 
+//				System.out.println("beginPage : " + beginPage);
+				int endPage = pageNum;	
+				if (totalPage == nowPage) {
+					endPage = total; 	// 마지막 페이지 일경우 게시물 범위 끝까지
+				} else {
+					endPage = pageNum + (pageNum * (nowPage - 1));	// 해당 페이지 게시물 end
+				}
+//				System.out.println("endPage : " + endPage);
+				List<QuestionDTO> questionList = qnaservice.listArticles(id);
+				List<QuestionDTO> answerList = qnaservice.listAnswers();
+				request.setAttribute("questionList", questionList); // 부모 없는글
+				request.setAttribute("answerList", answerList); // 답변 글 
+				request.setAttribute("nowPageCount", nowPageCount); // 지금 페이징
+				request.setAttribute("totalPageCount", totalPageCount); // 총 페이징
+				request.setAttribute("totalPage", totalPage); // 마지막 페이지
+				request.setAttribute("beginPage", beginPage); // 해당 페이지 게시물 begin
+				request.setAttribute("endPage", endPage); // 해당 페이지 게시물 end
+				request.setAttribute("nowPage", nowPage); // 지금 페이지
 				
-				QuestionList=qnaservice.listArticles(pageNum,countPerPage);
-				System.out.println("size : "+QuestionList.size());
-				request.setAttribute("questionList", QuestionList);
-				
-				request.setAttribute("pageNum", pageNum);
-				request.setAttribute("countPerPage", countPerPage);
 				nextPage = "/qna.jsp";
 			}else if(action.equals("qnaForm.do")) {
 				nextPage = "/questionWrite.jsp";
@@ -536,6 +558,8 @@ public class tripController extends HttpServlet {
 //				nextPage = "/trip?action=qna.do";
 				
 			}else if(action.equals("replyqna.do")) {
+				String id = (String) session.getAttribute("id");
+				
 				String recontent = request.getParameter("recontent");
 				String parentNO = request.getParameter("parentNO");
 				
@@ -549,7 +573,7 @@ public class tripController extends HttpServlet {
 				qdto.setQuestion_date(date);
 				qdto.setQuestion_picture("picture");
 				qdto.setQuestion_view(0);
-				qdto.setMember_id("admin");
+				qdto.setMember_id(id);
 				
 				qnaservice.addReply(qdto);
 				response.sendRedirect("/project_trip/trip?action=replylist.do");

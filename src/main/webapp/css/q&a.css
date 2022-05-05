@@ -133,3 +133,18 @@ section{
     }
 }
 
+.paging {
+	display : flex;
+	justify-content: center;
+}
+.pagebt {
+	margin : 5px;
+	background : none;
+	border : none;
+	cursor : pointer;
+	font-size : 17px;
+}
+.nowpage {
+	font-weight : bold;
+	color : red;
+}
