@@ -18,17 +18,17 @@
      <%@include file="header.jsp" %>
     <section>
         <div id="wrap_qna">
-            <div id="qna">
-                 <div id="qna_head" class="fs_m2 fw_7">
-                    <div id="my_qna"> 문의내역 </div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <div id="new_qna"><a href="${contextPath}/trip?action=qnaForm.do">새 문의 작성</a> </div>
-                </div>
-               <c:choose>
+			<div id="qna">
+				<div id="qna_head" class="fs_m2 fw_7">
+					<div id="my_qna"> 문의내역 </div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<div id="new_qna"><a href="${contextPath}/trip?action=qnaForm.do">새 문의 작성</a> </div>
+				</div>
+				<c:choose>
 					<c:when test="${ empty questionList}">
 						<div>등록된 글이 없습니다</div>
 					</c:when>
 	                <c:when test="${! empty questionList}">
-		                <c:forEach var="question" items="${questionList}" begin="${beginPage}" end="${endPage}" varStatus="questionNum">
+		                <c:forEach var="question" items="${questionList}" begin="${beginPage-1}" end="${endPage-1}" varStatus="questionNum">
 			                <div id="qna_main">
 			                    <div class="qna_title">
 			                        <div>
@@ -61,6 +61,7 @@
 	                </c:when>
                 </c:choose>
             </div>
+            <c:if test="${!empty questionList}">
             <div class="center">
 	            <div class="paging">
 					<c:if test="${nowPageCount != 1}">
@@ -90,7 +91,12 @@
 							end="${totalPage}">
 							<div class="">
 								<form>
-									<button name="action" value="qna.do" class="pagebt">${i}</button>
+									<c:if test="${nowPage == i}">
+										<button name="action" value="qna.do" class="pagebt nowpage">${i}</button>
+									</c:if>
+									<c:if test="${nowPage != i}">
+										<button name="action" value="qna.do" class="pagebt">${i}</button>
+									</c:if>
 									<input type="hidden" name="nowPage" value="${i}">
 								</form>
 							</div>
@@ -104,6 +110,7 @@
 					</c:if>
 	            </div>
             </div>
+            </c:if>
         </div>
     </section>
 
