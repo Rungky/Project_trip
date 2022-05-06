@@ -51,7 +51,7 @@ function joinChk() {
 				<a href="${contextPath}/trip">
 					<img src="./image/logo-black.png" alt="로고">
 				</a>
-	            <form action="${contextPath}/trip" method="post" name="f1">
+	            <form action="${contextPath}/trip" method="post" name="f1" enctype="utf-8">
 				<h2 style="text-align: center;">회원가입</h2>
 	            	<input type="hidden" name="action" value="join.do">
 	                <div class="signup_top">

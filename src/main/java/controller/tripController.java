@@ -439,6 +439,7 @@ public class tripController extends HttpServlet {
 					nextPage = "/signup.jsp";
 
 				} else if (action.equals("join.do")) { // 회원가입
+					request.setCharacterEncoding("utf-8"); //여기
 					String id = request.getParameter("id");
 					String password = request.getParameter("password");
 					String name = request.getParameter("name");
@@ -453,6 +454,7 @@ public class tripController extends HttpServlet {
 
 						memberDAO.join(memberDTO);
 						System.out.println(id);
+						System.out.println(name);
 						if (id.equals("") || password.equals("") || name.equals("") || tel.equals("")) {
 							nextPage = "/signup.jsp";
 						} else {
@@ -597,7 +599,7 @@ public class tripController extends HttpServlet {
 				// 로그인 미구현으로 인한 임시코드
 				//session.setAttribute("member_id","co9382");
 				//================
-				
+		
 				String member_id = (String) session.getAttribute("id");
 				MemberDTO memberDTO = memberService.selectMember(member_id);
 				request.setAttribute("member",memberDTO);
