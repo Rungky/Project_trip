@@ -452,12 +452,11 @@ public class tripController extends HttpServlet {
 						memberDTO.setMember_tel(tel);
 
 						memberDAO.join(memberDTO);
-<<<<<<< HEAD
+
 						System.out.println(id);
 						System.out.println(name);
-=======
+
 						System.out.println("id : "+id+" name : "+name);
->>>>>>> dcdd38449d0bcbb2b7bd04b8d51b1c433a040834
 						if (id.equals("") || password.equals("") || name.equals("") || tel.equals("")) {
 							nextPage = "/signup.jsp";
 						} else {

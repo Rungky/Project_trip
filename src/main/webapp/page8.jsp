@@ -64,7 +64,7 @@ function alarm() {
 			</div>
 			<!--  member_id 가져가야함-->
 			<form action="trip">
-				<button class="box" name="action" value="result.do" onclick="alarm()">예약</button>
+				<button class="box" name="action" value="result.do">예약</button>
 				<input type="hidden" name="dorm_no" value="${check.dorm_no}">
 				<input type="hidden" name="room_no" value="${check.room_no}">
 				<input type="hidden" name="reserve_checkin" value="${check.reserve_checkin}">
