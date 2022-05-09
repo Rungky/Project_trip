@@ -21,7 +21,7 @@
 	
 	function bind(){
 		jQuery("#check_all").off("click").on("click", function(){
-		$(this).parents(".check").find('input').prop("checked", true);			
+		$(this).parent().find('input').prop("checked", true);			
 			
 		});
 
@@ -91,7 +91,7 @@
 				<br>
 				<div class="c8">
 					<div>
-						 <input type="checkbox" class="check all" id="check_all" name="check" value="all" onclick='selectAll(this)'>
+						 <input type="checkbox" class="check all" id="check_all" name="check" value="all" >
 						  <label for="form">전체동의</label><br>
 						 <input type="checkbox" class="check one" name="check" value="one">
 						 <label for="form">숙소 이용 규칙 및 취소/환불규정 동의 (필수)</label><br>
