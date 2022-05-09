@@ -100,9 +100,10 @@ public class tripController extends HttpServlet {
 				int room_person = 1;
 				int order = 0;
 				int price = 0;
+				String search = "";
 				request.setAttribute("date_s", start);
 				request.setAttribute("date_e", end);
-				
+				search = request.getParameter("search");
 				
 
 				try {
@@ -150,7 +151,7 @@ public class tripController extends HttpServlet {
 						price = Integer.parseInt(request.getParameter("price"));
 					}
 					TripDAO dao = new TripDAO();
-					dormList = dao.getDormList(cat_no, start, end, wifi, park, air, dry, port, room_person, order, price);
+					dormList = dao.getDormList(cat_no, start, end, wifi, park, air, dry, port, room_person, order, price, search);
 					request.setAttribute("dormList", dormList);
 					
 				} catch(Exception e) {

@@ -49,7 +49,6 @@
 	}
 </script>
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -82,6 +81,8 @@
 	            <div class="ner2">
 	                <h3>상세조건</h3>
 	                <div class="boxx">
+	                	<input type="text" name="search" placeholder="숙소명 검색">
+	                	<br><br>
 	                	<c:choose>
 	                		<c:when test="${empty param.dorm_category_no }">
 			                	<a href="trip?action=reservation.do">
