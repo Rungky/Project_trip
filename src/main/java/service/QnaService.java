@@ -37,10 +37,22 @@ public class QnaService {
 		return tripDAO.selectTotalQuestion();
 	}
 	
-	public List<QuestionDTO> listArticles(int pageNum, int countPerPage){
-		List<QuestionDTO> articlesList = tripDAO.selectAllQuestion(pageNum, countPerPage);
+//	public List<QuestionDTO> listArticles(){
+//		List<QuestionDTO> articlesList = tripDAO.selectAllQuestion();
+//		
+//		return articlesList;
+//	}
+	//부모 없는글
+	public List<QuestionDTO> listArticles(String id){
+		List<QuestionDTO> articlesList = tripDAO.selectMemberQuestion(id);
 		
 		return articlesList;
+	}
+	//답변글
+	public List<QuestionDTO> listAnswers(){
+		List<QuestionDTO> answersList = tripDAO.selectAnswer();
+		
+		return answersList;
 	}
 	
 	public void addArticle(QuestionDTO questionDTO) {

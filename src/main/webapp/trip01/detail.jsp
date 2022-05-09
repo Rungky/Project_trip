@@ -210,11 +210,13 @@
 	                    <tr>
 	                        <td colspan="2" class="date">${item.review_date}</td>
 	                    </tr>
+	                    <c:if test="${item.review_picture != \"none\"}">
 	                    <tr>
 	                    	<td>
 		                  		<img class="review_img" src="image/review/${item.review_picture}">
 		                	</td>
 	                	</tr>
+	                    </c:if>
 	                </table>
                 </c:forEach>   
             </div>

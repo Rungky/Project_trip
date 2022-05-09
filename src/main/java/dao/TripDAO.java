@@ -697,8 +697,126 @@ public class TripDAO {
 
 		return dto;
 	}
+	// 게시물 수
+	public int countQuestion(String id) {
+		int count = 0 ;
+		try {
+			con = dataFactory.getConnection();
 
-	//글조회
+			String query = "";
+			query += " SELECT COUNT(*) as count FROM ";
+			query += " TB_QUESTION ";
+			query += " WHERE question_parentno = 0";
+			query += " AND member_id = ?";
+		
+			pstmt = con.prepareStatement(query);
+
+			pstmt.setString(1, id);
+			
+			ResultSet rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				count = rs.getInt("count");
+			}
+
+			if(rs != null) rs.close();
+			if(pstmt != null) pstmt.close();
+			if(con != null) con.close();
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return count;
+	}
+	
+	// 부모 없는글 조회
+	public List<QuestionDTO> selectMemberQuestion(String id) {
+		List<QuestionDTO> QuestionList = new ArrayList();
+		
+		try {
+			con = dataFactory.getConnection();
+
+			String query = "";
+			query += " SELECT * FROM ";
+			query += " tb_question ";
+			query += " WHERE question_parentno=0 ";
+			query += " AND member_id= ? ";
+			query += " ORDER BY question_no DESC ";
+			
+			pstmt = con.prepareStatement(query);
+
+			pstmt.setString(1, id);
+			ResultSet rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				QuestionDTO question = new QuestionDTO();
+				question.setQuestion_no(rs.getInt("question_no"));
+				question.setQuestion_parentno(rs.getInt("question_parentno"));
+				question.setQuestion_title(rs.getString("question_title"));
+				question.setQuestion_contents(rs.getString("question_contents"));
+				question.setQuestion_picture(rs.getString("question_picture"));
+				question.setQuestion_date(rs.getDate("question_date"));
+				question.setQuestion_view(rs.getInt("question_view"));
+				question.setMember_id(rs.getString("member_id"));
+				
+				QuestionList.add(question);
+			}
+
+			if(rs != null) rs.close();
+			if(pstmt != null) pstmt.close();
+			if(con != null) con.close();
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return QuestionList;
+	}
+	
+	// 자식글 조회
+		public List<QuestionDTO> selectAnswer() {
+			List<QuestionDTO> QuestionList = new ArrayList();
+			try {
+				con = dataFactory.getConnection();
+
+				String query = "";
+				query += " SELECT * FROM ";
+				query += " tb_question ";
+				query += " WHERE question_parentno != 0 ";
+				
+				pstmt = con.prepareStatement(query);
+
+				ResultSet rs = pstmt.executeQuery();
+				
+				while(rs.next()) {
+					QuestionDTO question = new QuestionDTO();
+					question.setQuestion_no(rs.getInt("question_no"));
+					question.setQuestion_parentno(rs.getInt("question_parentno"));
+					question.setQuestion_title(rs.getString("question_title"));
+					question.setQuestion_contents(rs.getString("question_contents"));
+					question.setQuestion_picture(rs.getString("question_picture"));
+					question.setQuestion_date(rs.getDate("question_date"));
+					question.setQuestion_view(rs.getInt("question_view"));
+					question.setMember_id(rs.getString("member_id"));
+					
+					QuestionList.add(question);
+				}
+
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(con != null) con.close();
+
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			return QuestionList;
+		}
+	//모든 글조회
 		public List<QuestionDTO> selectAllQuestion(int pageNum, int countPerPage) {
 			List<QuestionDTO> QuestionList = new ArrayList();
 			
@@ -819,13 +937,13 @@ public class TripDAO {
 		
 		
 	public List<DormVO> getDormList(int dorm_category_no, Date start, Date end, int opt_wifi, int opt_parking,
-			int opt_aircon, int opt_dryer, int opt_port, int room_person, int order, int price) {
+			int opt_aircon, int opt_dryer, int opt_port, int room_person, int order, int price, String search) {
 
 		List<DormVO> dormList = new ArrayList<DormVO>();
 		try {
 			con = dataFactory.getConnection();
 			System.out.println("커넥션풀 성공");
-
+			
 			String query = "";
 			query += " SELECT d.dorm_no, ";
 			query += " 		d.dorm_name, ";
@@ -864,7 +982,7 @@ public class TripDAO {
 				query += " 		and d.opt_port >= " + opt_port + " ";
 			}
 			query += " 		and m.room_person >= ? ";
-
+	
 			if (price == 1) {
 				query += " 		and room_pay_night <= 50000 ";
 			}
@@ -877,7 +995,9 @@ public class TripDAO {
 			if (price == 4) {
 				query += " 		and (room_pay_night > 200000 ) ";
 			}
-
+				
+			query += "	and dorm_name like '%'||?||'%'";
+			
 			query += " GROUP BY d.dorm_no, ";
 			query += " 		d.dorm_name, ";
 			query += " 		d.dorm_addr, ";
@@ -898,7 +1018,10 @@ public class TripDAO {
 			pstmt.setDate(1, end);
 			pstmt.setDate(2, start);
 			pstmt.setInt(3, room_person);
-
+			pstmt.setString(4, search);
+			
+			System.out.println("search:"+search);
+			
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
 				DormVO dto = new DormVO();
