@@ -21,6 +21,7 @@
 	
 	function bind(){
 		jQuery("#check_all").off("click").on("click", function(){
+			
 		$(this).parent().find('input').prop("checked", true);			
 			
 		});
