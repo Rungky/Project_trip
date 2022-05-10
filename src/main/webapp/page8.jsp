@@ -22,14 +22,15 @@
 	function bind(){
 		jQuery("#check_all").off("click").on("click", function(){
 			
-		$(this).parent().find('input').prop("checked", true);			
 			
 			if($("#check_all").prop("checked")){
-				$(this).parent().find('input').prop("checked", true);			
+				$(this).parent().find('input').prop("checked", true);	
 			} else {
 				$(this).parent().find('input').prop("checked", false);			
 			}
+			
 		});
+		
 		
 		$("#btn_pay").off("click").on("click", function(){
 			if(!$(".one").prop("checked")){
@@ -47,6 +48,32 @@
 	function alarm() {
 		alert("예약이 완료되었습니다!");
 	}
+	
+	
+	function checkSelectAll()  {
+		  let checkboxes 
+		    = document.querySelectorAll('input[name="check"]');
+		  let checked 
+		    = document.querySelectorAll('input[name="check"]:checked');
+		  let selectAll 
+		    = document.querySelector('input[name="check_one"]');
+		  
+		  if(checkboxes.length === checked.length)  {
+		    selectAll.checked = true;
+		  }else {
+		    selectAll.checked = false;
+		  }
+
+		}
+
+		function selectAll(selectAll)  {
+			let checkboxes 
+		     = document.getElementsByName('check');
+		  
+		  checkboxes.forEach((checkbox) => {
+		    checkbox.checked = selectAll.checked
+		  })
+		}
 	
 </script>
 </head>
@@ -107,13 +134,13 @@
 				<br>
 				<div class="c8">
 					<div>
-						 <input type="checkbox" class="check all" id="check_all" name="check" value="all" >
-						  <label for="form">전체동의</label><br>
-						 <input type="checkbox" class="check one" name="check" value="one">
-						 <label for="form">숙소 이용 규칙 및 취소/환불규정 동의 (필수)</label><br>
-						<input type="checkbox" class="check two" name="check" value="two">
-						<label for="form">개인정보 수집 및 이용 동의 (필수)</label><br>
-						<input type="checkbox" class="check thr" name="check" value="thr">
+						<input type="checkbox" class="check all" id="check_all"
+							name="check_one" value="all" onclick='selectAll(this)' > <label for="form">전체동의</label><br>
+						<input type="checkbox" class="check one" name="check" value="one" onclick='checkSelectAll()'>
+						<label for="form">숙소 이용 규칙 및 취소/환불규정 동의 (필수)</label><br> <input
+							type="checkbox" class="check two" name="check" value="two" onclick='checkSelectAll()'>
+						<label for="form">개인정보 수집 및 이용 동의 (필수)</label><br> <input
+							type="checkbox" class="check thr" name="check" value="thr" onclick='checkSelectAll()' >
 						<label for="form">광고 sns 홍보 수신 동의</label><br>
 					</div>
 				</div>
