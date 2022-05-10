@@ -21,10 +21,23 @@
 	
 	function bind(){
 		jQuery("#check_all").off("click").on("click", function(){
-		$(this).parent().find('input').prop("checked", true);			
-			
+			if($("#check_all").prop("checked")){
+				$(this).parent().find('input').prop("checked", true);			
+			} else {
+				$(this).parent().find('input').prop("checked", false);			
+			}
 		});
-
+		
+		$("#btn_pay").off("click").on("click", function(){
+			if(!$(".one").prop("checked")){
+				alert("동의 항목을 확인해주세요!");
+				return false;
+			}
+			if(!$(".two").prop("checked")){
+				alert("동의 항목을 확인해주세요!")
+				return false;
+			}
+		})
 	}
 	
 
@@ -104,7 +117,7 @@
 			</div>
 			<!--  member_id 가져가야함-->
 			<form action="trip">
-				<button class="box" name="action" value="result.do">결제하기</button>
+				<button id="btn_pay" class="box" name="action" value="result.do">결제하기</button>
 				<button class="box" onclick="history.back()">돌아가기</button>
 				<input type="hidden" name="dorm_no" value="${check.dorm_no}">
 				<input type="hidden" name="room_no" value="${check.room_no}">
