@@ -73,4 +73,18 @@ public class QnaService {
 		
 		return QuestionList;
 	}
+	
+	public void modArticle(QuestionDTO questionDTO) {
+		tripDAO.updateArticle(questionDTO);
+	}
+	
+	public List<QuestionDTO> listMod(int question_no){
+		List<QuestionDTO> QuestionList = tripDAO.selectmodQuestion(question_no);
+		
+		return QuestionList;
+	}
+	
+	public void removeArticle(int question_no) {
+		tripDAO.deleteArticle(question_no);
+	}
 }

@@ -38,6 +38,8 @@
 			                        <div class="answer_button">
 			                            <button class="btn_doAnswer" data-id="${question.question_no}">답변하기</button>
 			                            <button class="btn_open">▼</button>
+			                            <button class="btn_doMod" data-id="${question.question_no}">수정하기</button>
+			                            <button class="btn_doRemove" data-id="${question.question_no}">삭제하기</button>
 			                        </div>
 			                    </div>
 			                    <!--/<hr>-->
@@ -145,6 +147,27 @@
         list_answer[i].addEventListener("click", function(event){
         	let product_no = event.target.getAttribute("data-id");
             window.open("http://localhost:8080/project_trip/trip?action=answerqna.do&product_no="+product_no,"answer","width: 600px");
+        })
+    }
+    
+    var list_mod = document.querySelectorAll(".btn_doMod");
+    console.log(list_mod.length);
+    for(let i=0; i<list_mod.length; i++){
+        list_mod[i].addEventListener("click", function(event){
+        	let select_no = event.target.getAttribute("data-id");
+            window.open("http://localhost:8080/project_trip/trip?action=modwrite.do&select_no="+select_no,"mod","width: 600px");
+        })
+    }
+    
+    var list_remove = document.querySelectorAll(".btn_doRemove");
+    console.log(list_mod.length);
+    for(let i=0; i<list_remove.length; i++){
+    	list_remove[i].addEventListener("click", function(event){
+        	let remove_no = event.target.getAttribute("data-id");
+        	var isDel = window.confirm("정말 삭제하시겠습니까?");
+        	if(isDel){
+        		location.href="http://localhost:8080/project_trip/trip?action=removeqna.do&remove_no="+remove_no;	
+        	}
         })
     }
 </script>

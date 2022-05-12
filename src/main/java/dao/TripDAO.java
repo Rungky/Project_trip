@@ -1160,4 +1160,103 @@ public class TripDAO {
 			e.printStackTrace();
 		}
 	}
+	
+	//글수정
+	public void updateArticle(QuestionDTO questionDTO) {
+
+		try {
+			
+			con = dataFactory.getConnection();
+			
+			String query = "";
+			query += " update tb_question";
+			query += " set";
+			query += " question_title = ?";
+			query += "  ,question_contents = ?";
+			query += " where question_no = ?";
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, questionDTO.getQuestion_title());
+			pstmt.setString(2, questionDTO.getQuestion_contents());
+			pstmt.setInt(3, questionDTO.getQuestion_no());
+			pstmt.executeUpdate();
+			
+//			if(rs != null) rs.close();
+			if(pstmt != null) pstmt.close();
+			if(con != null) con.close();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	//글수정 페이지
+	public List<QuestionDTO> selectmodQuestion(int question_no) {
+		List<QuestionDTO> QuestionList = new ArrayList();
+		
+		try {
+			con = dataFactory.getConnection();
+
+			String query = "";
+			query += " select * from ";
+			query += " 	tb_question ";
+			query += " where question_no = ?";
+			
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1,question_no);
+
+			ResultSet rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				QuestionDTO question = new QuestionDTO();
+				question.setQuestion_no(rs.getInt("question_no"));
+				question.setQuestion_parentno(rs.getInt("question_parentno"));
+				question.setQuestion_title(rs.getString("question_title"));
+				question.setQuestion_contents(rs.getString("question_contents"));
+				question.setQuestion_picture(rs.getString("question_picture"));
+				question.setQuestion_date(rs.getDate("question_date"));
+				question.setQuestion_view(rs.getInt("question_view"));
+				question.setMember_id(rs.getString("member_id"));
+			
+				
+				QuestionList.add(question);
+			}
+
+			if(rs != null) rs.close();
+			if(pstmt != null) pstmt.close();
+			if(con != null) con.close();
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return QuestionList;
+	}
+	
+	public void deleteArticle(int question_no) {
+		try {
+			
+			con = dataFactory.getConnection();
+			
+			String query = "";
+			query += " delete from tb_question";
+			query += " where question_no in (";
+			query += " select question_no from tb_question";
+			query += "  start with question_no = ?";
+			query += " connect by prior question_no = question_parentno ";
+			query += " ) ";
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, question_no);
+			pstmt.executeUpdate();
+			
+//			if(rs != null) rs.close();
+			if(pstmt != null) pstmt.close();
+			if(con != null) con.close();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+	}
 }

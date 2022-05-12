@@ -84,6 +84,10 @@ section{
     border: rgb(233,233,233) solid 1px;
 }
 
+.btn_doMod{
+	margin-left:20px;
+}
+
 .btn_doAnswer:hover{
     background-color: rgb(209, 209, 209);
 }

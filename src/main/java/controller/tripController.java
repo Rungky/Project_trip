@@ -532,9 +532,9 @@ public class tripController extends HttpServlet {
 				request.setAttribute("nowPage", nowPage); // 지금 페이지
 				
 				nextPage = "/qna.jsp";
-			}else if(action.equals("qnaForm.do")) {
+			}else if(action.equals("qnaForm.do")) { 
 				nextPage = "/questionWrite.jsp";
-			}else if(action.equals("addqna.do")) {
+			}else if(action.equals("addqna.do")) { //문의작성
 				String title = request.getParameter("title");
 				String content = request.getParameter("content");
 				String id= (String)session.getAttribute("id");
@@ -557,7 +557,7 @@ public class tripController extends HttpServlet {
 				return;
 //				nextPage = "/trip?action=qna.do";
 				
-			}else if(action.equals("replyqna.do")) {
+			}else if(action.equals("replyqna.do")) { 
 				String id = (String) session.getAttribute("id");
 				
 				String recontent = request.getParameter("recontent");
@@ -579,7 +579,7 @@ public class tripController extends HttpServlet {
 				response.sendRedirect("/project_trip/trip?action=replylist.do");
 				return;
 //				nextPage = "/trip?action=replylist.do";
-			}else if(action.equals("answerqna.do")) {
+			}else if(action.equals("answerqna.do")) { //답변작성 페이지
 				List<QuestionDTO> QuestionList = new ArrayList<QuestionDTO>();
 				
 				int product_no = Integer.parseInt(request.getParameter("product_no"));
@@ -588,7 +588,7 @@ public class tripController extends HttpServlet {
 				System.out.println("size : "+QuestionList.size());
 				request.setAttribute("questionList", QuestionList);
 				nextPage = "/qna_answer.jsp";
-			}else if(action.equals("replylist.do")) {
+			}else if(action.equals("replylist.do")) { //답변작성 조회
 				List<QuestionDTO> QuestionList = new ArrayList<QuestionDTO>();
 				
 				QuestionList=qnaservice.ReplyQna();
@@ -596,6 +596,35 @@ public class tripController extends HttpServlet {
 				request.setAttribute("questionList", QuestionList);
 				nextPage = "/trip?action=qna.do";
 			
+			}else if(action.equals("modqna.do")) { //글수정
+				String title = request.getParameter("title");
+				String content = request.getParameter("content");
+				String questionNO = request.getParameter("questionNO");
+				
+				QuestionDTO qdto = new QuestionDTO();
+				qdto.setQuestion_no(Integer.parseInt(questionNO));
+				qdto.setQuestion_title(title);
+				qdto.setQuestion_contents(content);
+				
+				qnaservice.modArticle(qdto);
+				
+				response.sendRedirect("/project_trip/trip?action=qna.do");
+				return;
+				
+			} else if(action.equals("modwrite.do")) { //글 수정 페이지
+				List<QuestionDTO> QuestionList = new ArrayList<QuestionDTO>();
+				
+				int select_no = Integer.parseInt(request.getParameter("select_no"));
+				
+				QuestionList=qnaservice.listMod(select_no);
+				System.out.println("size : "+QuestionList.size());
+				request.setAttribute("questionList", QuestionList);
+				nextPage = "/modquestionWrite.jsp";
+			} else if(action.equals("removeqna.do")) {
+				int remove_no = Integer.parseInt(request.getParameter("remove_no"));
+				
+				qnaservice.removeArticle(remove_no);
+				nextPage = "/trip?action=qna.do";
 			}else if (action.equals("main.do")) {
 				
 				List<DormDTO> dormList = new ArrayList(); 
