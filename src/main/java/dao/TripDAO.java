@@ -937,13 +937,13 @@ public class TripDAO {
 		
 		
 	public List<DormVO> getDormList(int dorm_category_no, Date start, Date end, int opt_wifi, int opt_parking,
-			int opt_aircon, int opt_dryer, int opt_port, int room_person, int order, int price) {
+			int opt_aircon, int opt_dryer, int opt_port, int room_person, int order, int price, String search) {
 
 		List<DormVO> dormList = new ArrayList<DormVO>();
 		try {
 			con = dataFactory.getConnection();
 			System.out.println("커넥션풀 성공");
-
+			
 			String query = "";
 			query += " SELECT d.dorm_no, ";
 			query += " 		d.dorm_name, ";
@@ -982,7 +982,7 @@ public class TripDAO {
 				query += " 		and d.opt_port >= " + opt_port + " ";
 			}
 			query += " 		and m.room_person >= ? ";
-
+	
 			if (price == 1) {
 				query += " 		and room_pay_night <= 50000 ";
 			}
@@ -995,7 +995,9 @@ public class TripDAO {
 			if (price == 4) {
 				query += " 		and (room_pay_night > 200000 ) ";
 			}
-
+				
+			query += "	and dorm_name like '%'||?||'%'";
+			
 			query += " GROUP BY d.dorm_no, ";
 			query += " 		d.dorm_name, ";
 			query += " 		d.dorm_addr, ";
@@ -1016,7 +1018,10 @@ public class TripDAO {
 			pstmt.setDate(1, end);
 			pstmt.setDate(2, start);
 			pstmt.setInt(3, room_person);
-
+			pstmt.setString(4, search);
+			
+			System.out.println("search:"+search);
+			
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
 				DormVO dto = new DormVO();

@@ -100,9 +100,10 @@ public class tripController extends HttpServlet {
 				int room_person = 1;
 				int order = 0;
 				int price = 0;
+				String search = "";
 				request.setAttribute("date_s", start);
 				request.setAttribute("date_e", end);
-				
+				search = request.getParameter("search");
 				
 
 				try {
@@ -150,7 +151,7 @@ public class tripController extends HttpServlet {
 						price = Integer.parseInt(request.getParameter("price"));
 					}
 					TripDAO dao = new TripDAO();
-					dormList = dao.getDormList(cat_no, start, end, wifi, park, air, dry, port, room_person, order, price);
+					dormList = dao.getDormList(cat_no, start, end, wifi, park, air, dry, port, room_person, order, price, search);
 					request.setAttribute("dormList", dormList);
 					
 				} catch(Exception e) {
@@ -438,6 +439,7 @@ public class tripController extends HttpServlet {
 					nextPage = "/signup.jsp";
 
 				} else if (action.equals("join.do")) { // 회원가입
+					request.setCharacterEncoding("utf-8"); //여기
 					String id = request.getParameter("id");
 					String password = request.getParameter("password");
 					String name = new String(request.getParameter("name").getBytes("iso-8859-1"), "utf-8");
@@ -450,6 +452,10 @@ public class tripController extends HttpServlet {
 						memberDTO.setMember_tel(tel);
 
 						memberDAO.join(memberDTO);
+
+						System.out.println(id);
+						System.out.println(name);
+
 						System.out.println("id : "+id+" name : "+name);
 						if (id.equals("") || password.equals("") || name.equals("") || tel.equals("")) {
 							nextPage = "/signup.jsp";
@@ -649,7 +655,7 @@ public class tripController extends HttpServlet {
 				// 로그인 미구현으로 인한 임시코드
 				//session.setAttribute("member_id","co9382");
 				//================
-				
+		
 				String member_id = (String) session.getAttribute("id");
 				MemberDTO memberDTO = memberService.selectMember(member_id);
 				request.setAttribute("member",memberDTO);

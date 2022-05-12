@@ -61,15 +61,32 @@ footer{
     background-color: rgb(245,245,245);
     padding : 50px;
 }
-.c1,.c2,.c3,.c4,.c5,.c6{
+.c1,.c2,.c3,.c4,.c5,.c6,.c7 {
     font-weight: bold;
     margin-left: 15px;
+    font-size: 18px;
 }
+
+.c8 {
+    font-weight: normal;
+    margin-left: 15px;
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+input[type=checkbox].check {
+	display: inline-block;
+	width:15px;
+}
+
+
+
 .name{
     width:500px;
-    height:370px;
-    background-color: rgba(247, 226, 242, 0.993);
+    height:600px;
+    background-color: #6495ed;
     margin-bottom: 40px;
+    color:white;
 }
 .name2{
     margin-left: 15px;
@@ -81,5 +98,5 @@ input{
 .box{
     width:120px;
     height:40px;
-    margin: 0px 0px 30px 20%;
+    margin: 20px 60px 20px 60px;
 }

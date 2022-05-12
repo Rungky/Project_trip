@@ -11,7 +11,14 @@ section {
 }
 
 a { text-decoration: none; }
-  
+
+.red{color: red;}
+.red_1{color: red;}
+.hide{display: none;}
+.hide_1{display: none;}
+
+
+
 section .signup_main .signup_top > input {
     border: solid 1px;
     margin-bottom: 1px;

@@ -37,6 +37,7 @@ public class MemberDAO {
 	      
 	      try {
 	    	  con = dataFactory.getConnection();
+	    	  
 	    	  System.out.println("커넥션풀 성공");
 	    	  
 	    	  String query = "";
@@ -50,6 +51,7 @@ public class MemberDAO {
 	          pstmt.setString(1, memberDTO.getMember_id());
 	          pstmt.setString(2, memberDTO.getMember_pw());
 	          pstmt.setString(3, memberDTO.getMember_name());
+	          System.out.println("이름부문" + memberDTO.getMember_name());
 	          pstmt.setString(4, memberDTO.getMember_tel());
 	          
 	          int result = pstmt.executeUpdate();

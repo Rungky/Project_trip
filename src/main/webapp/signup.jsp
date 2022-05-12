@@ -22,7 +22,7 @@
 				<a href="${contextPath}/trip">
 					<img src="./image/logo-black.png" alt="로고">
 				</a>
-	            <form action="${contextPath}/trip" method="post" name="f1">
+	            <form action="${contextPath}/trip" method="post" name="f1" enctype="utf-8">
 				<h2 style="text-align: center;">회원가입</h2>
 				<h5>* 표시는 필수 입력 항목입니다.</h5>
 	            	<input type="hidden" name="action" value="join.do">
