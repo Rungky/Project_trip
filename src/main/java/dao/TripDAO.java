@@ -816,8 +816,8 @@ public class TripDAO {
 			
 			return QuestionList;
 		}
-	//모든 글조회
-		public List<QuestionDTO> selectAllQuestion(int pageNum, int countPerPage) {
+	//수정 부모 글조회
+		public List<QuestionDTO> selectAllQuestion(int parentno) {
 			List<QuestionDTO> QuestionList = new ArrayList();
 			
 			try {
@@ -826,18 +826,18 @@ public class TripDAO {
 				String query = "";
 				query += " select * from ";
 				query += " 	tb_question ";
-				query += " 	start with question_parentno=0 ";
-				query += " 	connect by prior question_no = question_parentno ";
-				query += " order siblings by question_no desc ";
+				query += " 	where question_no=? ";
+//				query += " 	connect by prior question_no = question_parentno ";
+//				query += " order siblings by question_no desc ";
 				
 				
 				//페이징 구현
-				int offset = (pageNum-1)*countPerPage;
-				int to = offset+countPerPage;
+//				int offset = (pageNum-1)*countPerPage;
+//				int to = offset+countPerPage;
 				
 				pstmt = con.prepareStatement(query);
 
-//				pstmt.setInt(1, offset);
+				pstmt.setInt(1, parentno);
 //				pstmt.setInt(2, to);
 				ResultSet rs = pstmt.executeQuery();
 				
@@ -1251,6 +1251,101 @@ public class TripDAO {
 			query += "  start with question_no = ?";
 			query += " connect by prior question_no = question_parentno ";
 			query += " ) ";
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, question_no);
+			pstmt.executeUpdate();
+			
+//			if(rs != null) rs.close();
+			if(pstmt != null) pstmt.close();
+			if(con != null) con.close();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+	}
+	
+	//수정 답변글 조회
+	public List<QuestionDTO> selectmodReply(int question_no) {
+		List<QuestionDTO> answerList = new ArrayList();
+		
+		try {
+			con = dataFactory.getConnection();
+
+			String query = "";
+			query += " select * from ";
+			query += " 	tb_question ";
+			query += " where question_no = ?";
+			
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1,question_no);
+
+			ResultSet rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				QuestionDTO question = new QuestionDTO();
+				question.setQuestion_no(rs.getInt("question_no"));
+				question.setQuestion_parentno(rs.getInt("question_parentno"));
+				question.setQuestion_title(rs.getString("question_title"));
+				question.setQuestion_contents(rs.getString("question_contents"));
+				question.setQuestion_picture(rs.getString("question_picture"));
+				question.setQuestion_date(rs.getDate("question_date"));
+				question.setQuestion_view(rs.getInt("question_view"));
+				question.setMember_id(rs.getString("member_id"));
+			
+				
+				answerList.add(question);
+			}
+
+			if(rs != null) rs.close();
+			if(pstmt != null) pstmt.close();
+			if(con != null) con.close();
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return answerList;
+	}
+	
+	//수정답글
+	public void updateReply(QuestionDTO questionDTO) {
+
+		try {
+			
+			con = dataFactory.getConnection();
+			
+			String query = "";
+			query += " update tb_question";
+			query += " set";
+			query += "  question_contents = ?";
+			query += " where question_no = ?";
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, questionDTO.getQuestion_contents());
+			pstmt.setInt(2, questionDTO.getQuestion_no());
+			pstmt.executeUpdate();
+			
+//			if(rs != null) rs.close();
+			if(pstmt != null) pstmt.close();
+			if(con != null) con.close();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	//답글삭제
+	public void deleteReply(int question_no) {
+		try {
+			
+			con = dataFactory.getConnection();
+			
+			String query = "";
+			query += " delete from tb_question";
+			query += " where question_no = ? ";
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, question_no);
 			pstmt.executeUpdate();

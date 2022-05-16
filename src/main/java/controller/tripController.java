@@ -626,10 +626,39 @@ public class tripController extends HttpServlet {
 				System.out.println("size : "+QuestionList.size());
 				request.setAttribute("questionList", QuestionList);
 				nextPage = "/modquestionWrite.jsp";
-			} else if(action.equals("removeqna.do")) {
+			} else if(action.equals("removeqna.do")) { //글 삭제
 				int remove_no = Integer.parseInt(request.getParameter("remove_no"));
 				
 				qnaservice.removeArticle(remove_no);
+				nextPage = "/trip?action=qna.do";
+			} else if(action.equals("modreplywrite.do")) { //답글수정 페이지
+				List<QuestionDTO> answerList = new ArrayList<QuestionDTO>();
+				List<QuestionDTO> QuestionList = new ArrayList<QuestionDTO>();
+				
+				int reply_no = Integer.parseInt(request.getParameter("reply_no"));
+				int parent_no = Integer.parseInt(request.getParameter("parent_no"));
+				
+				
+				answerList=qnaservice.listModreply(reply_no);
+				QuestionList=qnaservice.listArticles(parent_no);
+				System.out.println("size : "+answerList.size());
+				request.setAttribute("answerList", answerList);
+				request.setAttribute("questionList", QuestionList);
+				nextPage = "/qna_modanswer.jsp";
+			}else if(action.equals("modreply.do")) { //답글수정
+				String recontent = request.getParameter("recontent");
+				String ReplyNO = request.getParameter("ReplyNO");
+				
+				QuestionDTO qdto = new QuestionDTO();
+				qdto.setQuestion_no(Integer.parseInt(ReplyNO));
+				qdto.setQuestion_contents(recontent);
+				qnaservice.modReply(qdto);
+				
+				response.sendRedirect("/project_trip/trip?action=qna.do");
+				return;
+			}else if(action.equals("removereply.do")) {
+				int removereply_no = Integer.parseInt(request.getParameter("removereply_no"));
+				qnaservice.removeReply(removereply_no);
 				nextPage = "/trip?action=qna.do";
 			}else if (action.equals("main.do")) {
 				

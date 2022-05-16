@@ -87,4 +87,27 @@ public class QnaService {
 	public void removeArticle(int question_no) {
 		tripDAO.deleteArticle(question_no);
 	}
+	
+	//수정답변글 조회
+	public List<QuestionDTO> listModreply(int question_no){
+		List<QuestionDTO> answerList = tripDAO.selectmodReply(question_no);
+		
+		return answerList;
+	}
+	
+	//수정부모글 조회
+	public List<QuestionDTO> listArticles(int parentno){
+		List<QuestionDTO> QuestionList = tripDAO.selectAllQuestion(parentno);		
+		return QuestionList;
+	}
+	
+	//수정답글
+	public void modReply(QuestionDTO questionDTO) {
+		tripDAO.updateReply(questionDTO);
+	}
+	
+	//답글삭제
+	public void removeReply(int question_no) {
+		tripDAO.deleteReply(question_no);
+	}
 }
