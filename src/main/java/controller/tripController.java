@@ -161,6 +161,7 @@ public class tripController extends HttpServlet {
 				nextPage = "/reservation.jsp";
 				
 			} else if (action.equals("detail.do")) {
+				System.out.println("detail.do 진입");
 				String id = "";
 				if (session.getAttribute("id") != null) {
 					id = (String) session.getAttribute("id");
@@ -683,6 +684,7 @@ public class tripController extends HttpServlet {
 				nextPage="/trip?action=mypage.do";  // 수정된정보를 포함하여 마이페이지로 이동 
 				
 			}else if(action.equals("logout.do")) {
+				System.out.println("logout.do 실행");
 				session.invalidate();
 				nextPage="/trip?action=main.do";   //메인으로 이동
 				
@@ -693,6 +695,31 @@ public class tripController extends HttpServlet {
 				memberService.removeMember(member_id);
 				session.invalidate();
 				nextPage="/trip?action=main.do";   //메인으로 이동
+			}else if(action.equals("myLike.do")){
+				
+				System.out.println("mylike.do 진입");
+				
+				Calendar cal = Calendar.getInstance();
+				String format = "yyyy-MM-dd";
+				SimpleDateFormat sdf = new SimpleDateFormat(format);
+				Calendar calendar = new GregorianCalendar();
+				SimpleDateFormat SDF = new SimpleDateFormat("yyyy-MM-dd");
+				
+				String reserve_checkin = SDF.format(calendar.getTime());		
+				calendar.add(Calendar.DATE, +1);	
+				String reserve_chekout = SDF.format(calendar.getTime());		
+				
+				request.setAttribute("reserve_checkin",reserve_checkin);
+				request.setAttribute("reserve_checkout", reserve_chekout);
+				
+
+				String member_id = (String) session.getAttribute("id");
+				List<DormVO> dorm_list = memberDAO.selectList_likeDorm(member_id);
+				System.out.println("like_list DAO 실행완료");
+				request.setAttribute("dorm_list", dorm_list);
+
+				nextPage = "/myLike.jsp";
+				
 			}else {
 				System.out.println("잘못들어옴");
 			}

@@ -2,75 +2,88 @@
 <%@page import="dao.MemberDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
- 
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
 <c:set var="contextPath" value="${ pageContext.request.contextPath}" />
-	
+
 <!DOCTYPE html>
-<html> 
+<html>
 <head>
-<meta charset="UTF-8"> 
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>My page</title>
-<link rel="stylesheet" href="/project_trip/css/header_footer.css">
-<link rel="stylesheet" href="/project_trip/css/mypage-style.css">
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>My page</title>
+	<link rel="stylesheet" href="/project_trip/css/header_footer.css">
+	<link rel="stylesheet" href="/project_trip/css/mypage-style.css">
 </head>
-<script type="text/javascript"
-	src="https://code.jquery.com/jquery-3.2.0.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.0.min.js"></script>
 <script type="text/javascript">
-	$(function() {
+	$(function () {
 		//닉네임
-		$('.input1').click(function() {
+		$('.input1').click(function () {
 			$('.re_input').show();
 			$('.re_input1').show();
 			$('.re_input1').show();
 		});
-		$('.re_input1').click(function() {
+		$('.re_input1').click(function () {
 			$('.re_input').hide();
 			$('.re_input1').hide();
 			$('.re_input1').hide();
 		});
 		//전화번호
-		$('.input2').click(function() {
+		$('.input2').click(function () {
 			$('.re_input2').show();
 			$('.re_input2_1').show();
 			$('.re_input2_1').show();
 		});
-		$('.re_input2_1').click(function() {
+		$('.re_input2_1').click(function () {
 			$('.re_input2').hide();
 			$('.re_input2_1').hide();
 			$('.re_input2_1').hide();
 		});
 
 	});
-	
+
 </script>
 
 
 <body>
-	<%@ include file="header.jsp"%>
+	<%@ include file="header.jsp" %>
+		<div id="wrap_mypage">
 
-	<section>
-		<div class="mypage_main">
-			<div class="mypage_header">
-				<div>
-					<img src="https://image.goodchoice.kr/profile/ico/ico_25.png" alt="이미지">
-				</div>
-				<div>
-					<h3>마이페이지</h3>
-					<!--로그인한 회원 정보에 맞게 출력되야함-->
-					<p>${member.member_id}</p>
+			<nav id="mypage_nav">
+			<div>
+				<ul class="">
+					<li class="fw_b" style="font-size:1.1em; color:black;">사적모임✈️</li>
 					<br>
-				</div>
+					<li><a href="trip?action=mypage.do">마이페이지</a></li>
+					<li><a href="trip?action=myLike.do">내 관심숙소</a></li>
+					<li><a href="trip?action=history.do">내 예약내역</a></li>
+					<li><a href="trip?action=qna.do">Q&A</a></li>
+				</ul>
 			</div>
-			<hr>
+		</nav>
 
-			<%-- 백단에서 조건걸어서 수정하기 --%>
-			<form method="get" id="modify_name" class="mypage_form1" action="${contextPath}/trip">
+			<section>
+				<div class="mypage_main">
+					<div class="mypage_header">
+						<div>
+							<img src="https://image.goodchoice.kr/profile/ico/ico_25.png" alt="이미지">
+						</div>
+						<div>
+							<h3>마이페이지</h3>
+							<!--로그인한 회원 정보에 맞게 출력되야함-->
+							<p>${sessionScope.member_id}</p>
+							<br>
+						</div>
+					</div>
+					<hr>
+
+					<%-- 백단에서 조건걸어서 수정하기 --%>
+						<form method="get" id="modify_name" class="mypage_form1" action="${contextPath}/trip">
 				<span>닉네임 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${member.member_name}</span>
 					  <input type="hidden" name="action" value="modify_name.do">
 					<input id="tab"class="input1" type="button" value="수정"><br> 
@@ -91,9 +104,9 @@
                 <br>
                 <a href="trip?action=history.do">내가 예약한 숙소보기</a>
             </form>
-			 <br>
-            <hr>
-            <div class="memberOut"><br>
+						<br>
+						<hr>
+						<div class="memberOut"><br>
                 <p>사적모임 사이트를 더이상 이용하고 싶지 않으신가요?</p>
                 <div class="wrap_form2">
                     <form method="get"   id="logout_form" class="mypage_form2" action = "${contextPath}/trip">
@@ -108,16 +121,17 @@
                     </form>
                 </div>
             </div>
-        </div>
-	</section>
-	<%@ include file="footer.jsp"%>
+				</div>
+			</section>
+		</div>
+		<%@ include file="footer.jsp" %>
 </body>
 <script>
 
 	function out_button_event() {
 		if (confirm("로그아웃 하시겠습니까?") == true) { //확인
 			document.getElementById('logout_form').submit();
-			
+
 		} else { //취소
 			return;
 		}
