@@ -88,7 +88,7 @@
 					  <input type="hidden" name="action" value="modify_name.do">
 					<input id="tab"class="input1" type="button" value="수정"><br> 
 					<input name="member_name"  style="display: none;" class="re_input" type="text" >
-					 <input style="display: none;" class="re_input1" type="submit" value="수정하기">
+					 <input  id="btn_modifyName" style="display: none;" class="re_input1" type="submit" value="수정하기">
 					 <input style="display: none;" class="re_input1" type="button" value="취소">
 					 <input type="hidden" name ="member_id" value="${member.member_id}">
 			</form>
@@ -97,7 +97,7 @@
                 <span> 비밀번호 &nbsp;&nbsp;${member.member_pw}</span>
                 <input id="tab" class="input2" type="button" value="수정"><br>
                 <input name="member_pw"  style="display: none;" class="re_input2" type="text">
-                <input style="display: none;" class="re_input2_1" type="submit" value="수정하기">
+                <input id="btn_modifyPw" style="display: none;" class="re_input2_1" type="submit" value="수정하기">
                 <input style="display: none;" class="re_input2_1" type="button" value="취소">
                 <input type="hidden" name ="member_id" value="${member.member_id}">
                  <input type="hidden" name="action" value="modify_pw.do">
@@ -127,6 +127,21 @@
 		<%@ include file="footer.jsp" %>
 </body>
 <script>
+
+/**
+function modify_button_event(event) {
+	if (confirm("수정하시겠습니까?") == true) { //확인
+		if( "btn_modifyPw"=event.target.getAttribute("id")){
+		document.getElementById('modify_pw').submit();
+		}else if ( "btn_modifyName"=event.target.getAttribute("id")){
+		document.getElementById('modify_name').submit();
+		}
+	} else { //취소
+		return;
+	}
+}
+**/
+
 
 	function out_button_event() {
 		if (confirm("로그아웃 하시겠습니까?") == true) { //확인
